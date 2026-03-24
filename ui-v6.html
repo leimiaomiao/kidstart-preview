@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KidStart UI v6 - 效果图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #f0f0f0; font-family: -apple-system, 'PingFang SC', sans-serif; display: flex; justify-content: center; padding: 40px 0; }
+.phone { width: 375px; background: linear-gradient(180deg, #FFF3E0 0%, #E8F5E9 100%); border: 8px solid #222; border-radius: 36px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.18); }
+.section { padding: 24px 20px; border-bottom: 2px dashed #e0e0e0; }
+.section-label { text-align: center; font-size: 11px; color: #999; letter-spacing: 2px; margin-bottom: 16px; text-transform: uppercase; }
+.card { background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 16px; margin-bottom: 12px; }
+
+/* Page 1: Explore */
+.stats { display: flex; justify-content: space-around; margin-bottom: 12px; }
+.stat { text-align: center; }
+.stat .num { font-size: 28px; font-weight: 700; }
+.stat .label { font-size: 12px; color: #888; }
+.reminder { background: #FFF8E1; border-radius: 12px; padding: 10px 14px; font-size: 14px; margin-bottom: 16px; border-left: 4px solid #FF8C42; }
+.greeting { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+.scene-card { display: flex; align-items: center; gap: 14px; }
+.scene-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
+.scene-info { flex: 1; }
+.scene-name { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.progress-bar { height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; }
+.scene-meta { font-size: 12px; color: #999; margin-top: 4px; }
+
+/* Page 2: Scene Explore */
+.scene-header { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+.word-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.word-cell { text-align: center; border-radius: 14px; padding: 12px 4px; }
+.word-cell .emoji { font-size: 40px; display: block; margin-bottom: 4px; }
+.word-cell .name { font-size: 12px; font-weight: 600; }
+.word-learned { background: #fff; border: 2px solid #FFD700; box-shadow: 0 0 8px rgba(255,215,0,0.3); }
+.word-current { background: #fff; border: 2px solid #FF8C42; box-shadow: 0 0 12px rgba(255,140,66,0.4); }
+.word-locked { background: #e8e8e8; border: 2px solid #ddd; }
+.word-locked .emoji { filter: grayscale(1) opacity(0.4); }
+.word-locked .name { color: #bbb; }
+
+/* Page 3 & 4: Word Card */
+.dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: #ddd; }
+.dot.active { background: #FF8C42; }
+.big-emoji { font-size: 80px; text-align: center; display: block; margin: 16px 0; }
+.card-title { text-align: center; font-size: 22px; font-weight: 600; margin-bottom: 16px; }
+.card-sub { text-align: center; font-size: 16px; color: #666; margin-bottom: 8px; }
+.btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 14px; font-size: 18px; font-weight: 600; text-align: center; cursor: pointer; }
+.btn-primary { background: #FF8C42; color: #fff; }
+.btn-outline { background: #fff; color: #FF8C42; border: 2px solid #FF8C42; }
+.phonetic { text-align: center; font-size: 14px; color: #999; margin-bottom: 4px; }
+.play-btn { width: 56px; height: 56px; border-radius: 50%; background: #FF8C42; color: #fff; font-size: 28px; display: flex; align-items: center; justify-content: center; margin: 12px auto; border: none; }
+.listen-count { text-align: center; font-size: 14px; color: #888; margin-top: 8px; }
+
+/* Page 5: Collection */
+.tabs { display: flex; gap: 0; margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 2px solid #FF8C42; }
+.tab { flex: 1; text-align: center; padding: 8px; font-size: 14px; font-weight: 600; background: #fff; color: #FF8C42; }
+.tab.active { background: #FF8C42; color: #fff; }
+.collect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.collect-cell { text-align: center; border-radius: 14px; padding: 14px 8px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.collect-cell .emoji { font-size: 40px; display: block; margin-bottom: 4px; }
+.collect-cell .name { font-size: 12px; font-weight: 600; color: #333; }
+.collect-unknown { background: #e8e8e8; }
+.collect-unknown .emoji { filter: grayscale(1) opacity(0.3); }
+.collect-unknown .name { color: #bbb; }
+
+/* Page 6: Parent */
+.today-stat { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.today-num { font-size: 40px; font-weight: 700; color: #FF8C42; }
+.today-label { font-size: 14px; color: #888; }
+.bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 100px; margin-bottom: 16px; padding-top: 8px; }
+.bar-wrap { flex: 1; text-align: center; }
+.bar { background: #FF8C42; border-radius: 6px 6px 0 0; margin: 0 auto; width: 28px; min-height: 4px; }
+.bar-label { font-size: 11px; color: #999; margin-top: 4px; }
+.record { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+.record-word { font-weight: 600; }
+.record-time { color: #999; font-size: 12px; }
+
+/* Bottom Nav */
+.bottom-nav { display: flex; background: #fff; border-top: 1px solid #eee; padding: 8px 0 20px; }
+.nav-item { flex: 1; text-align: center; font-size: 10px; color: #999; }
+.nav-item .icon { font-size: 22px; display: block; }
+.nav-item.active { color: #FF8C42; }
+</style>
+</head>
+<body>
+<div class="phone">
+
+<!-- ===== PAGE 1: 首页 Explore ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 1 · 首页 Explore Tab</div>
+  <div class="stats">
+    <div class="stat"><div class="num" style="color:#FF6B6B">6</div><div class="label">已学单词</div></div>
+    <div class="stat"><div class="num" style="color:#FF8C42">🔥3</div><div class="label">连续天</div></div>
+    <div class="stat"><div class="num" style="color:#2ED573">4</div><div class="label">已收集</div></div>
+  </div>
+  <div class="reminder">🔔 你有 3 个单词需要复习</div>
+  <div class="greeting">👋 下午好！今天想学什么呢？</div>
+
+  <div class="card" style="margin-bottom:12px">
+    <div class="scene-card">
+      <div class="scene-icon" style="background:linear-gradient(135deg,#FFE0E0,#FFADAD)">🍎</div>
+      <div class="scene-info">
+        <div class="scene-name">水果厨房</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:50%;background:#FF8C42"></div></div>
+        <div class="scene-meta">已学 4/8</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="scene-card">
+      <div class="scene-icon" style="background:linear-gradient(135deg,#E0F7E0,#A8E6CF)">🐮</div>
+      <div class="scene-info">
+        <div class="scene-name">动物农场</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:33%;background:#2ED573"></div></div>
+        <div class="scene-meta">已学 2/6</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:12px; opacity:0.6">
+    <div class="scene-card">
+      <div class="scene-icon" style="background:linear-gradient(135deg,#E8E0FF,#D0C0FF)">🎨</div>
+      <div class="scene-info">
+        <div class="scene-name">缤纷公园 🔒</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%;background:#ccc"></div></div>
+        <div class="scene-meta">已学 0/6</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="opacity:0.6">
+    <div class="scene-card">
+      <div class="scene-icon" style="background:linear-gradient(135deg,#FFE8D0,#FFD0A0)">🍔</div>
+      <div class="scene-info">
+        <div class="scene-name">美食街 🔒</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%;background:#ccc"></div></div>
+        <div class="scene-meta">已学 0/6</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px">
+    <div class="bottom-nav">
+      <div class="nav-item active"><span class="icon">🌍</span>探索</div>
+      <div class="nav-item"><span class="icon">📖</span>图鉴</div>
+      <div class="nav-item"><span class="icon">👨‍👩‍👧</span>家长</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE 2: 场景探索 ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 2 · 场景探索 Scene Explore</div>
+  <div class="scene-header">← 水果厨房 <span style="color:#999;font-size:14px;margin-left:auto">4/8</span></div>
+  <div class="progress-bar" style="margin-bottom:16px"><div class="progress-fill" style="width:50%;background:#FF8C42"></div></div>
+  <div class="word-grid">
+    <div class="word-cell word-learned"><span class="emoji">🍎</span><span class="name">apple</span></div>
+    <div class="word-cell word-learned"><span class="emoji">🍌</span><span class="name">banana</span></div>
+    <div class="word-cell word-learned"><span class="emoji">🍇</span><span class="name">grape</span></div>
+    <div class="word-cell word-learned"><span class="emoji">🍊</span><span class="name">orange</span></div>
+    <div class="word-cell word-current"><span class="emoji">🍓</span><span class="name">strawberry</span></div>
+    <div class="word-cell word-locked"><span class="emoji">🍑</span><span class="name">peach</span></div>
+    <div class="word-cell word-locked"><span class="emoji">🍋</span><span class="name">lemon</span></div>
+    <div class="word-cell word-locked"><span class="emoji">🫐</span><span class="name">blueberry</span></div>
+  </div>
+</div>
+
+<!-- ===== PAGE 3: 单词卡 Step1 猜猜看 ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 3 · 单词卡 Step 1 猜猜看</div>
+  <div class="card" style="text-align:center; padding:24px 16px">
+    <div class="dots">
+      <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <span class="big-emoji" style="filter:blur(6px)">🍓</span>
+    <div class="card-title">这是什么？🤔</div>
+    <button class="btn btn-primary" style="margin-top:16px">揭晓答案 👀</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 4: 单词卡 Step2 听和学 ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 4 · 单词卡 Step 2 听和学</div>
+  <div class="card" style="text-align:center; padding:24px 16px">
+    <div class="dots">
+      <div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <span class="big-emoji">🍓</span>
+    <div class="card-title" style="font-size:28px">strawberry</div>
+    <div class="phonetic">/strɔːberi/</div>
+    <div class="card-sub">草莓</div>
+    <button class="play-btn">🔊</button>
+    <div class="listen-count">听 2/3 遍 👂</div>
+  </div>
+</div>
+
+<!-- ===== PAGE 5: 图鉴 Collection ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 5 · 图鉴 Collection Tab</div>
+  <div class="tabs">
+    <div class="tab active">Fruits</div>
+    <div class="tab">Animals</div>
+    <div class="tab">Colors</div>
+  </div>
+  <div class="collect-grid">
+    <div class="collect-cell"><span class="emoji">🍎</span><span class="name">apple</span></div>
+    <div class="collect-cell"><span class="emoji">🍌</span><span class="name">banana</span></div>
+    <div class="collect-cell"><span class="emoji">🍇</span><span class="name">grape</span></div>
+    <div class="collect-cell"><span class="emoji">🍊</span><span class="name">orange</span></div>
+    <div class="collect-cell collect-unknown"><span class="emoji">🍓</span><span class="name">❓</span></div>
+    <div class="collect-cell collect-unknown"><span class="emoji">🍑</span><span class="name">❓</span></div>
+    <div class="collect-cell collect-unknown"><span class="emoji">🍋</span><span class="name">❓</span></div>
+    <div class="collect-cell collect-unknown"><span class="emoji">🫐</span><span class="name">❓</span></div>
+    <div class="collect-cell collect-unknown"><span class="emoji">🍉</span><span class="name">❓</span></div>
+  </div>
+</div>
+
+<!-- ===== PAGE 6: 家长端 Parent ===== -->
+<div class="section" style="border-bottom:none">
+  <div class="section-label">📱 Page 6 · 家长端 Parent Tab</div>
+  <div class="card">
+    <div class="today-stat">
+      <div class="today-num">4</div>
+      <div><div style="font-size:16px;font-weight:600">今日学习</div><div class="today-label">个单词</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:12px">📊 本周统计</div>
+    <div class="bar-chart">
+      <div class="bar-wrap"><div class="bar" style="height:20px"></div><div class="bar-label">一</div></div>
+      <div class="bar-wrap"><div class="bar" style="height:40px"></div><div class="bar-label">二</div></div>
+      <div class="bar-wrap"><div class="bar" style="height:30px"></div><div class="bar-label">三</div></div>
+      <div class="bar-wrap"><div class="bar" style="height:60px"></div><div class="bar-label">四</div></div>
+      <div class="bar-wrap"><div class="bar" style="height:50px"></div><div class="bar-label">五</div></div>
+      <div class="bar-wrap"><div class="bar" style="height:70px"></div><div class="bar-label">六</div></div>
+      <div class="bar-wrap"><div class="bar" style="height:80px;background:#2ED573"></div><div class="bar-label">日</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:12px">📝 最近学习</div>
+    <div class="record"><span class="record-word">🍊 orange</span><span class="record-time">今天 19:20</span></div>
+    <div class="record"><span class="record-word">🍇 grape</span><span class="record-time">今天 19:15</span></div>
+    <div class="record"><span class="record-word">🍌 banana</span><span class="record-time">昨天 18:30</span></div>
+    <div class="record"><span class="record-word">🍎 apple</span><span class="record-time">昨天 18:20</span></div>
+  </div>
+</div>
+
+</div><!-- /phone -->
+</body>
+</html>
