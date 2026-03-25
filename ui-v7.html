@@ -53,7 +53,8 @@ body { background: var(--bg-primary); font-family: -apple-system, 'PingFang SC',
 .phone { width: 375px; background: var(--bg-primary); border: 8px solid #222; border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-modal); }
 .section { padding: 24px 20px; border-bottom: 2px dashed #e0e0e0; }
 .section-label { text-align: center; font-size: 11px; color: #999; letter-spacing: 2px; margin-bottom: 16px; text-transform: uppercase; }
-.card { background: var(--bg-card); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: var(--spacing-lg); margin-bottom: var(--spacing-md); }
+.card { background: var(--bg-card); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: var(--spacing-lg); margin-bottom: var(--spacing-md); transition: all 0.2s ease; }
+.card:hover { animation: cardHover 0.2s ease forwards; }
 
 /* Page 1: Explore */
 .stats { display: flex; justify-content: space-around; margin-bottom: 12px; }
@@ -67,7 +68,7 @@ body { background: var(--bg-primary); font-family: -apple-system, 'PingFang SC',
 .scene-info { flex: 1; }
 .scene-name { font-size: 16px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: var(--spacing-sm); }
 .scene-stars { font-size: 14px; }
-.scene-stars .star-filled { color: var(--warning-color); }
+.scene-stars .star-filled { color: var(--warning-color); animation: starBounce 0.3s ease; }
 .scene-stars .star-empty { color: #ddd; }
 .progress-bar { height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 4px; }
@@ -104,14 +105,47 @@ body { background: var(--bg-primary); font-family: -apple-system, 'PingFang SC',
 .tab { flex: 1; text-align: center; padding: var(--spacing-sm); font-size: 14px; font-weight: 600; background: var(--bg-card); color: var(--primary-color); }
 .tab.active { background: var(--primary-color); color: #fff; }
 .collect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.collect-cell { text-align: center; border-radius: 14px; padding: 14px 8px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.collect-cell { position: relative; text-align: center; border-radius: 14px; padding: 14px 8px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .collect-cell .emoji { font-size: 40px; display: block; margin-bottom: 4px; }
 .collect-cell .name { font-size: 12px; font-weight: 600; color: #333; }
 .collect-unknown { background: #e8e8e8; }
 .collect-unknown .emoji { filter: grayscale(1) opacity(0.3); }
 .collect-unknown .name { color: #bbb; }
 
-/* Page 6: Parent */
+/* Rarity Indicators */
+.rarity-badge { position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; border-radius: 50%; font-size: 10px; line-height: 16px; text-align: center; }
+.rarity-common { background: #ccc; } /* 普通 ⬜ */
+.rarity-rare { background: var(--secondary-color); } /* 闪光 🟦 */
+.rarity-legendary { background: var(--warning-color); } /* 传说 🟨 */
+
+/* Learning Cards - Point Out & Spelling Steps */
+.choice-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+.choice-cell { aspect-ratio: 1; border-radius: var(--radius-md); background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; }
+.choice-cell .emoji { font-size: 32px; margin-bottom: 6px; }
+.choice-cell .name { font-size: 12px; font-weight: 600; }
+.choice-cell:hover { border-color: var(--primary-color); transform: translateY(-2px); }
+.choice-cell.selected { border-color: var(--primary-color); background: rgba(255,107,53,0.1); }
+
+.spelling-area { margin: 20px 0; }
+.target-word { background: #f8f8f8; border-radius: var(--radius-md); padding: 12px; text-align: center; margin-bottom: 16px; min-height: 48px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ddd; }
+.letter-blocks { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.letter-block { width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--secondary-color); color: #fff; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+.letter-block:hover { transform: scale(1.1); }
+.letter-block.used { background: #ddd; color: #999; cursor: not-allowed; }
+.profile-header { text-align: center; padding: 20px 0; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: var(--radius-md); margin-bottom: var(--spacing-lg); color: #fff; }
+.avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 12px; }
+.username { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+.level-info { font-size: 14px; opacity: 0.9; }
+.badge-wall { margin-bottom: var(--spacing-lg); }
+.badge-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.badge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.badge-item { aspect-ratio: 1; border-radius: var(--radius-md); background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; font-size: 24px; border: 2px solid transparent; }
+.badge-earned { border-color: var(--warning-color); box-shadow: 0 0 12px rgba(255,215,0,0.3); }
+.badge-locked { background: #f0f0f0; filter: grayscale(1) opacity(0.3); }
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: var(--spacing-lg); }
+.stat-card { background: #fff; border-radius: var(--radius-md); padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+.stat-number { font-size: 24px; font-weight: 700; color: var(--primary-color); margin-bottom: 4px; }
+.stat-label { font-size: 12px; color: var(--text-secondary); }
 .today-stat { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .today-num { font-size: 40px; font-weight: 700; color: var(--primary-color); }
 .today-label { font-size: 14px; color: #888; }
@@ -160,6 +194,23 @@ body { background: var(--bg-primary); font-family: -apple-system, 'PingFang SC',
   0%, 100% { opacity: 1; }
   50% { opacity: 0.6; }
 }
+
+/* Animation Applications */
+.section { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+.section:nth-child(1) { animation-delay: 0.1s; }
+.section:nth-child(2) { animation-delay: 0.2s; }
+.section:nth-child(3) { animation-delay: 0.3s; }
+.card { animation: fadeInUp 0.4s ease forwards; opacity: 0; }
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.scene-card { transition: all 0.2s ease; }
+.scene-card:hover { transform: translateY(-2px); }
+.word-cell { transition: all 0.2s ease; }
+.word-cell:hover { transform: translateY(-1px); }
+.collect-cell { transition: all 0.2s ease; }
+.collect-cell:hover { transform: translateY(-2px); }
 
 /* Hover & Active States */
 .card:hover {
@@ -260,9 +311,9 @@ body { background: var(--bg-primary); font-family: -apple-system, 'PingFang SC',
 
   <div style="margin-top:16px">
     <div class="bottom-nav">
-      <div class="nav-item active"><span class="icon">🌍</span>探索</div>
-      <div class="nav-item"><span class="icon">📖</span>图鉴</div>
-      <div class="nav-item"><span class="icon">👨‍👩‍👧</span>家长</div>
+      <div class="nav-item active"><span class="icon">🗺️</span>探险</div>
+      <div class="nav-item"><span class="icon">🃏</span>图鉴</div>
+      <div class="nav-item"><span class="icon">👤</span>我的</div>
     </div>
   </div>
 </div>
@@ -313,19 +364,89 @@ body { background: var(--bg-primary); font-family: -apple-system, 'PingFang SC',
   </div>
 </div>
 
-<!-- ===== PAGE 5: 图鉴 Collection ===== -->
+<!-- ===== PAGE 5: 单词卡 Step3 指出 ===== -->
 <div class="section">
-  <div class="section-label">📱 Page 5 · 图鉴 Collection Tab</div>
+  <div class="section-label">📱 Page 5 · 单词卡 Step 3 指出</div>
+  <div class="card" style="text-align:center; padding:24px 16px">
+    <div class="dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div>
+    </div>
+    <div class="card-title">哪个是 strawberry？🤔</div>
+    <div class="choice-grid">
+      <div class="choice-cell">
+        <span class="emoji">🍎</span>
+        <span class="name">apple</span>
+      </div>
+      <div class="choice-cell selected">
+        <span class="emoji">🍓</span>
+        <span class="name">strawberry</span>
+      </div>
+      <div class="choice-cell">
+        <span class="emoji">🍌</span>
+        <span class="name">banana</span>
+      </div>
+      <div class="choice-cell">
+        <span class="emoji">🍊</span>
+        <span class="name">orange</span>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:16px">确认选择 ✅</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 6: 单词卡 Step4 拼写 ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 6 · 单词卡 Step 4 拼写</div>
+  <div class="card" style="text-align:center; padding:24px 16px">
+    <div class="dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div>
+    </div>
+    <div class="card-title">拼写 strawberry 🔤</div>
+    <span class="big-emoji" style="font-size:60px">🍓</span>
+    <div class="spelling-area">
+      <div class="target-word">s t r a _ _ e r r y</div>
+      <div class="letter-blocks">
+        <div class="letter-block used">s</div>
+        <div class="letter-block used">t</div>
+        <div class="letter-block used">r</div>
+        <div class="letter-block used">a</div>
+        <div class="letter-block">w</div>
+        <div class="letter-block">b</div>
+        <div class="letter-block used">e</div>
+        <div class="letter-block used">r</div>
+        <div class="letter-block used">r</div>
+        <div class="letter-block used">y</div>
+      </div>
+    </div>
+    <button class="btn btn-outline" style="margin-top:16px">重置拼写 🔄</button>
+  </div>
+</div>
+
+<!-- ===== PAGE 7: 图鉴 Collection ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 7 · 图鉴 Collection Tab</div>
   <div class="tabs">
     <div class="tab active">Fruits</div>
     <div class="tab">Animals</div>
     <div class="tab">Colors</div>
   </div>
   <div class="collect-grid">
-    <div class="collect-cell"><span class="emoji">🍎</span><span class="name">apple</span></div>
-    <div class="collect-cell"><span class="emoji">🍌</span><span class="name">banana</span></div>
-    <div class="collect-cell"><span class="emoji">🍇</span><span class="name">grape</span></div>
-    <div class="collect-cell"><span class="emoji">🍊</span><span class="name">orange</span></div>
+    <div class="collect-cell">
+      <div class="rarity-badge rarity-common">⬜</div>
+      <span class="emoji">🍎</span><span class="name">apple</span>
+    </div>
+    <div class="collect-cell">
+      <div class="rarity-badge rarity-rare">🟦</div>
+      <span class="emoji">🍌</span><span class="name">banana</span>
+    </div>
+    <div class="collect-cell">
+      <div class="rarity-badge rarity-common">⬜</div>
+      <span class="emoji">🍇</span><span class="name">grape</span>
+    </div>
+    <div class="collect-cell">
+      <div class="rarity-badge rarity-legendary">🟨</div>
+      <span class="emoji">🍊</span><span class="name">orange</span>
+    </div>
     <div class="collect-cell collect-unknown"><span class="emoji">🍓</span><span class="name">❓</span></div>
     <div class="collect-cell collect-unknown"><span class="emoji">🍑</span><span class="name">❓</span></div>
     <div class="collect-cell collect-unknown"><span class="emoji">🍋</span><span class="name">❓</span></div>
@@ -334,9 +455,58 @@ body { background: var(--bg-primary); font-family: -apple-system, 'PingFang SC',
   </div>
 </div>
 
-<!-- ===== PAGE 6: 家长端 Parent ===== -->
+<!-- ===== PAGE 8: 我的页面 My Profile ===== -->
+<div class="section">
+  <div class="section-label">📱 Page 8 · 我的页面 My Profile Tab</div>
+  <div class="profile-header">
+    <div class="avatar">👶</div>
+    <div class="username">小明</div>
+    <div class="level-info">Lv.3 小小探险家 · 已学 12 个单词</div>
+  </div>
+
+  <div class="badge-wall card">
+    <div class="badge-title">🏆 成就徽章</div>
+    <div class="badge-grid">
+      <div class="badge-item badge-earned">🎯</div>
+      <div class="badge-item badge-earned">⭐</div>
+      <div class="badge-item badge-earned">🔥</div>
+      <div class="badge-item badge-locked">🏅</div>
+      <div class="badge-item badge-locked">💎</div>
+      <div class="badge-item badge-locked">👑</div>
+      <div class="badge-item badge-locked">🎨</div>
+      <div class="badge-item badge-locked">🚀</div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number">12</div>
+      <div class="stat-label">已学单词</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">7</div>
+      <div class="stat-label">连续天数</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">85%</div>
+      <div class="stat-label">正确率</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3</div>
+      <div class="stat-label">获得徽章</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:14px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+      <span>👨‍👩‍👧‍👦</span>家长专区
+      <button style="margin-left:auto;font-size:12px;padding:4px 8px;background:var(--primary-color);color:#fff;border:none;border-radius:4px">🔒 输入密码</button>
+    </div>
+    <div style="font-size:12px;color:#888">查看详细学习报告和设置</div>
+  </div>
+</div>
 <div class="section" style="border-bottom:none">
-  <div class="section-label">📱 Page 6 · 家长端 Parent Tab</div>
+  <div class="section-label">📱 Page 9 · 家长端 Parent Tab</div>
   <div class="card">
     <div class="today-stat">
       <div class="today-num">4</div>
