@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v7.1 测验页重设计</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #FFF9F0; color: #333; line-height: 1.7; padding: 20px; max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 20px 0 8px; }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+  h2 { font-size: 18px; margin: 28px 0 12px; color: #FF6B35; border-bottom: 2px solid #FF6B35; padding-bottom: 6px; }
+  .card { background: #fff; border-radius: 16px; padding: 20px; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 6px 0; font-size: 15px; }
+  .mockup { background: #1a1a2e; border-radius: 24px; padding: 32px 24px; margin: 20px auto; max-width: 320px; color: #fff; text-align: center; }
+  .progress-bar { background: rgba(255,255,255,0.2); height: 12px; border-radius: 6px; margin: 0 0 24px; overflow: hidden; }
+  .progress-fill { background: linear-gradient(90deg, #FF6B35, #FFB347); height: 100%; width: 37%; border-radius: 6px; }
+  .progress-text { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 8px; text-align: left; }
+  .speaker-btn { width: 64px; height: 64px; background: #4DABF7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 32px; box-shadow: 0 4px 16px rgba(77,171,247,0.4); }
+  .quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 0 auto; }
+  .quiz-cell { background: rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; text-align: center; font-size: 48px; border: 3px solid transparent; transition: all 0.2s; cursor: pointer; }
+  .quiz-cell:hover { border-color: #FF6B35; }
+  .quiz-cell.correct { border-color: #51CF66; background: rgba(81,207,102,0.2); }
+  .quiz-cell.wrong { border-color: #FF6B6B; background: rgba(255,107,107,0.2); animation: shake 0.4s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+  .complete-mockup { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 24px; padding: 40px 24px; margin: 20px auto; max-width: 320px; color: #fff; text-align: center; }
+  .stars { font-size: 48px; margin: 16px 0; letter-spacing: 8px; }
+  .score { font-size: 18px; margin: 12px 0; opacity: 0.9; }
+  .btns { display: flex; gap: 12px; margin-top: 24px; }
+  .btn { flex: 1; padding: 12px; border-radius: 20px; font-size: 15px; font-weight: 600; text-align: center; }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.5); color: #fff; }
+  .btn-primary { background: #FF6B35; color: #fff; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th { background: #f5f5f5; padding: 8px; text-align: left; border-bottom: 2px solid #ddd; }
+  td { padding: 8px; border-bottom: 1px solid #eee; }
+</style>
+</head>
+<body>
+
+<h1>🎯 测验页重设计</h1>
+<p class="subtitle">娜美 🍊 · 听音选图，适合幼儿</p>
+
+<h2>💡 核心思路</h2>
+<div class="card">
+  <p>原来的测验用 hotspot 定位找水果，数据缺失 + 不适合幼儿。</p>
+  <p><strong>新方案：听音选图</strong> — 语音播报单词，幼儿从 2×2 网格点选 emoji。</p>
+  <p>与学习流程 Step 4（指出）一致，幼儿已熟悉。</p>
+</div>
+
+<h2>📱 测验页 Mockup</h2>
+<div class="mockup">
+  <div class="progress-text">3 / 8</div>
+  <div class="progress-bar"><div class="progress-fill"></div></div>
+  <div class="speaker-btn">🔊</div>
+  <div class="quiz-grid">
+    <div class="quiz-cell">🍎</div>
+    <div class="quiz-cell">🍌</div>
+    <div class="quiz-cell">🍊</div>
+    <div class="quiz-cell">🍇</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>交互流程</h3>
+  <ul>
+    <li>进入 → 🔊 "小熊忘了水果的名字，帮它想想"</li>
+    <li>每题 → 🔊 播报单词 → 幼儿点选 emoji</li>
+    <li>✅ 答对 → 🔊 "太棒了！" + 绿色高亮 + 下一题</li>
+    <li>❌ 答错 → 🔊 "不对哦" + 红色震动 + 重新播报</li>
+    <li>全部答完 → 🔊 "你太厉害了！" → 跳转完成页</li>
+  </ul>
+</div>
+
+<h2>🏆 完成页 Mockup</h2>
+<div class="complete-mockup">
+  <div style="font-size:48px">🎉</div>
+  <div style="font-size:22px;font-weight:700;margin:12px 0">太厉害了！</div>
+  <div class="stars">⭐⭐⭐</div>
+  <div class="score">答对 8 / 8</div>
+  <div class="btns">
+    <div class="btn btn-outline">再来一次 🔄</div>
+    <div class="btn btn-primary">返回首页 🏠</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>评分逻辑</h3>
+  <table>
+    <tr><th>错误次数</th><th>星星</th><th>语音</th></tr>
+    <tr><td>0 次</td><td>⭐⭐⭐</td><td>"满分！你是最棒的！"</td></tr>
+    <tr><td>1-2 次</td><td>⭐⭐</td><td>"很不错，再接再厉！"</td></tr>
+    <tr><td>3+ 次</td><td>⭐</td><td>"加油，下次一定更好！"</td></tr>
+  </table>
+</div>
+
+<h2>🔊 语音交互</h2>
+<div class="card">
+  <table>
+    <tr><th>时机</th><th>语音</th></tr>
+    <tr><td>进入测验</td><td>🔊 "小熊忘了水果的名字，帮它想想"</td></tr>
+    <tr><td>每题开始</td><td>🔊 播报英文单词</td></tr>
+    <tr><td>答对</td><td>🔊 "太棒了！"</td></tr>
+    <tr><td>答错</td><td>🔊 "不对哦，再试一次" + 重播单词</td></tr>
+    <tr><td>3星完成</td><td>🔊 "满分！你是最棒的！"</td></tr>
+    <tr><td>2星完成</td><td>🔊 "很不错，再接再厉！"</td></tr>
+    <tr><td>1星完成</td><td>🔊 "加油，下次一定更好！"</td></tr>
+  </table>
+</div>
+
+<p style="text-align:center;color:#888;font-size:13px;margin-top:40px">— 娜美 🍊 · v7.1 测验页 —</p>
+</body>
+</html>
