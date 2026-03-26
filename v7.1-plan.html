@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v7.1 综合改进方案</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FFF9F0; color: #333; line-height: 1.7; padding: 20px; max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 20px 0 8px; color: #1a1a2e; }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+  h2 { font-size: 18px; margin: 32px 0 12px; color: #FF6B35; border-bottom: 2px solid #FF6B35; padding-bottom: 6px; }
+  h3 { font-size: 16px; margin: 20px 0 8px; color: #333; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 6px 0; font-size: 15px; }
+  .done { color: #28a745; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 6px; }
+  .tag-new { background: #e3f2fd; color: #1565c0; }
+  .tag-fix { background: #fff3e0; color: #e65100; }
+  .tag-done { background: #e8f5e9; color: #2e7d32; }
+  .card { background: #fff; border-radius: 16px; padding: 20px; margin: 16px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .step-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .step { background: #FF6B35; color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+  .step-arrow { color: #ccc; font-size: 20px; }
+  .voice-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  .voice-table th { background: #f5f5f5; padding: 8px 12px; text-align: left; border-bottom: 2px solid #ddd; }
+  .voice-table td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+  .emoji-demo { font-size: 48px; text-align: center; padding: 16px; }
+  .blur-demo { filter: blur(8px); }
+  .compare { display: flex; gap: 16px; justify-content: center; align-items: center; margin: 16px 0; }
+  .compare-item { text-align: center; flex: 1; }
+  .compare-label { font-size: 13px; color: #888; margin-top: 4px; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  .file-list { background: #f8f9fa; border-radius: 12px; padding: 16px; margin: 12px 0; }
+  .file-list li { font-family: monospace; font-size: 13px; }
+  .highlight { background: linear-gradient(120deg, #fff3cd 0%, #fff3cd 100%); padding: 2px 4px; border-radius: 3px; }
+  .section-icon { font-size: 20px; margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<h1>🚀 v7.1 综合改进方案</h1>
+<p class="subtitle">基于船长实测反馈整理 · 2026-03-26</p>
+
+<!-- 新流程总览 -->
+<div class="card">
+  <h3>📋 新的 5 步学习流程</h3>
+  <div class="step-flow">
+    <span class="step">1 猜猜看</span>
+    <span class="step-arrow">→</span>
+    <span class="step">2 听和学</span>
+    <span class="step-arrow">→</span>
+    <span class="step" style="background:#4DABF7">3 跟读 ✨新</span>
+    <span class="step-arrow">→</span>
+    <span class="step">4 指出</span>
+    <span class="step-arrow">→</span>
+    <span class="step">5 拼写</span>
+  </div>
+</div>
+
+<h2><span class="section-icon">🗺️</span>一、场景探索页</h2>
+
+<div class="card">
+  <h3><span class="tag tag-fix">改版</span> 未学词汇用模糊 emoji</h3>
+  <p>不用 ❓，保留模糊效果更有神秘感和好奇心</p>
+  <div class="compare">
+    <div class="compare-item">
+      <div class="emoji-demo blur-demo">🍎</div>
+      <div class="compare-label">未学（模糊）</div>
+    </div>
+    <div class="compare-item">
+      <div class="emoji-demo" style="filter:blur(8px) grayscale(0.5); opacity:0.5">🍌</div>
+      <div class="compare-label">锁定（模糊+灰）</div>
+    </div>
+    <div class="compare-item">
+      <div class="emoji-demo">🍊</div>
+      <div class="compare-label">已学（清晰）</div>
+    </div>
+  </div>
+  <ul>
+    <li><strong>已学</strong>：正常 emoji + 英文</li>
+    <li><strong>当前可学</strong>：模糊 emoji + 发光边框（不显示英文）</li>
+    <li><strong>锁定</strong>：模糊 emoji + 灰度（不显示英文）</li>
+  </ul>
+</div>
+
+<h2><span class="section-icon">📖</span>二、学习流程改版</h2>
+
+<div class="card">
+  <h3>Step 1：猜猜看 🤔</h3>
+  <ul>
+    <li>进入时：大 emoji <span class="highlight">模糊状态</span>（和探索页一致）</li>
+    <li>🔊 语音引导：<em>"猜猜看，这是什么呢？"</em></li>
+    <li>点击揭晓 → emoji 从模糊变清晰 + 自动播发音</li>
+    <li>🔊 播放：<em>单词发音 + "这是苹果"</em></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Step 2：听和学 👂 <span class="tag tag-new">+例句</span></h3>
+  <ul>
+    <li>大 emoji + 单词 + 音标 + 中文</li>
+    <li><strong>新增例句</strong>：如 <em>"I like apples"</em> + 中文翻译</li>
+    <li>点击例句可播放语音</li>
+    <li>可重复听发音，<strong>至少听 2 遍</strong>才出现下一步按钮</li>
+  </ul>
+</div>
+
+<div class="card" style="border-left: 4px solid #4DABF7;">
+  <h3>Step 3：跟读 🗣️ <span class="tag tag-new">新增步骤</span></h3>
+  <ul>
+    <li>显示 emoji + 单词</li>
+    <li>🔊 语音引导：<em>"你来读一读"</em></li>
+    <li>播放标准发音 → 等待（给孩子时间跟读）</li>
+    <li>按钮 "我读好了" → 🔊 <em>"读得真棒！"</em></li>
+    <li><em>注：暂用按钮代替语音识别</em></li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Step 4：指出 👆 <span class="tag tag-fix">改版</span></h3>
+  <ul>
+    <li>2×2 网格 <span class="highlight">只显示 emoji，不显示英文</span>（防直接看答案）</li>
+    <li>🔊 出题：<em>"哪个是 apple？点一点"</em></li>
+    <li>✅ 答对：🔊 <em>"太棒了！"</em> + 庆祝粒子</li>
+    <li>❌ 答错：🔊 <em>"不对哦，再试一次"</em> + 震动</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Step 5：拼写 ✏️ <span class="tag tag-fix">改版</span></h3>
+  <ul>
+    <li><span class="highlight">隐藏完整单词</span>！只显示 emoji + 🔊 按钮</li>
+    <li>字母槽只给首字母提示：<code>A _ _ _ _</code></li>
+    <li>点 🔊 可重复听发音</li>
+    <li>✅ 拼对：🔊 <em>"太厉害了，全对！"</em> → 获卡页</li>
+    <li>❌ 拼错：🔊 <em>"差一点点，再试试"</em> → 重置</li>
+  </ul>
+</div>
+
+<h2><span class="section-icon">🔊</span>三、语音反馈</h2>
+
+<div class="card">
+  <h3><span class="tag tag-fix">核心改动</span> 幼儿不认字，所有反馈用语音</h3>
+  <table class="voice-table">
+    <tr><th>时机</th><th>语音内容</th></tr>
+    <tr><td>Step1 进入</td><td>🔊 "猜猜看，这是什么呢？"</td></tr>
+    <tr><td>Step1 揭晓</td><td>🔊 单词发音 + "这是XX"</td></tr>
+    <tr><td>Step2 例句</td><td>🔊 播放英文例句</td></tr>
+    <tr><td>Step3 跟读</td><td>🔊 "你来读一读" → "读得真棒！"</td></tr>
+    <tr><td>Step4 答对</td><td>🔊 "太棒了！" / "Perfect!"</td></tr>
+    <tr><td>Step4 答错</td><td>🔊 "不对哦，再试一次"</td></tr>
+    <tr><td>Step5 进入</td><td>🔊 "拼出这个词" + 发音</td></tr>
+    <tr><td>Step5 拼对</td><td>🔊 "太厉害了，全对！"</td></tr>
+    <tr><td>Step5 拼错</td><td>🔊 "差一点点，再试试"</td></tr>
+    <tr><td>获卡页</td><td>🔊 "恭喜获得新卡片！"</td></tr>
+  </table>
+  <p style="color:#888; font-size:13px; margin-top:8px;">文字 popup 保留作辅助（家长能看），但不再是主要反馈方式</p>
+</div>
+
+<h2><span class="section-icon">📦</span>四、数据变更</h2>
+
+<div class="card">
+  <h3>scenes.js 新增例句字段</h3>
+  <pre style="background:#f5f5f5; padding:12px; border-radius:8px; font-size:13px; overflow-x:auto;"><code>{
+  word: 'apple',
+  emoji: '🍎',
+  chinese: '苹果',
+  phonetic: '/ˈæp.əl/',
+  <strong>sentence: 'I like apples',</strong>
+  <strong>sentenceCn: '我喜欢苹果',</strong>
+}</code></pre>
+</div>
+
+<h2><span class="section-icon">✅</span>五、已完成项</h2>
+
+<div class="card">
+  <ul class="done">
+    <li>✅ 获卡页卡片居中 + 删多余文字 + 按钮等高</li>
+    <li>✅ 全局 navigationStyle=custom + safe-area</li>
+    <li>✅ 移除 UI 中的 KidStart 字样</li>
+    <li>✅ learnedWords 存储格式统一</li>
+    <li>✅ 首页统计正确读取 learnedWords</li>
+    <li>✅ 场景探索页 2 列大卡片布局</li>
+    <li>✅ 继续探险 navigateBack 回 scene-explore</li>
+  </ul>
+</div>
+
+<h2><span class="section-icon">📁</span>六、改动文件清单</h2>
+
+<div class="file-list">
+  <ul>
+    <li>pages/scene-explore/scene-explore.wxml — 模糊emoji</li>
+    <li>pages/scene-explore/scene-explore.wxss — blur滤镜</li>
+    <li>pages/word-card/word-card.wxml — 5步UI改版</li>
+    <li>pages/word-card/word-card.js — 5步逻辑+语音</li>
+    <li>pages/word-card/word-card.wxss — 跟读+例句样式</li>
+    <li>data/scenes.js — 新增sentence字段</li>
+  </ul>
+</div>
+
+<p style="text-align:center; color:#888; font-size:13px; margin-top:40px;">— 娜美 🍊 · KidStart v7.1 —</p>
+
+</body>
+</html>
