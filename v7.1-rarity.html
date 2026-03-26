@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v7.1 卡牌等级体系</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#FFF9F0;color:#333;line-height:1.7;padding:20px;max-width:680px;margin:0 auto}
+h1{font-size:24px;margin:20px 0 8px}
+.subtitle{color:#888;font-size:14px;margin-bottom:24px}
+h2{font-size:18px;margin:28px 0 12px;color:#FF6B35;border-bottom:2px solid #FF6B35;padding-bottom:6px}
+.card{background:#fff;border-radius:16px;padding:20px;margin:16px 0;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+ul{padding-left:20px;margin:8px 0}
+li{margin:6px 0;font-size:15px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+th{background:#f5f5f5;padding:8px;text-align:left;border-bottom:2px solid #ddd}
+td{padding:8px;border-bottom:1px solid #eee}
+
+.rarity-showcase{display:flex;flex-direction:column;gap:16px;margin:20px 0}
+.rarity-card{border-radius:20px;padding:20px;display:flex;align-items:center;gap:16px;color:#fff;position:relative;overflow:hidden}
+.rarity-card .emoji{font-size:48px;flex-shrink:0}
+.rarity-card .info{flex:1}
+.rarity-card .info h3{font-size:18px;margin-bottom:4px}
+.rarity-card .info p{font-size:13px;opacity:0.9}
+.rarity-card .badge{position:absolute;top:12px;right:12px;font-size:14px;font-weight:700;opacity:0.7}
+
+.rarity-n{background:linear-gradient(135deg,#868e96,#adb5bd);border:2px solid #dee2e6}
+.rarity-r{background:linear-gradient(135deg,#339af0,#74c0fc);border:2px solid #4DABF7}
+.rarity-sr{background:linear-gradient(135deg,#7950f2,#b197fc);border:2px solid #B197FC}
+.rarity-ssr{background:linear-gradient(135deg,#f59f00,#ffd43b);border:2px solid #FFD43B}
+.rarity-ur{background:linear-gradient(135deg,#ff6b6b,#ffd43b,#51cf66,#339af0,#b197fc);border:2px solid transparent;animation:rainbow 3s linear infinite;background-size:300% 300%}
+@keyframes rainbow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.flip-demo{display:flex;gap:12px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+.flip-card{width:80px;height:110px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:36px;color:#fff;position:relative}
+.flip-card .label{font-size:11px;margin-top:4px;font-weight:700}
+.flip-n{background:#adb5bd}
+.flip-r{background:#4DABF7;box-shadow:0 0 12px rgba(77,171,247,0.4)}
+.flip-sr{background:#9775fa;box-shadow:0 0 16px rgba(151,119,252,0.5)}
+.flip-ssr{background:#fcc419;box-shadow:0 0 20px rgba(255,212,59,0.6)}
+.flip-ur{background:linear-gradient(135deg,#ff6b6b,#ffd43b,#51cf66,#339af0);box-shadow:0 0 24px rgba(255,107,107,0.5);animation:rainbow 2s linear infinite;background-size:300% 300%}
+
+.voice-table td:first-child{white-space:nowrap}
+.pity-box{background:#fff3cd;border-radius:12px;padding:16px;margin:12px 0;border-left:4px solid #ffc107}
+</style>
+</head>
+<body>
+
+<h1>🃏 卡牌等级体系重设计</h1>
+<p class="subtitle">娜美 🍊 · 基于6岁小朋友实测反馈</p>
+
+<h2>🎯 为什么改？</h2>
+<div class="card">
+<p>小朋友对"普通"和"闪光"没概念，但对<strong>史诗、传说、SSR</strong>很熟悉（来自宝可梦、蛋仔派对等游戏）。</p>
+<p>3级 → <strong>5级</strong>，匹配小朋友已有的认知体系，收集驱动力更强。</p>
+</div>
+
+<h2>⭐ 5级卡牌体系</h2>
+
+<div class="rarity-showcase">
+  <div class="rarity-card rarity-n">
+    <div class="emoji">🍎</div>
+    <div class="info"><h3>⬜ 普通 (N)</h3><p>40% · 白色卡面，简洁清晰</p></div>
+    <div class="badge">N</div>
+  </div>
+  <div class="rarity-card rarity-r">
+    <div class="emoji">🍎</div>
+    <div class="info"><h3>🔷 稀有 (R)</h3><p>30% · 蓝色渐变边框 + 微光</p></div>
+    <div class="badge">R</div>
+  </div>
+  <div class="rarity-card rarity-sr">
+    <div class="emoji">🍎</div>
+    <div class="info"><h3>💎 史诗 (SR)</h3><p>20% · 紫色发光 + 星尘粒子</p></div>
+    <div class="badge">SR</div>
+  </div>
+  <div class="rarity-card rarity-ssr">
+    <div class="emoji">🍎</div>
+    <div class="info"><h3>🌟 传说 (SSR)</h3><p>8% · 金色爆发 + 特效升级</p></div>
+    <div class="badge">SSR</div>
+  </div>
+  <div class="rarity-card rarity-ur">
+    <div class="emoji">🍎</div>
+    <div class="info"><h3>🌈 彩虹 (UR)</h3><p>2% · 彩虹流光 + 烟花庆祝</p></div>
+    <div class="badge">UR</div>
+  </div>
+</div>
+
+<h2>🎴 翻卡预览</h2>
+<div class="flip-demo">
+  <div class="flip-card flip-n">🍎<div class="label">N</div></div>
+  <div class="flip-card flip-r">🍎<div class="label">R</div></div>
+  <div class="flip-card flip-sr">🍎<div class="label">SR</div></div>
+  <div class="flip-card flip-ssr">🍎<div class="label">SSR</div></div>
+  <div class="flip-card flip-ur">🍎<div class="label">UR</div></div>
+</div>
+
+<h2>🎰 抽卡体验</h2>
+<div class="card">
+<h3>翻卡前的悬念</h3>
+<ul>
+  <li><strong>N</strong>：灰色卡背，0.5s 普通翻转</li>
+  <li><strong>R</strong>：微蓝光，0.6s</li>
+  <li><strong>SR</strong>：紫色光，0.8s + 停顿</li>
+  <li><strong>SSR</strong>：金色光，1s + 金光预告</li>
+  <li><strong>UR</strong>：彩虹光！1.5s + 震动 + 烟花 🎆</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🔊 语音反馈</h3>
+<table class="voice-table">
+  <tr><th>等级</th><th>语音</th></tr>
+  <tr><td>N</td><td>"获得了一张普通卡片"</td></tr>
+  <tr><td>R</td><td>"哇，稀有卡片！"</td></tr>
+  <tr><td>SR</td><td>"太棒了！史诗卡片！"</td></tr>
+  <tr><td>SSR</td><td>"天哪！传说卡片！！"</td></tr>
+  <tr><td>UR</td><td>"不可思议！彩虹传说！！！"</td></tr>
+</table>
+</div>
+
+<h2>🛡️ 保底机制</h2>
+<div class="pity-box">
+  <p>🎯 <strong>SR 保底</strong>：连续 5 次没出 SR 及以上 → 第 6 次保底 SR</p>
+  <p>🌈 <strong>UR 保底</strong>：连续 20 次没出 UR → 第 21 次保底 UR</p>
+  <p>🎁 <strong>首次加成</strong>：每个场景第一次学完单词，SR 概率翻倍（40%）</p>
+</div>
+
+<h2>📚 图鉴升级</h2>
+<div class="card">
+<ul>
+  <li>顶部 tab：全部 | N | R | SR | SSR | UR</li>
+  <li>每张卡片右上角显示等级标签</li>
+  <li>同一单词可以有不同等级（图鉴显示最高等级）</li>
+  <li>重复抽到更高等级 → "卡片升级！" 🆙</li>
+</ul>
+</div>
+
+<h2>📁 改动文件</h2>
+<div class="card" style="font-size:14px">
+<ul>
+  <li><code>utils/rarity.js</code> — 5级体系 + 保底</li>
+  <li><code>pages/card-reveal/*</code> — 5级翻卡UI+特效</li>
+  <li><code>pages/collection/*</code> — 等级tab+标签</li>
+</ul>
+</div>
+
+<p style="text-align:center;color:#888;font-size:13px;margin-top:40px">— 娜美 🍊 · KidStart v7.1 卡牌体系 —</p>
+</body>
+</html>
