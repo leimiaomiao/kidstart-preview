@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KidStart v8 我的页面设计</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,system-ui,sans-serif;padding:16px;max-width:100%;background:#f8f9fa;color:#333;font-size:14px;line-height:1.6}h1{font-size:20px;margin:20px 0 10px;color:#1a1a2e}h2{font-size:17px;margin:18px 0 8px;color:#16213e;border-bottom:2px solid #e94560;padding-bottom:4px}h3{font-size:15px;margin:14px 0 6px;color:#0f3460}blockquote{background:#fff3cd;padding:8px 12px;border-left:3px solid #ffc107;margin:8px 0;border-radius:4px;font-size:13px}p{margin:4px 0}li{margin:2px 0 2px 20px}code{background:#e9ecef;padding:1px 4px;border-radius:3px;font-size:12px}strong{color:#e94560}hr{border:none;border-top:2px dashed #dee2e6;margin:16px 0}.spec-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px;display:block;overflow-x:auto;white-space:nowrap}.spec-table th{background:#1a1a2e;color:white;padding:6px 8px;text-align:left}.spec-table td{padding:5px 8px;border-bottom:1px solid #dee2e6}.spec-table tr:nth-child(even){background:#f8f9fa}</style></head><body><h1>&quot;我的&quot;页面重设计 v8</h1>
+<br>
+<blockquote>娜美 🍊 | 2026-03-27</blockquote>
+<br>
+<h2>设计原则</h2>
+<br>
+<li>6 岁小朋友能看懂、爱看</li>
+<li>成就感可视化（大图标、动画、进度）</li>
+<li>家长入口隐蔽但可靠</li>
+<li>一屏展示核心信息，不需要滚动太多</li>
+<br>
+<hr>
+<br>
+<h2>页面布局（从上到下）</h2>
+<br>
+<h3>1. 🧒 个人卡片区</h3>
+<br>
+<table class="spec-table"><thead><tr><th>元素</th><th>说明</th></tr></thead><tbody>
+<tr><td>头像</td><td>大 emoji 头像（🧒），点击可切换（提供 8 个预设：🧒👦👧🦸‍♂️🦸‍♀️🧑‍🚀👸🤴）</td></tr>
+<tr><td>昵称</td><td>"小探险家"（可编辑）</td></tr>
+<tr><td>称号</td><td>根据星星数动态变化，见下表</td></tr>
+<tr><td>进度条</td><td>距离下一个称号还差 X 颗星，可视化进度条</td></tr>
+</tbody></table>
+<p><strong>称号体系</strong>（替代原来的 Lv.1-3）：</p>
+<br>
+<table class="spec-table"><thead><tr><th>星星数</th><th>称号</th><th>emoji</th></tr></thead><tbody>
+<tr><td>0-4</td><td>小小探险家</td><td>🌱</td></tr>
+<tr><td>5-14</td><td>初级探险家</td><td>⭐</td></tr>
+<tr><td>15-29</td><td>中级探险家</td><td>🌟</td></tr>
+<tr><td>30-47</td><td>高级探险家</td><td>💫</td></tr>
+<tr><td>48（满星）</td><td>传奇探险家</td><td>👑</td></tr>
+</tbody></table>
+<h3>2. 📊 数据看板（横向 3 格）</h3>
+<br>
+<p>简化为 3 个核心数据（原来 4 个太多，6 岁记不住）：</p>
+<br>
+<table class="spec-table"><thead><tr><th>数据</th><th>图标</th><th>说明</th></tr></thead><tbody>
+<tr><td>已学单词</td><td>📚</td><td>X / 160</td></tr>
+<tr><td>收集卡片</td><td>🃏</td><td>X / 160</td></tr>
+<tr><td>获得星星</td><td>⭐</td><td>X / 48（16场景×3星）</td></tr>
+</tbody></table>
+<p>去掉&quot;连续天数&quot;——6 岁不理解连续概念，且会制造焦虑。</p>
+<br>
+<h3>3. 🏆 成就徽章（保留，重新设计）</h3>
+<br>
+<p><strong>改动</strong>：</p>
+<li>从 8 个减少到 **6 个**（4×2 → 3×2 网格，更大更醒目）</li>
+<li>未解锁徽章显示灰色 + 锁图标 + 解锁条件</li>
+<li>已解锁徽章有轻微弹跳动画</li>
+<li>点击弹窗展示详情（已修复消失 bug）</li>
+<br>
+<p><strong>6 个徽章</strong>：</p>
+<br>
+<table class="spec-table"><thead><tr><th>#</th><th>名称</th><th>图标</th><th>解锁条件</th><th>设计意图</th></tr></thead><tbody>
+<tr><td>1</td><td>第一步</td><td>🌱</td><td>学会第 1 个词</td><td>零门槛，立刻获得</td></tr>
+<tr><td>2</td><td>小学霸</td><td>📚</td><td>学会 30 个词</td><td>中期里程碑</td></tr>
+<tr><td>3</td><td>集卡王</td><td>🃏</td><td>收集 50 张卡</td><td>图鉴驱动</td></tr>
+<tr><td>4</td><td>星星猎人</td><td>⭐</td><td>获得 10 颗星</td><td>刷星驱动</td></tr>
+<tr><td>5</td><td>大探险家</td><td>🗺️</td><td>解锁 10 个场景</td><td>探索驱动</td></tr>
+<tr><td>6</td><td>传说守护者</td><td>👑</td><td>获得 3 张传说卡</td><td>终极目标</td></tr>
+</tbody></table>
+<h3>4. 🔒 家长专区</h3>
+<br>
+<p><strong>交互方式</strong>（保留长按，优化体验）：</p>
+<li>显示为底部卡片，有"👨‍👩‍👧‍👦 家长专区"标题</li>
+<li>点击 → toast 提示"长按 3 秒进入家长模式"</li>
+<li>长按 3 秒 → 进入家长页面</li>
+<li>家长页面内容：学习报告 + 每日词量设置 + 提醒时间</li>
+<br>
+<hr>
+<br>
+<h2>砍掉的功能</h2>
+<br>
+<table class="spec-table"><thead><tr><th>功能</th><th>原因</th></tr></thead><tbody>
+<tr><td>连续天数统计</td><td>制造焦虑，6 岁不理解"连续"概念</td></tr>
+<tr><td>意见反馈入口</td><td>6 岁不会填反馈，移到家长页面里</td></tr>
+<tr><td>头像上传</td><td>复杂且有安全隐患，改为预设 emoji 选择</td></tr>
+</tbody></table>
+<h2>新增功能</h2>
+<br>
+<table class="spec-table"><thead><tr><th>功能</th><th>说明</th></tr></thead><tbody>
+<tr><td>称号进度条</td><td>可视化距离下一个称号的距离</td></tr>
+<tr><td>头像 emoji 选择器</td><td>点头像弹出 8 个预设</td></tr>
+<tr><td>徽章解锁动画</td><td>新获得徽章时有 🎉 特效</td></tr>
+</tbody></table>
+<hr>
+<br>
+<h2>给开发的要点</h2>
+<br>
+<p>1. storage key 统一用 <code>learnedWords</code>、<code>collectedCards</code>、<code>sceneProgress</code>、<code>studyHistory</code></p>
+<p>2. 称号计算基于 <code>sceneProgress</code> 里所有场景的 stars 总和</p>
+<p>3. 徽章状态实时计算，不需要额外 storage</p>
+<p>4. 家长入口保留 <code>bindlongpress</code>，长按时间 3 秒</p>
+<p>5. 弹窗用 <code>wx:if</code> + <code>catchtap</code> 阻止冒泡，不要用 <code>opacity</code> 动画（防止消失 bug 复发）</p>
+<br></body></html>
