@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KidStart v8 场景扩展 Spec</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, system-ui, sans-serif; padding: 16px; max-width: 100%; background: #f8f9fa; color: #333; font-size: 14px; line-height: 1.6; }
+h1 { font-size: 20px; margin: 20px 0 10px; color: #1a1a2e; }
+h2 { font-size: 17px; margin: 18px 0 8px; color: #16213e; border-bottom: 2px solid #e94560; padding-bottom: 4px; }
+h3 { font-size: 15px; margin: 14px 0 6px; color: #0f3460; }
+blockquote { background: #fff3cd; padding: 8px 12px; border-left: 3px solid #ffc107; margin: 8px 0; border-radius: 4px; font-size: 13px; }
+p { margin: 4px 0; }
+li { margin: 2px 0 2px 20px; }
+code { background: #e9ecef; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+strong { color: #e94560; }
+.spec-table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 12px; display: block; overflow-x: auto; white-space: nowrap; }
+.spec-table th { background: #1a1a2e; color: white; padding: 6px 8px; text-align: left; position: sticky; top: 0; }
+.spec-table td { padding: 5px 8px; border-bottom: 1px solid #dee2e6; }
+.spec-table tr:nth-child(even) { background: #f8f9fa; }
+.spec-table tr:hover { background: #e8f4f8; }
+br { display: block; margin: 4px 0; }
+</style>
+</head>
+<body>
+<h1>KidStart 场景扩展设计 v8</h1>
+<br>
+<blockquote>娜美 🍊 | 2026-03-27</blockquote>
+<br>
+<h2>概述</h2>
+<br>
+<p>从现有 4 场景扩展至 <strong>16 场景</strong>，总词量 <strong>160 词</strong>（每场景 10 词）。图片统一使用 Noto Color Emoji（CDN: <code>cdn.onemilelab.com/noto/</code>）。</p>
+<br>
+<h2>每日学习量设计</h2>
+<br>
+<table class="spec-table"><thead>
+<tr><th>指标</th><th>数值</th><th>依据</th></tr>
+</thead><tbody>
+<tr><td>每日新词</td><td>**5 个**</td><td>6岁注意力15min，每词含教学+测试约2min，5词=10min学习+5min复习</td></tr>
+<tr><td>每日复习词</td><td>**3-5 个**</td><td>艾宾浩斯间隔复习，穿插在新词学习中</td></tr>
+<tr><td>单次学习时长</td><td>**3-5 分钟**</td><td>分2轮：上午新词轮+下午复习轮，或一次性完成</td></tr>
+<tr><td>全部学完周期</td><td>**32 天**（160÷5）</td><td>约1个月，之后进入纯复习+刷星阶段</td></tr>
+</tbody></table>
+<h3>每周节奏建议</h3>
+<br>
+<li>周一至周五：每天5个新词 + 复习</li>
+<li>周六：纯复习日（巩固本周25词）</li>
+<li>周日：自由探索 / 刷星</li>
+<br>
+<h2>场景总览（16 场景）</h2>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>ID</th><th>场景名</th><th>英文名</th><th>Emoji</th><th>词数</th><th>解锁条件</th><th>难度</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>fruit-kitchen</td><td>水果厨房</td><td>Fruit Kitchen</td><td>🍎</td><td>10</td><td>默认解锁</td><td>⭐</td></tr>
+<tr><td>2</td><td>animal-farm</td><td>动物农场</td><td>Animal Farm</td><td>🐮</td><td>10</td><td>默认解锁</td><td>⭐</td></tr>
+<tr><td>3</td><td>color-park</td><td>缤纷公园</td><td>Color Park</td><td>🎨</td><td>10</td><td>默认解锁</td><td>⭐</td></tr>
+<tr><td>4</td><td>food-street</td><td>美食街</td><td>Food Street</td><td>🍔</td><td>10</td><td>默认解锁</td><td>⭐</td></tr>
+<tr><td>5</td><td>body-land</td><td>身体乐园</td><td>Body Land</td><td>🖐️</td><td>10</td><td>累计学20词</td><td>⭐</td></tr>
+<tr><td>6</td><td>number-park</td><td>数字公园</td><td>Number Park</td><td>🔢</td><td>10</td><td>累计学20词</td><td>⭐</td></tr>
+<tr><td>7</td><td>family-home</td><td>温馨家庭</td><td>Family Home</td><td>🏠</td><td>10</td><td>累计学40词</td><td>⭐⭐</td></tr>
+<tr><td>8</td><td>transport-city</td><td>交通城市</td><td>Transport City</td><td>🚗</td><td>10</td><td>累计学40词</td><td>⭐⭐</td></tr>
+<tr><td>9</td><td>weather-sky</td><td>天气天空</td><td>Weather Sky</td><td>☀️</td><td>10</td><td>累计学60词</td><td>⭐⭐</td></tr>
+<tr><td>10</td><td>clothes-closet</td><td>衣服衣柜</td><td>Clothes Closet</td><td>👕</td><td>10</td><td>累计学60词</td><td>⭐⭐</td></tr>
+<tr><td>11</td><td>school-class</td><td>快乐教室</td><td>School Class</td><td>📚</td><td>10</td><td>累计学80词</td><td>⭐⭐</td></tr>
+<tr><td>12</td><td>playground</td><td>游乐场</td><td>Playground</td><td>🎠</td><td>10</td><td>累计学80词</td><td>⭐⭐</td></tr>
+<tr><td>13</td><td>ocean-world</td><td>海洋世界</td><td>Ocean World</td><td>🐬</td><td>10</td><td>累计学100词</td><td>⭐⭐⭐</td></tr>
+<tr><td>14</td><td>space-voyage</td><td>太空探险</td><td>Space Voyage</td><td>🚀</td><td>10</td><td>累计学100词</td><td>⭐⭐⭐</td></tr>
+<tr><td>15</td><td>sports-field</td><td>运动场</td><td>Sports Field</td><td>⚽</td><td>10</td><td>累计学120词</td><td>⭐⭐⭐</td></tr>
+<tr><td>16</td><td>party-time</td><td>生日派对</td><td>Party Time</td><td>🎂</td><td>10</td><td>累计学140词</td><td>⭐⭐⭐</td></tr>
+</tbody></table>
+<h2>场景解锁机制</h2>
+<br>
+<li>**第1批（#1-4）**：新用户默认解锁，"今日探险"从这4个场景轮流推荐</li>
+<li>**第2批（#5-6）**：累计学会20词解锁，弹出🎉"新场景解锁！"动画</li>
+<li>**第3批（#7-8）**：累计40词解锁</li>
+<li>以此类推，每20词解锁2个新场景</li>
+<li>解锁时"今日探险"优先推荐新场景</li>
+<br>
+<h2>词量统计</h2>
+<br>
+<table class="spec-table"><thead>
+<tr><th>难度层</th><th>场景数</th><th>词数</th><th>特点</th></tr>
+</thead><tbody>
+<tr><td>⭐ 入门</td><td>6</td><td>60</td><td>高频生活词，具象名词为主</td></tr>
+<tr><td>⭐⭐ 进阶</td><td>6</td><td>60</td><td>生活扩展词，含形容词/动词</td></tr>
+<tr><td>⭐⭐⭐ 挑战</td><td>4</td><td>40</td><td>趣味探索词，含复合词/长词</td></tr>
+<tr><td>**合计**</td><td>**16**</td><td>**160**</td><td>覆盖约1个月学习量</td></tr>
+</tbody></table>
+<h2>卡片稀有度分配</h2>
+<br>
+<li>⬜ 普通卡：每场景7张（70%）= 112张</li>
+<li>🟦 闪光卡：每场景2张（20%）= 32张</li>
+<li>🟨 传说卡：每场景1张（10%）= 16张</li>
+<br>
+<p>传说卡规则：每场景最后一个词为传说卡，需该场景3星解锁。</p>
+<br>
+<h2>图片规范</h2>
+<br>
+<p>所有词汇图片使用 Noto Color Emoji，CDN路径格式：</p>
+<li>`https://cdn.onemilelab.com/noto/{category}/{name}.png`</li>
+<li>category 按场景归类：fruits, animals, symbols, food, body, numbers, family, transport, weather, clothes, school, playground, ocean, space, sports, party</li>
+<br>
+<h2>现有场景改动</h2>
+<br>
+<p>现有4场景各补2词（从8→10），保持与新场景一致。</p>
+<br>
+<p>---</p>
+<br>
+<h2>各场景词汇表</h2>
+<br>
+<p>以下为全部16场景的完整词汇列表。</p>
+<br>
+<h3>1. 🍎 水果厨房 Fruit Kitchen</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>apple</td><td>/ˈæp.əl/</td><td>苹果</td><td>🍎</td><td>fruits/red-apple.png</td><td>⬜</td><td>I like apples</td></tr>
+<tr><td>2</td><td>banana</td><td>/bəˈnæn.ə/</td><td>香蕉</td><td>🍌</td><td>fruits/banana.png</td><td>⬜</td><td>The monkey eats a banana</td></tr>
+<tr><td>3</td><td>orange</td><td>/ˈɒr.ɪndʒ/</td><td>橙子</td><td>🍊</td><td>fruits/orange.png</td><td>⬜</td><td>I drink orange juice</td></tr>
+<tr><td>4</td><td>grape</td><td>/ɡreɪp/</td><td>葡萄</td><td>🍇</td><td>fruits/grape.png</td><td>⬜</td><td>These grapes are sweet</td></tr>
+<tr><td>5</td><td>watermelon</td><td>/ˈwɔː.tər.mel.ən/</td><td>西瓜</td><td>🍉</td><td>fruits/watermelon.png</td><td>🟦</td><td>Watermelon is big and sweet</td></tr>
+<tr><td>6</td><td>strawberry</td><td>/ˈstrɔː.bər.i/</td><td>草莓</td><td>🍓</td><td>fruits/strawberry.png</td><td>⬜</td><td>I love strawberry cake</td></tr>
+<tr><td>7</td><td>pear</td><td>/per/</td><td>梨</td><td>🍐</td><td>fruits/pear.png</td><td>⬜</td><td>The pear is green</td></tr>
+<tr><td>8</td><td>peach</td><td>/piːtʃ/</td><td>桃子</td><td>🍑</td><td>fruits/peach.png</td><td>⬜</td><td>This peach smells good</td></tr>
+<tr><td>9</td><td>cherry</td><td>/ˈtʃer.i/</td><td>樱桃</td><td>🍒</td><td>fruits/cherry.png</td><td>🟦</td><td>Cherries are small and red</td></tr>
+<tr><td>10</td><td>pineapple</td><td>/ˈpaɪn.æp.əl/</td><td>菠萝</td><td>🍍</td><td>fruits/pineapple.png</td><td>🟨</td><td>Pineapple is sweet and sour</td></tr>
+</tbody></table>
+<h3>2. 🐮 动物农场 Animal Farm</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>cow</td><td>/kaʊ/</td><td>奶牛</td><td>🐮</td><td>animals/cow.png</td><td>⬜</td><td>The cow eats grass</td></tr>
+<tr><td>2</td><td>pig</td><td>/pɪɡ/</td><td>小猪</td><td>🐷</td><td>animals/pig.png</td><td>⬜</td><td>The pig is pink</td></tr>
+<tr><td>3</td><td>chicken</td><td>/ˈtʃɪk.ɪn/</td><td>小鸡</td><td>🐔</td><td>animals/chicken.png</td><td>⬜</td><td>The chicken lays an egg</td></tr>
+<tr><td>4</td><td>horse</td><td>/hɔːrs/</td><td>马</td><td>🐴</td><td>animals/horse.png</td><td>⬜</td><td>I can ride a horse</td></tr>
+<tr><td>5</td><td>sheep</td><td>/ʃiːp/</td><td>绵羊</td><td>🐑</td><td>animals/sheep.png</td><td>⬜</td><td>The sheep has white wool</td></tr>
+<tr><td>6</td><td>duck</td><td>/dʌk/</td><td>鸭子</td><td>🦆</td><td>animals/duck.png</td><td>⬜</td><td>The duck swims in the pond</td></tr>
+<tr><td>7</td><td>dog</td><td>/dɒɡ/</td><td>狗</td><td>🐕</td><td>animals/dog.png</td><td>⬜</td><td>My dog is very cute</td></tr>
+<tr><td>8</td><td>cat</td><td>/kæt/</td><td>猫</td><td>🐱</td><td>animals/cat.png</td><td>🟦</td><td>The cat is sleeping</td></tr>
+<tr><td>9</td><td>rabbit</td><td>/ˈræb.ɪt/</td><td>兔子</td><td>🐰</td><td>animals/rabbit.png</td><td>🟦</td><td>The rabbit likes carrots</td></tr>
+<tr><td>10</td><td>rooster</td><td>/ˈruː.stər/</td><td>公鸡</td><td>🐓</td><td>animals/rooster.png</td><td>🟨</td><td>The rooster crows at dawn</td></tr>
+</tbody></table>
+<h3>3. 🎨 缤纷公园 Color Park</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>red</td><td>/red/</td><td>红色</td><td>🔴</td><td>symbols/red-circle.png</td><td>⬜</td><td>The apple is red</td></tr>
+<tr><td>2</td><td>blue</td><td>/bluː/</td><td>蓝色</td><td>🔵</td><td>symbols/blue-circle.png</td><td>⬜</td><td>The sky is blue</td></tr>
+<tr><td>3</td><td>green</td><td>/ɡriːn/</td><td>绿色</td><td>🟢</td><td>symbols/green-circle.png</td><td>⬜</td><td>The leaf is green</td></tr>
+<tr><td>4</td><td>yellow</td><td>/ˈjel.oʊ/</td><td>黄色</td><td>🟡</td><td>symbols/yellow-circle.png</td><td>⬜</td><td>The sun is yellow</td></tr>
+<tr><td>5</td><td>purple</td><td>/ˈpɜːr.pəl/</td><td>紫色</td><td>🟣</td><td>symbols/purple-circle.png</td><td>⬜</td><td>I like purple grapes</td></tr>
+<tr><td>6</td><td>orange</td><td>/ˈɒr.ɪndʒ/</td><td>橙色</td><td>🟠</td><td>symbols/orange-circle.png</td><td>⬜</td><td>The pumpkin is orange</td></tr>
+<tr><td>7</td><td>pink</td><td>/pɪŋk/</td><td>粉色</td><td>💗</td><td>symbols/pink-heart.png</td><td>⬜</td><td>Her dress is pink</td></tr>
+<tr><td>8</td><td>black</td><td>/blæk/</td><td>黑色</td><td>⚫</td><td>symbols/black-circle.png</td><td>🟦</td><td>The cat is black</td></tr>
+<tr><td>9</td><td>white</td><td>/waɪt/</td><td>白色</td><td>⚪</td><td>symbols/white-circle.png</td><td>🟦</td><td>Snow is white</td></tr>
+<tr><td>10</td><td>rainbow</td><td>/ˈreɪn.boʊ/</td><td>彩虹</td><td>🌈</td><td>weather/rainbow.png</td><td>🟨</td><td>The rainbow is so pretty</td></tr>
+</tbody></table>
+<h3>4. 🍔 美食街 Food Street</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>bread</td><td>/bred/</td><td>面包</td><td>🍞</td><td>food/bread.png</td><td>⬜</td><td>I eat bread for breakfast</td></tr>
+<tr><td>2</td><td>rice</td><td>/raɪs/</td><td>米饭</td><td>🍚</td><td>food/rice.png</td><td>⬜</td><td>I love eating rice</td></tr>
+<tr><td>3</td><td>egg</td><td>/eɡ/</td><td>鸡蛋</td><td>🥚</td><td>food/egg.png</td><td>⬜</td><td>I have an egg every day</td></tr>
+<tr><td>4</td><td>milk</td><td>/mɪlk/</td><td>牛奶</td><td>🥛</td><td>drinks/milk.png</td><td>⬜</td><td>Milk is good for you</td></tr>
+<tr><td>5</td><td>cake</td><td>/keɪk/</td><td>蛋糕</td><td>🎂</td><td>food/cake.png</td><td>⬜</td><td>We eat cake on birthdays</td></tr>
+<tr><td>6</td><td>pizza</td><td>/ˈpiːt.sə/</td><td>披萨</td><td>🍕</td><td>food/pizza.png</td><td>⬜</td><td>Pizza is my favorite food</td></tr>
+<tr><td>7</td><td>noodle</td><td>/ˈnuː.dəl/</td><td>面条</td><td>🍜</td><td>food/noodle-soup.png</td><td>⬜</td><td>I want to eat noodles</td></tr>
+<tr><td>8</td><td>cookie</td><td>/ˈkʊk.i/</td><td>饼干</td><td>🍪</td><td>food/cookie.png</td><td>🟦</td><td>Can I have a cookie</td></tr>
+<tr><td>9</td><td>juice</td><td>/dʒuːs/</td><td>果汁</td><td>🧃</td><td>drinks/juice-box.png</td><td>🟦</td><td>I want some apple juice</td></tr>
+<tr><td>10</td><td>chocolate</td><td>/ˈtʃɑːk.lət/</td><td>巧克力</td><td>🍫</td><td>food/chocolate.png</td><td>🟨</td><td>I love chocolate so much</td></tr>
+</tbody></table>
+<h3>5. 🖐️ 身体乐园 Body Land</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>eye</td><td>/aɪ/</td><td>眼睛</td><td>👁️</td><td>body/eye.png</td><td>⬜</td><td>I have two eyes</td></tr>
+<tr><td>2</td><td>nose</td><td>/noʊz/</td><td>鼻子</td><td>👃</td><td>body/nose.png</td><td>⬜</td><td>My nose can smell flowers</td></tr>
+<tr><td>3</td><td>mouth</td><td>/maʊθ/</td><td>嘴巴</td><td>👄</td><td>body/mouth.png</td><td>⬜</td><td>Open your mouth please</td></tr>
+<tr><td>4</td><td>ear</td><td>/ɪr/</td><td>耳朵</td><td>👂</td><td>body/ear.png</td><td>⬜</td><td>I hear with my ears</td></tr>
+<tr><td>5</td><td>hand</td><td>/hænd/</td><td>手</td><td>✋</td><td>body/hand.png</td><td>⬜</td><td>Wash your hands please</td></tr>
+<tr><td>6</td><td>foot</td><td>/fʊt/</td><td>脚</td><td>🦶</td><td>body/foot.png</td><td>⬜</td><td>I have two feet</td></tr>
+<tr><td>7</td><td>head</td><td>/hed/</td><td>头</td><td>🗣️</td><td>body/head.png</td><td>⬜</td><td>Touch your head</td></tr>
+<tr><td>8</td><td>hair</td><td>/her/</td><td>头发</td><td>💇</td><td>body/hair.png</td><td>🟦</td><td>Her hair is long</td></tr>
+<tr><td>9</td><td>tooth</td><td>/tuːθ/</td><td>牙齿</td><td>🦷</td><td>body/tooth.png</td><td>🟦</td><td>Brush your teeth every day</td></tr>
+<tr><td>10</td><td>shoulder</td><td>/ˈʃoʊl.dər/</td><td>肩膀</td><td>💪</td><td>body/shoulder.png</td><td>🟨</td><td>Head shoulders knees and toes</td></tr>
+</tbody></table>
+<h3>6. 🔢 数字公园 Number Park</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>one</td><td>/wʌn/</td><td>一</td><td>1️⃣</td><td>numbers/one.png</td><td>⬜</td><td>I have one nose</td></tr>
+<tr><td>2</td><td>two</td><td>/tuː/</td><td>二</td><td>2️⃣</td><td>numbers/two.png</td><td>⬜</td><td>I have two hands</td></tr>
+<tr><td>3</td><td>three</td><td>/θriː/</td><td>三</td><td>3️⃣</td><td>numbers/three.png</td><td>⬜</td><td>Three little cats</td></tr>
+<tr><td>4</td><td>four</td><td>/fɔːr/</td><td>四</td><td>4️⃣</td><td>numbers/four.png</td><td>⬜</td><td>A table has four legs</td></tr>
+<tr><td>5</td><td>five</td><td>/faɪv/</td><td>五</td><td>5️⃣</td><td>numbers/five.png</td><td>⬜</td><td>Give me a high five</td></tr>
+<tr><td>6</td><td>six</td><td>/sɪks/</td><td>六</td><td>6️⃣</td><td>numbers/six.png</td><td>⬜</td><td>I am six years old</td></tr>
+<tr><td>7</td><td>seven</td><td>/ˈsev.ən/</td><td>七</td><td>7️⃣</td><td>numbers/seven.png</td><td>⬜</td><td>Seven days in a week</td></tr>
+<tr><td>8</td><td>eight</td><td>/eɪt/</td><td>八</td><td>8️⃣</td><td>numbers/eight.png</td><td>🟦</td><td>The octopus has eight arms</td></tr>
+<tr><td>9</td><td>nine</td><td>/naɪn/</td><td>九</td><td>9️⃣</td><td>numbers/nine.png</td><td>🟦</td><td>Nine plus one is ten</td></tr>
+<tr><td>10</td><td>ten</td><td>/ten/</td><td>十</td><td>🔟</td><td>numbers/ten.png</td><td>🟨</td><td>I have ten fingers</td></tr>
+</tbody></table>
+<h3>7. 🏠 温馨家庭 Family Home</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>mom</td><td>/mɑːm/</td><td>妈妈</td><td>👩</td><td>family/woman.png</td><td>⬜</td><td>I love my mom</td></tr>
+<tr><td>2</td><td>dad</td><td>/dæd/</td><td>爸爸</td><td>👨</td><td>family/man.png</td><td>⬜</td><td>Dad is very tall</td></tr>
+<tr><td>3</td><td>baby</td><td>/ˈbeɪ.bi/</td><td>宝宝</td><td>👶</td><td>family/baby.png</td><td>⬜</td><td>The baby is smiling</td></tr>
+<tr><td>4</td><td>sister</td><td>/ˈsɪs.tər/</td><td>姐姐/妹妹</td><td>👧</td><td>family/girl.png</td><td>⬜</td><td>My sister plays with me</td></tr>
+<tr><td>5</td><td>brother</td><td>/ˈbrʌð.ər/</td><td>哥哥/弟弟</td><td>👦</td><td>family/boy.png</td><td>⬜</td><td>My brother is funny</td></tr>
+<tr><td>6</td><td>grandma</td><td>/ˈɡræn.mɑː/</td><td>奶奶/姥姥</td><td>👵</td><td>family/old-woman.png</td><td>⬜</td><td>Grandma tells me stories</td></tr>
+<tr><td>7</td><td>grandpa</td><td>/ˈɡræn.pɑː/</td><td>爷爷/姥爷</td><td>👴</td><td>family/old-man.png</td><td>⬜</td><td>Grandpa is very kind</td></tr>
+<tr><td>8</td><td>family</td><td>/ˈfæm.əl.i/</td><td>家庭</td><td>👨‍👩‍👧</td><td>family/family.png</td><td>🟦</td><td>I love my family</td></tr>
+<tr><td>9</td><td>home</td><td>/hoʊm/</td><td>家</td><td>🏠</td><td>places/house.png</td><td>🟦</td><td>Let us go home</td></tr>
+<tr><td>10</td><td>love</td><td>/lʌv/</td><td>爱</td><td>❤️</td><td>symbols/red-heart.png</td><td>🟨</td><td>I love you so much</td></tr>
+</tbody></table>
+<h3>8. 🚗 交通城市 Transport City</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>car</td><td>/kɑːr/</td><td>汽车</td><td>🚗</td><td>transport/car.png</td><td>⬜</td><td>Dad drives a car</td></tr>
+<tr><td>2</td><td>bus</td><td>/bʌs/</td><td>公交车</td><td>🚌</td><td>transport/bus.png</td><td>⬜</td><td>I go to school by bus</td></tr>
+<tr><td>3</td><td>bike</td><td>/baɪk/</td><td>自行车</td><td>🚲</td><td>transport/bike.png</td><td>⬜</td><td>I can ride a bike</td></tr>
+<tr><td>4</td><td>train</td><td>/treɪn/</td><td>火车</td><td>🚂</td><td>transport/train.png</td><td>⬜</td><td>The train is very fast</td></tr>
+<tr><td>5</td><td>boat</td><td>/boʊt/</td><td>船</td><td>⛵</td><td>transport/boat.png</td><td>⬜</td><td>The boat is on the water</td></tr>
+<tr><td>6</td><td>plane</td><td>/pleɪn/</td><td>飞机</td><td>✈️</td><td>transport/plane.png</td><td>⬜</td><td>The plane flies in the sky</td></tr>
+<tr><td>7</td><td>truck</td><td>/trʌk/</td><td>卡车</td><td>🚚</td><td>transport/truck.png</td><td>⬜</td><td>The truck is very big</td></tr>
+<tr><td>8</td><td>taxi</td><td>/ˈtæk.si/</td><td>出租车</td><td>🚕</td><td>transport/taxi.png</td><td>🟦</td><td>Take a taxi to the park</td></tr>
+<tr><td>9</td><td>subway</td><td>/ˈsʌb.weɪ/</td><td>地铁</td><td>🚇</td><td>transport/metro.png</td><td>🟦</td><td>We take the subway</td></tr>
+<tr><td>10</td><td>helicopter</td><td>/ˈhel.ɪ.kɑːp.tər/</td><td>直升机</td><td>🚁</td><td>transport/helicopter.png</td><td>🟨</td><td>The helicopter is so cool</td></tr>
+</tbody></table>
+<h3>9. ☀️ 天气天空 Weather Sky</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>sun</td><td>/sʌn/</td><td>太阳</td><td>☀️</td><td>weather/sun.png</td><td>⬜</td><td>The sun is bright</td></tr>
+<tr><td>2</td><td>rain</td><td>/reɪn/</td><td>雨</td><td>🌧️</td><td>weather/rain.png</td><td>⬜</td><td>It is raining today</td></tr>
+<tr><td>3</td><td>cloud</td><td>/klaʊd/</td><td>云</td><td>☁️</td><td>weather/cloud.png</td><td>⬜</td><td>The clouds are white</td></tr>
+<tr><td>4</td><td>snow</td><td>/snoʊ/</td><td>雪</td><td>❄️</td><td>weather/snowflake.png</td><td>⬜</td><td>I love playing in the snow</td></tr>
+<tr><td>5</td><td>wind</td><td>/wɪnd/</td><td>风</td><td>💨</td><td>weather/wind.png</td><td>⬜</td><td>The wind is blowing</td></tr>
+<tr><td>6</td><td>hot</td><td>/hɑːt/</td><td>热</td><td>🌡️</td><td>weather/thermometer.png</td><td>⬜</td><td>It is very hot today</td></tr>
+<tr><td>7</td><td>cold</td><td>/koʊld/</td><td>冷</td><td>🥶</td><td>weather/cold-face.png</td><td>⬜</td><td>Winter is very cold</td></tr>
+<tr><td>8</td><td>star</td><td>/stɑːr/</td><td>星星</td><td>⭐</td><td>weather/star.png</td><td>🟦</td><td>I can see many stars</td></tr>
+<tr><td>9</td><td>moon</td><td>/muːn/</td><td>月亮</td><td>🌙</td><td>weather/moon.png</td><td>🟦</td><td>The moon is round tonight</td></tr>
+<tr><td>10</td><td>thunder</td><td>/ˈθʌn.dər/</td><td>雷</td><td>⛈️</td><td>weather/thunder.png</td><td>🟨</td><td>Thunder is very loud</td></tr>
+</tbody></table>
+<h3>10. 👕 衣服衣柜 Clothes Closet</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>shirt</td><td>/ʃɜːrt/</td><td>衬衫</td><td>👕</td><td>clothes/shirt.png</td><td>⬜</td><td>I wear a blue shirt</td></tr>
+<tr><td>2</td><td>pants</td><td>/pænts/</td><td>裤子</td><td>👖</td><td>clothes/jeans.png</td><td>⬜</td><td>These pants are new</td></tr>
+<tr><td>3</td><td>shoes</td><td>/ʃuːz/</td><td>鞋子</td><td>👟</td><td>clothes/sneaker.png</td><td>⬜</td><td>Put on your shoes</td></tr>
+<tr><td>4</td><td>hat</td><td>/hæt/</td><td>帽子</td><td>🧢</td><td>clothes/cap.png</td><td>⬜</td><td>I like my red hat</td></tr>
+<tr><td>5</td><td>socks</td><td>/sɑːks/</td><td>袜子</td><td>🧦</td><td>clothes/socks.png</td><td>⬜</td><td>My socks are colorful</td></tr>
+<tr><td>6</td><td>dress</td><td>/dres/</td><td>裙子</td><td>👗</td><td>clothes/dress.png</td><td>⬜</td><td>She wears a pretty dress</td></tr>
+<tr><td>7</td><td>coat</td><td>/koʊt/</td><td>外套</td><td>🧥</td><td>clothes/coat.png</td><td>⬜</td><td>Wear your coat it is cold</td></tr>
+<tr><td>8</td><td>scarf</td><td>/skɑːrf/</td><td>围巾</td><td>🧣</td><td>clothes/scarf.png</td><td>🟦</td><td>The scarf is warm</td></tr>
+<tr><td>9</td><td>gloves</td><td>/ɡlʌvz/</td><td>手套</td><td>🧤</td><td>clothes/gloves.png</td><td>🟦</td><td>I need my gloves</td></tr>
+<tr><td>10</td><td>sunglasses</td><td>/ˈsʌn.ɡlæs.ɪz/</td><td>太阳镜</td><td>🕶️</td><td>clothes/sunglasses.png</td><td>🟨</td><td>Cool sunglasses for summer</td></tr>
+</tbody></table>
+<h3>11. 📚 快乐教室 School Class</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>book</td><td>/bʊk/</td><td>书</td><td>📖</td><td>school/book.png</td><td>⬜</td><td>I read a book every day</td></tr>
+<tr><td>2</td><td>pen</td><td>/pen/</td><td>笔</td><td>🖊️</td><td>school/pen.png</td><td>⬜</td><td>Give me a pen please</td></tr>
+<tr><td>3</td><td>bag</td><td>/bæɡ/</td><td>书包</td><td>🎒</td><td>school/backpack.png</td><td>⬜</td><td>My bag is very heavy</td></tr>
+<tr><td>4</td><td>desk</td><td>/desk/</td><td>桌子</td><td>🪑</td><td>school/desk.png</td><td>⬜</td><td>Sit at your desk</td></tr>
+<tr><td>5</td><td>teacher</td><td>/ˈtiː.tʃər/</td><td>老师</td><td>👩‍🏫</td><td>school/teacher.png</td><td>⬜</td><td>My teacher is very nice</td></tr>
+<tr><td>6</td><td>friend</td><td>/frend/</td><td>朋友</td><td>🤝</td><td>school/handshake.png</td><td>⬜</td><td>She is my best friend</td></tr>
+<tr><td>7</td><td>crayon</td><td>/ˈkreɪ.ɑːn/</td><td>蜡笔</td><td>🖍️</td><td>school/crayon.png</td><td>⬜</td><td>I draw with crayons</td></tr>
+<tr><td>8</td><td>paper</td><td>/ˈpeɪ.pər/</td><td>纸</td><td>📄</td><td>school/paper.png</td><td>🟦</td><td>Give me a piece of paper</td></tr>
+<tr><td>9</td><td>clock</td><td>/klɑːk/</td><td>钟</td><td>🕐</td><td>school/clock.png</td><td>🟦</td><td>Look at the clock</td></tr>
+<tr><td>10</td><td>homework</td><td>/ˈhoʊm.wɜːrk/</td><td>作业</td><td>📝</td><td>school/memo.png</td><td>🟨</td><td>I finished my homework</td></tr>
+</tbody></table>
+<h3>12. 🎠 游乐场 Playground</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>ball</td><td>/bɔːl/</td><td>球</td><td>⚽</td><td>playground/soccer-ball.png</td><td>⬜</td><td>Let us play ball</td></tr>
+<tr><td>2</td><td>tree</td><td>/triː/</td><td>树</td><td>🌳</td><td>playground/tree.png</td><td>⬜</td><td>The tree is very tall</td></tr>
+<tr><td>3</td><td>flower</td><td>/ˈflaʊ.ər/</td><td>花</td><td>🌸</td><td>playground/flower.png</td><td>⬜</td><td>The flower is beautiful</td></tr>
+<tr><td>4</td><td>swing</td><td>/swɪŋ/</td><td>秋千</td><td>🎠</td><td>playground/swing.png</td><td>⬜</td><td>I love the swing</td></tr>
+<tr><td>5</td><td>slide</td><td>/slaɪd/</td><td>滑梯</td><td>🛝</td><td>playground/slide.png</td><td>⬜</td><td>The slide is so fun</td></tr>
+<tr><td>6</td><td>kite</td><td>/kaɪt/</td><td>风筝</td><td>🪁</td><td>playground/kite.png</td><td>⬜</td><td>Let us fly a kite</td></tr>
+<tr><td>7</td><td>bird</td><td>/bɜːrd/</td><td>鸟</td><td>🐦</td><td>playground/bird.png</td><td>⬜</td><td>The bird is singing</td></tr>
+<tr><td>8</td><td>butterfly</td><td>/ˈbʌt.ər.flaɪ/</td><td>蝴蝶</td><td>🦋</td><td>playground/butterfly.png</td><td>🟦</td><td>The butterfly is colorful</td></tr>
+<tr><td>9</td><td>balloon</td><td>/bəˈluːn/</td><td>气球</td><td>🎈</td><td>playground/balloon.png</td><td>🟦</td><td>I have a red balloon</td></tr>
+<tr><td>10</td><td>ladybug</td><td>/ˈleɪ.di.bʌɡ/</td><td>瓢虫</td><td>🐞</td><td>playground/ladybug.png</td><td>🟨</td><td>The ladybug has black dots</td></tr>
+</tbody></table>
+<h3>13. 🐬 海洋世界 Ocean World</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>fish</td><td>/fɪʃ/</td><td>鱼</td><td>🐟</td><td>ocean/fish.png</td><td>⬜</td><td>The fish swims fast</td></tr>
+<tr><td>2</td><td>shell</td><td>/ʃel/</td><td>贝壳</td><td>🐚</td><td>ocean/shell.png</td><td>⬜</td><td>I found a pretty shell</td></tr>
+<tr><td>3</td><td>water</td><td>/ˈwɔː.tər/</td><td>水</td><td>💧</td><td>ocean/water.png</td><td>⬜</td><td>I drink water every day</td></tr>
+<tr><td>4</td><td>whale</td><td>/weɪl/</td><td>鲸鱼</td><td>🐋</td><td>ocean/whale.png</td><td>⬜</td><td>The whale is very big</td></tr>
+<tr><td>5</td><td>crab</td><td>/kræb/</td><td>螃蟹</td><td>🦀</td><td>ocean/crab.png</td><td>⬜</td><td>The crab walks sideways</td></tr>
+<tr><td>6</td><td>shark</td><td>/ʃɑːrk/</td><td>鲨鱼</td><td>🦈</td><td>ocean/shark.png</td><td>⬜</td><td>Baby shark doo doo</td></tr>
+<tr><td>7</td><td>turtle</td><td>/ˈtɜːr.təl/</td><td>海龟</td><td>🐢</td><td>ocean/turtle.png</td><td>⬜</td><td>The turtle is slow</td></tr>
+<tr><td>8</td><td>dolphin</td><td>/ˈdɑːl.fɪn/</td><td>海豚</td><td>🐬</td><td>ocean/dolphin.png</td><td>🟦</td><td>The dolphin jumps high</td></tr>
+<tr><td>9</td><td>starfish</td><td>/ˈstɑːr.fɪʃ/</td><td>海星</td><td>⭐</td><td>ocean/starfish.png</td><td>🟦</td><td>The starfish has five arms</td></tr>
+<tr><td>10</td><td>octopus</td><td>/ˈɑːk.tə.pəs/</td><td>章鱼</td><td>🐙</td><td>ocean/octopus.png</td><td>🟨</td><td>The octopus has eight legs</td></tr>
+</tbody></table>
+<h3>14. 🚀 太空探险 Space Voyage</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>rocket</td><td>/ˈrɑːk.ɪt/</td><td>火箭</td><td>🚀</td><td>space/rocket.png</td><td>⬜</td><td>The rocket goes to space</td></tr>
+<tr><td>2</td><td>earth</td><td>/ɜːrθ/</td><td>地球</td><td>🌍</td><td>space/earth.png</td><td>⬜</td><td>We live on Earth</td></tr>
+<tr><td>3</td><td>sky</td><td>/skaɪ/</td><td>天空</td><td>🌌</td><td>space/sky.png</td><td>⬜</td><td>The sky is very high</td></tr>
+<tr><td>4</td><td>planet</td><td>/ˈplæn.ɪt/</td><td>星球</td><td>🪐</td><td>space/planet.png</td><td>⬜</td><td>Mars is a red planet</td></tr>
+<tr><td>5</td><td>robot</td><td>/ˈroʊ.bɑːt/</td><td>机器人</td><td>🤖</td><td>space/robot.png</td><td>⬜</td><td>The robot can dance</td></tr>
+<tr><td>6</td><td>alien</td><td>/ˈeɪ.li.ən/</td><td>外星人</td><td>👽</td><td>space/alien.png</td><td>⬜</td><td>Hello little alien</td></tr>
+<tr><td>7</td><td>satellite</td><td>/ˈsæt.əl.aɪt/</td><td>卫星</td><td>🛰️</td><td>space/satellite.png</td><td>⬜</td><td>The satellite is in space</td></tr>
+<tr><td>8</td><td>comet</td><td>/ˈkɑː.mɪt/</td><td>彗星</td><td>☄️</td><td>space/comet.png</td><td>🟦</td><td>The comet has a long tail</td></tr>
+<tr><td>9</td><td>telescope</td><td>/ˈtel.ɪ.skoʊp/</td><td>望远镜</td><td>🔭</td><td>space/telescope.png</td><td>🟦</td><td>I look through the telescope</td></tr>
+<tr><td>10</td><td>astronaut</td><td>/ˈæs.trə.nɑːt/</td><td>宇航员</td><td>👨‍🚀</td><td>space/astronaut.png</td><td>🟨</td><td>I want to be an astronaut</td></tr>
+</tbody></table>
+<h3>15. ⚽ 运动场 Sports Field</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>run</td><td>/rʌn/</td><td>跑</td><td>🏃</td><td>sports/runner.png</td><td>⬜</td><td>I can run very fast</td></tr>
+<tr><td>2</td><td>jump</td><td>/dʒʌmp/</td><td>跳</td><td>🤸</td><td>sports/jump.png</td><td>⬜</td><td>Jump as high as you can</td></tr>
+<tr><td>3</td><td>swim</td><td>/swɪm/</td><td>游泳</td><td>🏊</td><td>sports/swim.png</td><td>⬜</td><td>I like to swim</td></tr>
+<tr><td>4</td><td>kick</td><td>/kɪk/</td><td>踢</td><td>🦵</td><td>sports/kick.png</td><td>⬜</td><td>Kick the ball hard</td></tr>
+<tr><td>5</td><td>catch</td><td>/kætʃ/</td><td>接住</td><td>🤾</td><td>sports/catch.png</td><td>⬜</td><td>Catch the ball</td></tr>
+<tr><td>6</td><td>throw</td><td>/θroʊ/</td><td>扔</td><td>🤾‍♂️</td><td>sports/throw.png</td><td>⬜</td><td>Throw the ball to me</td></tr>
+<tr><td>7</td><td>dance</td><td>/dæns/</td><td>跳舞</td><td>💃</td><td>sports/dance.png</td><td>⬜</td><td>I love to dance</td></tr>
+<tr><td>8</td><td>climb</td><td>/klaɪm/</td><td>爬</td><td>🧗</td><td>sports/climb.png</td><td>🟦</td><td>Climb up the tree</td></tr>
+<tr><td>9</td><td>race</td><td>/reɪs/</td><td>比赛</td><td>🏁</td><td>sports/race.png</td><td>🟦</td><td>Let us have a race</td></tr>
+<tr><td>10</td><td>champion</td><td>/ˈtʃæm.pi.ən/</td><td>冠军</td><td>🏆</td><td>sports/trophy.png</td><td>🟨</td><td>I am the champion today</td></tr>
+</tbody></table>
+<h3>16. 🎂 生日派对 Party Time</h3>
+<br>
+<table class="spec-table"><thead>
+<tr><th>#</th><th>word</th><th>phonetic</th><th>chinese</th><th>emoji</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>happy</td><td>/ˈhæp.i/</td><td>开心</td><td>😊</td><td>party/smile.png</td><td>⬜</td><td>I am so happy today</td></tr>
+<tr><td>2</td><td>sing</td><td>/sɪŋ/</td><td>唱歌</td><td>🎤</td><td>party/microphone.png</td><td>⬜</td><td>Let us sing a song</td></tr>
+<tr><td>3</td><td>gift</td><td>/ɡɪft/</td><td>礼物</td><td>🎁</td><td>party/gift.png</td><td>⬜</td><td>Thank you for the gift</td></tr>
+<tr><td>4</td><td>candle</td><td>/ˈkæn.dəl/</td><td>蜡烛</td><td>🕯️</td><td>party/candle.png</td><td>⬜</td><td>Blow out the candles</td></tr>
+<tr><td>5</td><td>candy</td><td>/ˈkæn.di/</td><td>糖果</td><td>🍬</td><td>party/candy.png</td><td>⬜</td><td>I love candy</td></tr>
+<tr><td>6</td><td>ice cream</td><td>/aɪs kriːm/</td><td>冰淇淋</td><td>🍦</td><td>party/ice-cream.png</td><td>⬜</td><td>I want ice cream please</td></tr>
+<tr><td>7</td><td>music</td><td>/ˈmjuː.zɪk/</td><td>音乐</td><td>🎵</td><td>party/music.png</td><td>⬜</td><td>I like this music</td></tr>
+<tr><td>8</td><td>clown</td><td>/klaʊn/</td><td>小丑</td><td>🤡</td><td>party/clown.png</td><td>🟦</td><td>The clown is very funny</td></tr>
+<tr><td>9</td><td>fireworks</td><td>/ˈfaɪr.wɜːrks/</td><td>烟花</td><td>🎆</td><td>party/fireworks.png</td><td>🟦</td><td>The fireworks are beautiful</td></tr>
+<tr><td>10</td><td>birthday</td><td>/ˈbɜːrθ.deɪ/</td><td>生日</td><td>🎂</td><td>party/birthday-cake.png</td><td>🟨</td><td>Happy birthday to you</td></tr>
+</tbody></table>
+</body>
+</html>
