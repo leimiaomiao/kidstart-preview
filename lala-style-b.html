@@ -3,67 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>风格B：像素游戏风</title>
+<title>风格B：像素风</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&family=Silkscreen:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a1a2e;display:flex;justify-content:center;padding:20px;min-height:100vh;font-family:'Silkscreen','ZCOOL QingKe HuangYou',monospace}
-.phone{width:375px;min-height:750px;background:#16213e;border-radius:50px;box-shadow:0 0 40px rgba(233,69,96,.2),0 20px 60px rgba(0,0,0,.3);overflow:hidden;border:8px solid #0f0f23}
-.notch{width:120px;height:32px;background:#0f0f23;border-radius:0 0 20px 20px;margin:0 auto}
-.screen{padding:16px 20px}
-.header{display:flex;justify-content:space-between;align-items:center;margin:12px 0 16px}
-h1{font-size:22px;color:#e94560;text-shadow:2px 2px 0 #0f0f23;letter-spacing:2px}
-.coins{background:#533483;padding:4px 10px;border-radius:4px;color:#ffd700;font-size:12px;border:2px solid #ffd700;image-rendering:pixelated}
-.pet-zone{background:#0f3460;border:3px solid #533483;border-radius:8px;padding:24px;text-align:center;margin-bottom:16px;position:relative;image-rendering:pixelated}
-.pixel-ground{height:4px;background:repeating-linear-gradient(90deg,#2a6041 0 8px,#1a4030 8px 16px);margin:0 -24px;margin-top:16px;border-radius:0 0 5px 5px}
-.pet{font-size:64px;display:block;margin-bottom:4px;animation:hop 1s steps(2) infinite}
-@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.pet-info{color:#e2e2e2;font-size:14px;margin-bottom:4px}
-.pet-level{color:#ffd700;font-size:11px}
-.hp-bar{width:70%;margin:8px auto 0;height:12px;background:#0f0f23;border:2px solid #533483;border-radius:2px;overflow:hidden;image-rendering:pixelated}
-.hp-fill{height:100%;background:repeating-linear-gradient(90deg,#e94560 0 4px,#c73a52 4px 8px);width:65%}
-.hp-label{font-size:9px;color:#e94560;text-align:center;margin-top:2px}
-.action-btn{display:block;width:100%;padding:18px;background:#e94560;border:3px solid #0f0f23;border-radius:8px;font-family:inherit;font-size:20px;color:#fff;cursor:pointer;text-align:center;margin-bottom:16px;box-shadow:0 4px 0 #a83250;text-shadow:1px 1px 0 #0f0f23;transition:transform .05s}
-.action-btn:active{transform:translateY(4px);box-shadow:none}
+body{font-family:'Noto Sans SC',sans-serif;background:#2a1f3d;display:flex;justify-content:center;padding:20px;min-height:100vh}
+.phone{width:375px;min-height:750px;background:#1a1028;border-radius:50px;box-shadow:0 20px 60px rgba(0,0,0,.4);overflow:hidden;border:8px solid #111;position:relative}
+.notch{width:120px;height:32px;background:#111;border-radius:0 0 20px 20px;margin:0 auto}
+.screen{padding:20px 24px}
+h1{font-family:'ZCOOL KuaiLe',cursive;font-size:28px;color:#ffde59;margin:16px 0 4px;text-shadow:2px 2px 0 #7b5e00}
+.subtitle{color:#a78bdb;font-size:12px;margin-bottom:20px;letter-spacing:2px}
+.pet-area{background:#241a38;border:3px solid #4a3570;border-radius:20px;padding:24px;text-align:center;margin-bottom:16px;image-rendering:pixelated;position:relative;overflow:hidden}
+.pet-area::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.05) 2px,rgba(0,0,0,.05) 4px);pointer-events:none}
+.pet{font-size:64px;display:block;margin-bottom:8px;animation:bounce 1s steps(4) infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.pet-name{font-family:'ZCOOL KuaiLe',cursive;font-size:18px;color:#ffde59}
+.pet-level{font-size:11px;color:#a78bdb;margin-top:4px}
+.hp-bar{width:70%;margin:8px auto 0;height:12px;background:#0a0612;border:2px solid #4a3570;border-radius:2px;overflow:hidden}
+.hp-fill{height:100%;background:linear-gradient(90deg,#ff6b6b,#ffde59,#69ff69);width:65%}
+.big-btn{display:block;width:100%;padding:18px;background:linear-gradient(180deg,#ff6bab,#ff4785);border:3px solid #fff;border-radius:16px;font-family:'ZCOOL KuaiLe',cursive;font-size:22px;color:#fff;cursor:pointer;text-align:center;margin-bottom:16px;box-shadow:0 4px 0 #b8004a,0 6px 12px rgba(255,71,133,.3);text-shadow:1px 1px 0 rgba(0,0,0,.3)}
+.big-btn:active{box-shadow:0 2px 0 #b8004a;transform:translateY(2px)}
 .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.stat{background:#0f3460;border:2px solid #533483;border-radius:6px;padding:10px 6px;text-align:center}
-.stat-num{font-size:22px;color:#ffd700}
-.stat-label{font-size:9px;color:#7a7aaf;margin-top:2px}
-.quest-board{background:#0f3460;border:2px solid #533483;border-radius:6px;padding:14px}
-.quest-title{color:#ffd700;font-size:13px;margin-bottom:10px;text-shadow:1px 1px 0 #0f0f23}
-.quest-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a3e}
-.quest-item:last-child{border:none}
-.quest-rank{font-size:14px;color:#e94560;width:18px}
-.quest-avatar{width:24px;height:24px;background:#533483;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;border:1px solid #7a5ab5}
-.quest-name{flex:1;font-size:11px;color:#e2e2e2}
-.quest-time{font-size:10px;color:#7a7aaf}
-.tab-bar{display:flex;justify-content:space-around;padding:12px 0 24px;border-top:2px solid #533483;margin-top:12px}
-.tab{text-align:center;color:#7a7aaf;font-size:9px}
-.tab.active{color:#e94560}
-.tab .icon{font-size:18px;display:block;margin-bottom:2px}
-.blink{animation:blink 1s steps(1) infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.stat{background:#241a38;border:2px solid #4a3570;border-radius:12px;padding:12px 6px;text-align:center}
+.stat-num{font-family:'ZCOOL KuaiLe',cursive;font-size:22px;color:#69ff69}
+.stat-label{font-size:10px;color:#a78bdb;margin-top:2px}
+.rank-card{background:#241a38;border:2px solid #4a3570;border-radius:16px;padding:14px}
+.rank-title{font-family:'ZCOOL KuaiLe',cursive;font-size:15px;color:#ffde59;margin-bottom:10px}
+.rank-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #30244a}
+.rank-item:last-child{border:none}
+.rank-num{font-family:'ZCOOL KuaiLe',cursive;font-size:14px;width:18px;color:#ff6bab}
+.rank-name{flex:1;font-size:12px;color:#e0d0ff}
+.rank-time{font-size:10px;color:#a78bdb}
+.tab-bar{display:flex;justify-content:space-around;padding:10px 0 28px;border-top:2px solid #4a3570;margin-top:12px}
+.tab-item{text-align:center;font-size:10px;color:#a78bdb}
+.tab-item.active{color:#ffde59}
+.tab-item .icon{font-size:18px;display:block;margin-bottom:2px}
+.coin{display:inline-block;font-size:9px;background:#ffde59;color:#1a1028;padding:1px 5px;border-radius:6px;font-weight:bold;margin-left:3px}
 </style>
 </head>
 <body>
 <div class="phone">
   <div class="notch"></div>
   <div class="screen">
-    <div class="header">
-      <h1>LALAME<span class="blink">_</span></h1>
-      <div class="coins">⭐ 320</div>
-    </div>
+    <h1>拉了吗 🎮</h1>
+    <p class="subtitle">▶ PRESS START TO POOP</p>
 
-    <div class="pet-zone">
+    <div class="pet-area">
       <span class="pet">💩</span>
-      <div class="pet-info">小软团</div>
-      <div class="pet-level">★★☆☆☆ LV.2</div>
+      <div class="pet-name">小软团 ★★☆☆☆</div>
+      <div class="pet-level">LV.2 | EXP 65/100 <span class="coin">+10</span></div>
       <div class="hp-bar"><div class="hp-fill"></div></div>
-      <div class="hp-label">EXP 65/100</div>
-      <div class="pixel-ground"></div>
     </div>
 
-    <button class="action-btn">💩 PUSH!!</button>
+    <button class="big-btn">💩 START!</button>
 
     <div class="stats">
       <div class="stat"><div class="stat-num">1</div><div class="stat-label">TODAY</div></div>
@@ -71,18 +63,18 @@ h1{font-size:22px;color:#e94560;text-shadow:2px 2px 0 #0f0f23;letter-spacing:2px
       <div class="stat"><div class="stat-num">🍌</div><div class="stat-label">LAST</div></div>
     </div>
 
-    <div class="quest-board">
-      <div class="quest-title">🏆 DAILY RANKING</div>
-      <div class="quest-item"><span class="quest-rank">#1</span><div class="quest-avatar">💩</div><span class="quest-name">poop#3721</span><span class="quest-time">06:32</span></div>
-      <div class="quest-item"><span class="quest-rank">#2</span><div class="quest-avatar">💩</div><span class="quest-name">poop#8842</span><span class="quest-time">07:15</span></div>
-      <div class="quest-item"><span class="quest-rank">#3</span><div class="quest-avatar">💩</div><span class="quest-name">YOU!</span><span class="quest-time">08:41</span></div>
+    <div class="rank-card">
+      <div class="rank-title">🏆 HIGH SCORE</div>
+      <div class="rank-item"><span class="rank-num">1</span><span>💩</span><span class="rank-name">便便#3721</span><span class="rank-time">06:32</span></div>
+      <div class="rank-item"><span class="rank-num">2</span><span>💩</span><span class="rank-name">便便#8842</span><span class="rank-time">07:15</span></div>
+      <div class="rank-item"><span class="rank-num">3</span><span>💩</span><span class="rank-name">★ 我 ★</span><span class="rank-time">08:41</span></div>
     </div>
 
     <div class="tab-bar">
-      <div class="tab active"><span class="icon">🏠</span>HOME</div>
-      <div class="tab"><span class="icon">📊</span>LOG</div>
-      <div class="tab"><span class="icon">💬</span>CHAT</div>
-      <div class="tab"><span class="icon">👤</span>ME</div>
+      <div class="tab-item active"><span class="icon">🏠</span>首页</div>
+      <div class="tab-item"><span class="icon">📊</span>记录</div>
+      <div class="tab-item"><span class="icon">💬</span>树洞</div>
+      <div class="tab-item"><span class="icon">👤</span>我的</div>
     </div>
   </div>
 </div>
