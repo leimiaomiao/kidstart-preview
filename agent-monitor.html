@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏴‍☠️ 草帽团 Agent 监控</title>
+<meta http-equiv="refresh" content="120">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;padding:16px;max-width:600px;margin:0 auto}
+h1{font-size:20px;margin-bottom:4px;text-align:center}
+.update-time{text-align:center;font-size:12px;color:#7d8590;margin-bottom:16px}
+.agent{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin-bottom:12px}
+.agent-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.agent-avatar{font-size:28px}
+.agent-name{font-size:16px;font-weight:600}
+.agent-role{font-size:12px;color:#7d8590}
+.status{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;margin-left:auto}
+.status-working{background:#1f6f2b;color:#3fb950}
+.status-idle{background:#3d2e00;color:#d29922}
+.status-error{background:#5c1a1a;color:#f85149}
+.status-stuck{background:#5c1a1a;color:#f85149;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.last-action{font-size:13px;color:#b1bac4;margin-top:8px;padding:8px;background:#0d1117;border-radius:8px;line-height:1.5}
+.last-action .time{color:#7d8590;font-size:11px}
+.task{font-size:12px;color:#7d8590;margin-top:6px;padding-left:8px;border-left:2px solid #30363d}
+.legend{display:flex;gap:12px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:4px;font-size:11px;color:#7d8590}
+.legend-dot{width:8px;height:8px;border-radius:50%}
+.dot-working{background:#3fb950}
+.dot-idle{background:#d29922}
+.dot-error{background:#f85149}
+</style>
+</head>
+<body>
+<h1>🏴‍☠️ 草帽团 Agent 监控</h1>
+<div class="update-time" id="updateTime">更新于 2026-03-28 21:09:17 (每2分钟由乔巴更新)</div>
+<div class="legend">
+<span class="legend-item"><span class="legend-dot dot-working"></span>工作中</span>
+<span class="legend-item"><span class="legend-dot dot-idle"></span>待命</span>
+<span class="legend-item"><span class="legend-dot dot-error"></span>卡住/错误</span>
+</div>
+<div id="agents"><div class="agent">
+  <div class="agent-header">
+    <span class="agent-avatar">🍊</span>
+    <div><div class="agent-name">娜美</div><div class="agent-role">PM · 调研/Spec/设计</div></div>
+    <span class="status status-idle">待命</span>
+  </div>
+  <div class="last-action">
+    暂无活动
+    <div class="time">--:--</div>
+  </div>
+</div><div class="agent">
+  <div class="agent-header">
+    <span class="agent-avatar">⚔️</span>
+    <div><div class="agent-name">索隆</div><div class="agent-role">开发 · 写代码/PR</div></div>
+    <span class="status status-idle">待命</span>
+  </div>
+  <div class="last-action">
+    暂无活动
+    <div class="time">--:--</div>
+  </div>
+</div><div class="agent">
+  <div class="agent-header">
+    <span class="agent-avatar">🔧</span>
+    <div><div class="agent-name">弗兰奇</div><div class="agent-role">QA · 验收/编译</div></div>
+    <span class="status status-idle">待命</span>
+  </div>
+  <div class="last-action">
+    暂无活动
+    <div class="time">--:--</div>
+  </div>
+</div><div class="agent">
+  <div class="agent-header">
+    <span class="agent-avatar">🦌</span>
+    <div><div class="agent-name">乔巴</div><div class="agent-role">调度员 · 派活/跟进</div></div>
+    <span class="status status-idle">待命</span>
+  </div>
+  <div class="last-action">
+    暂无活动
+    <div class="time">--:--</div>
+  </div>
+</div>
+</div>
+<script>document.getElementById('updateTime').textContent='更新于 '+new Date().toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})+' (每2分钟自动刷新)';</script>
+</body>
+</html>
