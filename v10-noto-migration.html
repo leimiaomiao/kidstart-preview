@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KidStart v10 Noto 全面素材替换方案</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,system-ui,sans-serif;padding:16px;max-width:100%;background:#f8f9fa;color:#333;font-size:14px;line-height:1.6}
+h1{font-size:20px;margin:20px 0 10px;color:#1a1a2e}
+h2{font-size:17px;margin:18px 0 8px;color:#16213e;border-bottom:2px solid #e94560;padding-bottom:4px}
+h3{font-size:15px;margin:14px 0 6px;color:#0f3460}
+blockquote{background:#fff3cd;padding:8px 12px;border-left:3px solid #ffc107;margin:8px 0;border-radius:4px;font-size:13px}
+p,li{margin:4px 0}
+li{margin-left:20px}
+code{background:#e9ecef;padding:1px 4px;border-radius:3px;font-size:12px}
+strong{color:#e94560}
+.t{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px;display:block;overflow-x:auto;white-space:nowrap}
+.t th{background:#1a1a2e;color:#fff;padding:6px 8px;text-align:left;position:sticky;top:0}
+.t td{padding:5px 8px;border-bottom:1px solid #dee2e6}
+.t tr:nth-child(even){background:#f8f9fa}
+.t tr:hover{background:#e8f4f8}
+.new{background:#d4edda !important}
+.changed{background:#fff3cd !important}
+.badge{display:inline-block;padding:1px 6px;border-radius:8px;font-size:10px;color:#fff;margin-left:4px}
+.badge-new{background:#28a745}
+.badge-changed{background:#ffc107;color:#333}
+.badge-keep{background:#6c757d}
+br{display:block;margin:4px 0}
+</style>
+</head>
+<body>
+<h1>KidStart v10：Noto 素材全面替换方案</h1>
+<blockquote>娜美 🍊 | 2026-03-28 | 以 noto/ 19 个分类为基准重构场景体系</blockquote>
+<br>
+<h2>核心变化</h2>
+<li>场景从 <strong>16 → 19 个</strong>，与 noto 文件夹 <strong>1:1 对应</strong></li>
+<li>总词量 <strong>160 → 190 词</strong>（每场景 10 词）</li>
+<li>所有图片路径改为 <code>noto/{category}/{filename}.png</code>，<strong>不再使用虚构路径</strong></li>
+<li>每个词的 image path <strong>必须对应 noto/ 下的真实文件</strong></li>
+<li>全部学完周期：<strong>38 天</strong>（190÷5）</li>
+<br>
+<h2>v8 → v10 场景对照</h2>
+<br>
+<table class="t"><thead>
+<tr><th>#</th><th>Noto 文件夹</th><th>v10 场景</th><th>英文名</th><th>词数</th><th>vs v8</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>fruits</td><td>🍎 水果乐园</td><td>Fruit Garden</td><td>10</td><td><span class="badge badge-changed">改名+换词</span></td></tr>
+<tr><td>2</td><td>animals</td><td>🐾 动物王国</td><td>Animal Kingdom</td><td>10</td><td><span class="badge badge-changed">扩充素材</span></td></tr>
+<tr><td>3</td><td>food</td><td>🍔 美食街</td><td>Food Street</td><td>10</td><td><span class="badge badge-changed">图片路径修正</span></td></tr>
+<tr><td>4</td><td>vegetables</td><td>🥦 蔬菜市场</td><td>Veggie Market</td><td>10</td><td><span class="badge badge-new">新场景</span></td></tr>
+<tr><td>5</td><td>drinks</td><td>🥤 饮料吧</td><td>Drink Bar</td><td>7</td><td><span class="badge badge-new">新场景(7词)</span></td></tr>
+<tr><td>6</td><td>body</td><td>🖐️ 身体乐园</td><td>Body Land</td><td>10</td><td><span class="badge badge-keep">保留</span></td></tr>
+<tr><td>7</td><td>clothes</td><td>👕 衣服衣柜</td><td>Clothes Closet</td><td>10</td><td><span class="badge badge-changed">图片对齐</span></td></tr>
+<tr><td>8</td><td>feelings</td><td>😊 情绪花园</td><td>Feelings Garden</td><td>10</td><td><span class="badge badge-new">新场景</span></td></tr>
+<tr><td>9</td><td>home</td><td>🏠 温馨小家</td><td>Sweet Home</td><td>10</td><td><span class="badge badge-changed">重组</span></td></tr>
+<tr><td>10</td><td>plants</td><td>🌻 植物花园</td><td>Plant Garden</td><td>10</td><td><span class="badge badge-new">新场景</span></td></tr>
+<tr><td>11</td><td>weather</td><td>☀️ 天气天空</td><td>Weather Sky</td><td>10</td><td><span class="badge badge-changed">图片对齐</span></td></tr>
+<tr><td>12</td><td>transport</td><td>🚗 交通城市</td><td>Transport City</td><td>10</td><td><span class="badge badge-keep">保留</span></td></tr>
+<tr><td>13</td><td>shapes</td><td>🔴 缤纷色彩</td><td>Color Shapes</td><td>6</td><td><span class="badge badge-changed">缩减为6词</span></td></tr>
+<tr><td>14</td><td>instruments</td><td>🎵 音乐教室</td><td>Music Room</td><td>9</td><td><span class="badge badge-new">新场景(9词)</span></td></tr>
+<tr><td>15</td><td>professions</td><td>👨‍⚕️ 梦想职业</td><td>Dream Jobs</td><td>10</td><td><span class="badge badge-new">新场景</span></td></tr>
+<tr><td>16</td><td>tools</td><td>🔧 工具工坊</td><td>Tool Workshop</td><td>10</td><td><span class="badge badge-new">新场景</span></td></tr>
+<tr><td>17</td><td>activities</td><td>🎉 活动派对</td><td>Fun Activities</td><td>10</td><td><span class="badge badge-changed">重组</span></td></tr>
+</tbody></table>
+<br>
+<blockquote>⚠️ <strong>删除的 v8 场景</strong>：number-park（shapes 无数字素材）、family-home（无 family 素材）、school-class（并入 home）、playground（并入 plants+animals）、ocean-world（并入 animals）、space-voyage（无素材）、sports-field（并入 activities）、party-time（并入 activities）。这些场景的核心词汇已重新分配到对应的 noto 分类场景中。</blockquote>
+<br>
+<h2>解锁机制</h2>
+<li>第1批（#1-4）：默认解锁</li>
+<li>第2批（#5-7）：累计学20词</li>
+<li>第3批（#8-10）：累计学40词</li>
+<li>第4批（#11-13）：累计学60词</li>
+<li>第5批（#14-17）：累计学80词</li>
+<br>
+<h2>各场景词汇表（全部对应 noto/ 真实文件）</h2>
+<br>
+<h3>1. 🍎 水果乐园 Fruit Garden — noto/fruits/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>apple</td><td>苹果</td><td>fruits/red-apple.png</td><td>⬜</td><td>I like apples</td></tr>
+<tr><td>2</td><td>banana</td><td>香蕉</td><td>fruits/banana.png</td><td>⬜</td><td>The monkey eats a banana</td></tr>
+<tr><td>3</td><td>orange</td><td>橙子</td><td>fruits/orange.png</td><td>⬜</td><td>I drink orange juice</td></tr>
+<tr><td>4</td><td>grape</td><td>葡萄</td><td>fruits/grape.png</td><td>⬜</td><td>These grapes are sweet</td></tr>
+<tr><td>5</td><td>watermelon</td><td>西瓜</td><td>fruits/watermelon.png</td><td>⬜</td><td>Watermelon is big and sweet</td></tr>
+<tr><td>6</td><td>strawberry</td><td>草莓</td><td>fruits/strawberry.png</td><td>⬜</td><td>I love strawberry cake</td></tr>
+<tr><td>7</td><td>pear</td><td>梨</td><td>fruits/pear.png</td><td>⬜</td><td>The pear is green</td></tr>
+<tr><td>8</td><td>peach</td><td>桃子</td><td>fruits/peach.png</td><td>🟦</td><td>This peach smells good</td></tr>
+<tr><td>9</td><td>cherry</td><td>樱桃</td><td>fruits/cherry.png</td><td>🟦</td><td>Cherries are small and red</td></tr>
+<tr><td>10</td><td>pineapple</td><td>菠萝</td><td>fruits/pineapple.png</td><td>🟨</td><td>Pineapple is sweet and sour</td></tr>
+</tbody></table>
+
+<h3>2. 🐾 动物王国 Animal Kingdom — noto/animals/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>cat</td><td>猫</td><td>animals/cat.png</td><td>⬜</td><td>The cat is sleeping</td></tr>
+<tr><td>2</td><td>dog</td><td>狗</td><td>animals/dog.png</td><td>⬜</td><td>My dog is very cute</td></tr>
+<tr><td>3</td><td>rabbit</td><td>兔子</td><td>animals/rabbit.png</td><td>⬜</td><td>The rabbit likes carrots</td></tr>
+<tr><td>4</td><td>elephant</td><td>大象</td><td>animals/elephant.png</td><td>⬜</td><td>The elephant is very big</td></tr>
+<tr><td>5</td><td>lion</td><td>狮子</td><td>animals/lion.png</td><td>⬜</td><td>The lion is the king</td></tr>
+<tr><td>6</td><td>monkey</td><td>猴子</td><td>animals/monkey.png</td><td>⬜</td><td>The monkey climbs the tree</td></tr>
+<tr><td>7</td><td>penguin</td><td>企鹅</td><td>animals/penguin.png</td><td>⬜</td><td>Penguins live in the cold</td></tr>
+<tr><td>8</td><td>butterfly</td><td>蝴蝶</td><td>animals/butterfly.png</td><td>🟦</td><td>The butterfly is colorful</td></tr>
+<tr><td>9</td><td>dolphin</td><td>海豚</td><td>animals/dolphin.png</td><td>🟦</td><td>The dolphin jumps high</td></tr>
+<tr><td>10</td><td>dinosaur</td><td>恐龙</td><td>animals/dinosaur.png</td><td>🟨</td><td>Dinosaurs lived long ago</td></tr>
+</tbody></table>
+
+<h3>3. 🍔 美食街 Food Street — noto/food/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>bread</td><td>面包</td><td>food/bread.png</td><td>⬜</td><td>I eat bread for breakfast</td></tr>
+<tr><td>2</td><td>rice</td><td>米饭</td><td>food/rice.png</td><td>⬜</td><td>I love eating rice</td></tr>
+<tr><td>3</td><td>egg</td><td>鸡蛋</td><td>food/egg.png</td><td>⬜</td><td>I have an egg every day</td></tr>
+<tr><td>4</td><td>pizza</td><td>披萨</td><td>food/pizza.png</td><td>⬜</td><td>Pizza is my favorite food</td></tr>
+<tr><td>5</td><td>cake</td><td>蛋糕</td><td>food/cake.png</td><td>⬜</td><td>We eat cake on birthdays</td></tr>
+<tr><td>6</td><td>cookie</td><td>饼干</td><td>food/cookie.png</td><td>⬜</td><td>Can I have a cookie</td></tr>
+<tr><td>7</td><td>noodle</td><td>面条</td><td>food/noodle-soup.png</td><td>⬜</td><td>I want to eat noodles</td></tr>
+<tr><td>8</td><td>hamburger</td><td>汉堡</td><td>food/hamburger.png</td><td>🟦</td><td>I love hamburgers</td></tr>
+<tr><td>9</td><td>chocolate</td><td>巧克力</td><td>food/chocolate.png</td><td>🟦</td><td>I love chocolate so much</td></tr>
+<tr><td>10</td><td>sushi</td><td>寿司</td><td>food/sushi.png</td><td>🟨</td><td>Sushi is from Japan</td></tr>
+</tbody></table>
+
+<h3>4. 🥦 蔬菜市场 Veggie Market — noto/vegetables/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>carrot</td><td>胡萝卜</td><td>vegetables/carrot.png</td><td>⬜</td><td>Rabbits love carrots</td></tr>
+<tr><td>2</td><td>corn</td><td>玉米</td><td>vegetables/corn.png</td><td>⬜</td><td>Corn is yellow and sweet</td></tr>
+<tr><td>3</td><td>potato</td><td>土豆</td><td>vegetables/potato.png</td><td>⬜</td><td>I like french fries from potatoes</td></tr>
+<tr><td>4</td><td>broccoli</td><td>西兰花</td><td>vegetables/broccoli.png</td><td>⬜</td><td>Broccoli is good for you</td></tr>
+<tr><td>5</td><td>mushroom</td><td>蘑菇</td><td>vegetables/mushroom.png</td><td>⬜</td><td>I like mushroom soup</td></tr>
+<tr><td>6</td><td>onion</td><td>洋葱</td><td>vegetables/onion.png</td><td>⬜</td><td>Onions make me cry</td></tr>
+<tr><td>7</td><td>cucumber</td><td>黄瓜</td><td>vegetables/cucumber.png</td><td>⬜</td><td>Cucumbers are crunchy</td></tr>
+<tr><td>8</td><td>eggplant</td><td>茄子</td><td>vegetables/eggplant.png</td><td>🟦</td><td>The eggplant is purple</td></tr>
+<tr><td>9</td><td>pepper</td><td>辣椒</td><td>vegetables/hot-pepper.png</td><td>🟦</td><td>The pepper is very spicy</td></tr>
+<tr><td>10</td><td>sweet potato</td><td>红薯</td><td>vegetables/sweet-potato.png</td><td>🟨</td><td>Sweet potatoes are yummy</td></tr>
+</tbody></table>
+
+<h3>5. 🥤 饮料吧 Drink Bar — noto/drinks/（7词）</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>milk</td><td>牛奶</td><td>drinks/milk.png</td><td>⬜</td><td>Milk is good for you</td></tr>
+<tr><td>2</td><td>juice</td><td>果汁</td><td>drinks/juice-box.png</td><td>⬜</td><td>I want some apple juice</td></tr>
+<tr><td>3</td><td>tea</td><td>茶</td><td>drinks/tea.png</td><td>⬜</td><td>Grandma drinks tea</td></tr>
+<tr><td>4</td><td>coffee</td><td>咖啡</td><td>drinks/coffee.png</td><td>⬜</td><td>Dad drinks coffee</td></tr>
+<tr><td>5</td><td>bubble tea</td><td>奶茶</td><td>drinks/bubble-tea.png</td><td>🟦</td><td>I love bubble tea</td></tr>
+<tr><td>6</td><td>bottle</td><td>奶瓶</td><td>drinks/baby-bottle.png</td><td>⬜</td><td>The baby has a bottle</td></tr>
+<tr><td>7</td><td>soda</td><td>汽水</td><td>drinks/cup-with-straw.png</td><td>🟨</td><td>Can I have some soda</td></tr>
+</tbody></table>
+
+<h3>6. 🖐️ 身体乐园 Body Land — noto/body/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>eye</td><td>眼睛</td><td>body/eyes.png</td><td>⬜</td><td>I have two eyes</td></tr>
+<tr><td>2</td><td>nose</td><td>鼻子</td><td>body/nose.png</td><td>⬜</td><td>My nose can smell flowers</td></tr>
+<tr><td>3</td><td>mouth</td><td>嘴巴</td><td>body/mouth.png</td><td>⬜</td><td>Open your mouth please</td></tr>
+<tr><td>4</td><td>ear</td><td>耳朵</td><td>body/ear.png</td><td>⬜</td><td>I hear with my ears</td></tr>
+<tr><td>5</td><td>foot</td><td>脚</td><td>body/foot.png</td><td>⬜</td><td>I have two feet</td></tr>
+<tr><td>6</td><td>tooth</td><td>牙齿</td><td>body/tooth.png</td><td>⬜</td><td>Brush your teeth every day</td></tr>
+<tr><td>7</td><td>tongue</td><td>舌头</td><td>body/tongue.png</td><td>⬜</td><td>Stick out your tongue</td></tr>
+<tr><td>8</td><td>bone</td><td>骨头</td><td>body/bone.png</td><td>🟦</td><td>Dogs love bones</td></tr>
+<tr><td>9</td><td>muscle</td><td>肌肉</td><td>body/muscle.png</td><td>🟦</td><td>I am very strong</td></tr>
+<tr><td>10</td><td>leg</td><td>腿</td><td>body/leg.png</td><td>🟨</td><td>I run with my legs</td></tr>
+</tbody></table>
+
+<h3>7. 👕 衣服衣柜 Clothes Closet — noto/clothes/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>hat</td><td>帽子</td><td>clothes/hat.png</td><td>⬜</td><td>I like my red hat</td></tr>
+<tr><td>2</td><td>dress</td><td>裙子</td><td>clothes/dress.png</td><td>⬜</td><td>She wears a pretty dress</td></tr>
+<tr><td>3</td><td>coat</td><td>外套</td><td>clothes/coat.png</td><td>⬜</td><td>Wear your coat it is cold</td></tr>
+<tr><td>4</td><td>shoe</td><td>鞋子</td><td>clothes/shoe.png</td><td>⬜</td><td>Put on your shoes</td></tr>
+<tr><td>5</td><td>socks</td><td>袜子</td><td>clothes/socks.png</td><td>⬜</td><td>My socks are colorful</td></tr>
+<tr><td>6</td><td>scarf</td><td>围巾</td><td>clothes/scarf.png</td><td>⬜</td><td>The scarf is warm</td></tr>
+<tr><td>7</td><td>gloves</td><td>手套</td><td>clothes/gloves.png</td><td>⬜</td><td>I need my gloves</td></tr>
+<tr><td>8</td><td>glasses</td><td>眼镜</td><td>clothes/glasses.png</td><td>🟦</td><td>Grandpa wears glasses</td></tr>
+<tr><td>9</td><td>backpack</td><td>书包</td><td>clothes/backpack.png</td><td>🟦</td><td>My backpack is heavy</td></tr>
+<tr><td>10</td><td>crown</td><td>皇冠</td><td>clothes/crown.png</td><td>🟨</td><td>The princess wears a crown</td></tr>
+</tbody></table>
+
+<h3>8. 😊 情绪花园 Feelings Garden — noto/feelings/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>happy</td><td>开心</td><td>feelings/happy.png</td><td>⬜</td><td>I am so happy today</td></tr>
+<tr><td>2</td><td>sad</td><td>伤心</td><td>feelings/sad.png</td><td>⬜</td><td>Why are you sad</td></tr>
+<tr><td>3</td><td>angry</td><td>生气</td><td>feelings/angry.png</td><td>⬜</td><td>Do not be angry</td></tr>
+<tr><td>4</td><td>scared</td><td>害怕</td><td>feelings/scared.png</td><td>⬜</td><td>Are you scared of the dark</td></tr>
+<tr><td>5</td><td>surprised</td><td>惊讶</td><td>feelings/surprised.png</td><td>⬜</td><td>What a big surprise</td></tr>
+<tr><td>6</td><td>sleepy</td><td>困了</td><td>feelings/sleepy.png</td><td>⬜</td><td>I am so sleepy now</td></tr>
+<tr><td>7</td><td>sick</td><td>生病</td><td>feelings/sick.png</td><td>⬜</td><td>I feel a little sick</td></tr>
+<tr><td>8</td><td>love</td><td>爱</td><td>feelings/love.png</td><td>🟦</td><td>I love you so much</td></tr>
+<tr><td>9</td><td>cool</td><td>酷</td><td>feelings/cool.png</td><td>🟦</td><td>That is so cool</td></tr>
+<tr><td>10</td><td>thinking</td><td>思考</td><td>feelings/thinking.png</td><td>🟨</td><td>I am thinking hard</td></tr>
+</tbody></table>
+
+<h3>9. 🏠 温馨小家 Sweet Home — noto/home/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>house</td><td>房子</td><td>home/house.png</td><td>⬜</td><td>This is my house</td></tr>
+<tr><td>2</td><td>bed</td><td>床</td><td>home/bed.png</td><td>⬜</td><td>Time to go to bed</td></tr>
+<tr><td>3</td><td>door</td><td>门</td><td>home/door.png</td><td>⬜</td><td>Please close the door</td></tr>
+<tr><td>4</td><td>window</td><td>窗户</td><td>home/window.png</td><td>⬜</td><td>Open the window please</td></tr>
+<tr><td>5</td><td>chair</td><td>椅子</td><td>home/chair.png</td><td>⬜</td><td>Sit on the chair</td></tr>
+<tr><td>6</td><td>book</td><td>书</td><td>home/book.png</td><td>⬜</td><td>I read a book every day</td></tr>
+<tr><td>7</td><td>key</td><td>钥匙</td><td>home/key.png</td><td>⬜</td><td>Where is my key</td></tr>
+<tr><td>8</td><td>phone</td><td>手机</td><td>home/phone.png</td><td>🟦</td><td>Mom is on the phone</td></tr>
+<tr><td>9</td><td>computer</td><td>电脑</td><td>home/computer.png</td><td>🟦</td><td>I play games on the computer</td></tr>
+<tr><td>10</td><td>light bulb</td><td>灯泡</td><td>home/light-bulb.png</td><td>🟨</td><td>Turn on the light</td></tr>
+</tbody></table>
+
+<h3>10. 🌻 植物花园 Plant Garden — noto/plants/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>tree</td><td>树</td><td>plants/tree.png</td><td>⬜</td><td>The tree is very tall</td></tr>
+<tr><td>2</td><td>flower</td><td>花</td><td>plants/tulip.png</td><td>⬜</td><td>The flower is beautiful</td></tr>
+<tr><td>3</td><td>rose</td><td>玫瑰</td><td>plants/rose.png</td><td>⬜</td><td>The rose is red</td></tr>
+<tr><td>4</td><td>sunflower</td><td>向日葵</td><td>plants/sunflower.png</td><td>⬜</td><td>Sunflowers face the sun</td></tr>
+<tr><td>5</td><td>leaf</td><td>叶子</td><td>plants/fallen-leaf.png</td><td>⬜</td><td>The leaf falls in autumn</td></tr>
+<tr><td>6</td><td>cactus</td><td>仙人掌</td><td>plants/cactus.png</td><td>⬜</td><td>Do not touch the cactus</td></tr>
+<tr><td>7</td><td>palm tree</td><td>棕榈树</td><td>plants/palm-tree.png</td><td>⬜</td><td>Palm trees grow on the beach</td></tr>
+<tr><td>8</td><td>bouquet</td><td>花束</td><td>plants/bouquet.png</td><td>🟦</td><td>A bouquet for mom</td></tr>
+<tr><td>9</td><td>clover</td><td>四叶草</td><td>plants/four-leaf-clover.png</td><td>🟦</td><td>A four leaf clover is lucky</td></tr>
+<tr><td>10</td><td>maple leaf</td><td>枫叶</td><td>plants/maple-leaf.png</td><td>🟨</td><td>Maple leaves turn red</td></tr>
+</tbody></table>
+
+<h3>11. ☀️ 天气天空 Weather Sky — noto/weather/</h3>
+<table class="t"><thead>
+<tr><th>#</th><th>word</th><th>中文</th><th>image path</th><th>rarity</th><th>sentence</th></tr>
+</thead><tbody>
+<tr><td>1</td><td>sun</td><td>太阳</td><td>weather/sun.png</td><td>⬜</td><td>The sun is bright</td></tr>
+<tr><td>2</td><td>rain</td><td>雨</td><td>weather/rain.png</td><td>⬜</td><td>It is raining today</td></tr>
+<tr><td>3</td><td>cloud</td><td>云</td><td>weather/cloud.png</td><td>⬜</td><td>The clouds are white</td></tr>
+<tr><td>4</td><td>snowflake</td><td>雪花</td><td>weather/snowflake.png</td><td>⬜</td><td>Each snowflake is different</td></tr>
+<tr><td>5</td><td>rainbow</td><td>彩虹</td><td>weather/rainbow.png</td><td>⬜</td><td>The rainbow is so pretty</td></tr>
+<tr><td>6</td><td>star</td><td>星星</td><td>weather/star.png</td><td>⬜</td><td>I can see many stars</td></tr>
+<tr><td>7</td><td>moon</td><td>月亮</td><td>weather/moon.png</td><td>⬜</td><td>The moon is round tonight</td></tr>
+<tr><td>8</td><td>fire</td><td>火</td><td>weather/fire.png</td><td>🟦</td><td>Fire is hot be careful</td></tr>
+<tr><td>9</td><td>wave</td><td>海浪</td><td>weather/wave.png</td><td>🟦</td><td>The waves are so big</td></tr>
+<tr><td>10</td><td>thunderstorm</td><td>雷暴</td><td>weather/thunderstorm.png</td><td>🟨</td><td>The thunderstorm is loud</td></tr>
+</tbody></table>
+
+<!-- MORE_SCENES_2 -->
+</body>
+</html>
