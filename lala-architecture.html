@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拉了吗 - 技术架构</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;padding:16px;max-width:600px;margin:0 auto}
+h1{font-size:20px;text-align:center;margin-bottom:16px}
+h2{font-size:16px;color:#58a6ff;margin:16px 0 8px;border-bottom:1px solid #30363d;padding-bottom:4px}
+h3{font-size:14px;color:#f0883e;margin:12px 0 6px}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:14px;margin-bottom:12px}
+.tech{display:inline-block;background:#1f6f2b;color:#3fb950;padding:2px 8px;border-radius:8px;font-size:11px;margin:2px}
+.file{font-family:monospace;font-size:12px;color:#7ee787;background:#0d1117;padding:2px 6px;border-radius:4px}
+.layer{border-left:3px solid #58a6ff;padding-left:10px;margin:8px 0}
+.layer.data{border-color:#f0883e}
+.layer.ui{border-color:#3fb950}
+.layer.infra{border-color:#bc8cff}
+ul{padding-left:16px;font-size:13px;line-height:1.8}
+li{color:#b1bac4}
+.emoji{font-size:16px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.stat{background:#0d1117;border-radius:8px;padding:8px;text-align:center}
+.stat-num{font-size:20px;font-weight:bold;color:#58a6ff}
+.stat-label{font-size:11px;color:#7d8590}
+.tree{font-family:monospace;font-size:11px;color:#7d8590;background:#0d1117;padding:10px;border-radius:8px;line-height:1.6;overflow-x:auto;white-space:pre}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:8px 0;font-size:12px}
+.flow-item{background:#1f6f2b;color:#3fb950;padding:4px 10px;border-radius:16px}
+.flow-arrow{color:#7d8590}
+.status{display:inline-block;padding:1px 6px;border-radius:8px;font-size:10px;font-weight:600}
+.done{background:#1f6f2b;color:#3fb950}
+.wip{background:#3d2e00;color:#d29922}
+.todo{background:#21262d;color:#7d8590}
+</style>
+</head>
+<body>
+<h1>🏗️ 拉了吗 · 技术架构</h1>
+
+<div class="card">
+<h2>📊 项目概况</h2>
+<div class="stats">
+<div class="stat"><div class="stat-num">4,363</div><div class="stat-label">行代码</div></div>
+<div class="stat"><div class="stat-num">22</div><div class="stat-label">文件</div></div>
+<div class="stat"><div class="stat-num">8</div><div class="stat-label">组件</div></div>
+<div class="stat"><div class="stat-num">4</div><div class="stat-label">页面</div></div>
+</div>
+<div>
+<span class="tech">React Native</span>
+<span class="tech">Expo</span>
+<span class="tech">TypeScript</span>
+<span class="tech">Zustand</span>
+<span class="tech">Supabase</span>
+<span class="tech">expo-router</span>
+</div>
+</div>
+
+<div class="card">
+<h2>📁 目录结构</h2>
+<div class="tree">lala/
+├── app/
+│   ├── _layout.tsx          # 根布局 (Stack)
+│   ├── (tabs)/
+│   │   ├── _layout.tsx      # Tab 导航
+│   │   ├── index.tsx        # 🏠 首页（打卡+角色）
+│   │   ├── record.tsx       # 📊 记录（热力图）
+│   │   ├── community.tsx    # 💬 树洞（社区）
+│   │   └── profile.tsx      # 👤 我的（成就）
+│   └── modal/
+│       └── check-in.tsx     # 打卡弹窗（278行）
+├── components/
+│   ├── BigPoopButton.tsx    # 💩 大按钮
+│   ├── BristolPicker.tsx    # Bristol 分型选择
+│   ├── MoodPicker.tsx       # 心情选择
+│   ├── CharacterDisplay.tsx # 角色展示+动画
+│   ├── CalendarHeatmap.tsx  # 热力图日历
+│   ├── LeaderboardCard.tsx  # 排行榜卡片
+│   ├── PostCard.tsx         # 帖子卡片
+│   └── AchievementBadge.tsx # 成就徽章
+├── lib/
+│   ├── types.ts             # 全局类型定义
+│   ├── store.ts             # Zustand 状态管理
+│   ├── character.ts         # 角色进化+EXP系统
+│   └── supabase.ts          # Supabase 客户端
+├── constants/
+│   ├── theme.ts             # 主题色/字体/间距
+│   ├── bristol.ts           # Bristol 量表数据
+│   └── achievements.ts      # 成就定义
+└── docs/
+    └── specs/               # 产品 spec</div>
+</div>
+
+<div class="card">
+<h2>🧩 架构分层</h2>
+
+<div class="layer ui">
+<h3>UI 层 — app/ + components/</h3>
+<ul>
+<li>expo-router 文件路由（Tab 导航 + Modal）</li>
+<li>8个可复用组件，涂鸦风设计</li>
+<li>BigPoopButton: spring动画 + 缩放旋转</li>
+<li>CharacterDisplay: 心情状态动画（开心弹跳/难过下雨）</li>
+</ul>
+</div>
+
+<div class="layer data">
+<h3>状态层 — lib/store.ts (Zustand)</h3>
+<ul>
+<li>全局 Store：用户/角色/记录/社区/UI 状态</li>
+<li>Actions：addRecord、updateCharacter、setUser…</li>
+<li>Computed：getTodayRecords、getCurrentStreak</li>
+<li>打卡自动更新 EXP + lastCheckIn</li>
+</ul>
+</div>
+
+<div class="layer">
+<h3>业务逻辑层 — lib/character.ts</h3>
+<ul>
+<li>5级进化：😖💩 → 😊💩 → 😄💩🎩 → ✨💩👑 → 🌈💩🪽</li>
+<li>纯 EXP 升级制（0/7/30/90/150 EXP）</li>
+<li>连续打卡 bonus：3天+1, 7天+2, 30天+3, 60天+5</li>
+<li>角色心情：happy(2h内) → normal(24h) → anxious(3天) → sad(3天+)</li>
+</ul>
+</div>
+
+<div class="layer infra">
+<h3>基础设施层 — Supabase</h3>
+<ul>
+<li>Auth：用户注册/登录</li>
+<li>Database：users / poop_records / posts / comments / likes</li>
+<li>⚠️ 尚未接入（env key 待配）</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h2>🔄 核心流程：排便打卡</h2>
+<div class="flow">
+<span class="flow-item">💩 大按钮</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">Modal 弹窗</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">Bristol 分型</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">心情选择</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">备注(可选)</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">提交</span>
+</div>
+<div class="flow">
+<span class="flow-item">store.addRecord()</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">EXP + bonus</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">角色升级检查</span>
+<span class="flow-arrow">→</span>
+<span class="flow-item">庆祝动画 🎉</span>
+</div>
+</div>
+
+<div class="card">
+<h2>📋 数据模型</h2>
+<h3>PoopRecord</h3>
+<ul>
+<li><span class="file">id</span> <span class="file">user_id</span> <span class="file">bristol_type</span>(1-7)</li>
+<li><span class="file">mood</span>(terrible/okay/good/amazing) <span class="file">note</span></li>
+<li><span class="file">created_at</span> <span class="file">date</span>(YYYY-MM-DD)</li>
+</ul>
+<h3>User</h3>
+<ul>
+<li><span class="file">character_level</span> <span class="file">character_exp</span></li>
+<li><span class="file">current_streak</span> <span class="file">max_streak</span> <span class="file">total_records</span></li>
+<li><span class="file">achievements[]</span></li>
+</ul>
+<h3>Post（树洞）</h3>
+<ul>
+<li><span class="file">type</span>(🎉成就晒/😫吐槽/💡小妙招/💩打卡分享)</li>
+<li><span class="file">is_anonymous</span> 匿名发帖</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>✅ 功能完成度</h2>
+<ul>
+<li><span class="status done">P0 完成</span> 排便打卡（Bristol + 心情 + 备注 + 动画）</li>
+<li><span class="status done">P0 完成</span> 角色养成（5级进化 + EXP + 心情状态）</li>
+<li><span class="status done">P1 骨架</span> 日历热力图（GitHub 风格）</li>
+<li><span class="status done">P1 骨架</span> 树洞社区（帖子 + 匿名）</li>
+<li><span class="status done">P1 骨架</span> 排行榜</li>
+<li><span class="status done">P1 骨架</span> 成就系统（16个成就定义）</li>
+<li><span class="status wip">进行中</span> EXP 纯经验值升级（PR#2）</li>
+<li><span class="status todo">待做</span> Supabase 数据库接入</li>
+<li><span class="status todo">待做</span> 用户注册/登录</li>
+<li><span class="status todo">待做</span> 分享卡片（朋友圈裂变）</li>
+</ul>
+</div>
+
+<div style="text-align:center;font-size:11px;color:#7d8590;margin-top:16px">
+拉了吗 🧻 技术架构 v1 · 2026-03-28
+</div>
+</body>
+</html>
