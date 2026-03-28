@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拉了吗 — 移动端原型</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+tailwind.config = {
+  theme: { extend: { colors: {
+    poop: { 50:'#FFF8F0', 100:'#FFE8CC', 200:'#FFD199', 300:'#F0883E', 400:'#C66A1E', 500:'#8B6914' },
+    brand: { dark:'#0d1117', card:'#161b22', border:'#30363d', text:'#e6edf3', muted:'#8b949e' }
+  }}}
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+body { font-family: 'Noto Sans SC', -apple-system, sans-serif; background: #f5f5f5; }
+.tab-page { display:none; } .tab-page.active { display:block; }
+@keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+.animate-slideUp { animation: slideUp .3s ease-out; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.animate-float { animation: float 3s ease-in-out infinite; }
+@keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(240,136,62,0.3)} 50%{box-shadow:0 0 40px rgba(240,136,62,0.6)} }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+#screen::-webkit-scrollbar { display:none; }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100 p-4">
+
+<!-- iPhone 16 外框 -->
+<div class="relative mx-auto" style="width:393px;height:852px">
+  <!-- 手机壳 -->
+  <div class="absolute inset-0 bg-black rounded-[55px] shadow-2xl shadow-black/30"></div>
+  <!-- 灵动岛 -->
+  <div class="absolute top-[12px] left-1/2 -translate-x-1/2 w-[126px] h-[37px] bg-black rounded-full z-50"></div>
+  <!-- 屏幕 -->
+  <div class="absolute top-[6px] left-[6px] right-[6px] bottom-[6px] rounded-[49px] overflow-hidden bg-brand-dark">
+    <!-- 状态栏 -->
+    <div class="relative z-40 flex justify-between items-center px-8 pt-[16px] pb-1 text-white text-xs font-medium">
+      <span>20:07</span>
+      <span class="flex gap-1 items-center"><i class="fas fa-signal text-[10px]"></i> <i class="fas fa-wifi text-[10px]"></i> <i class="fas fa-battery-full text-[10px]"></i></span>
+    </div>
+
+    <!-- 页面容器 -->
+    <div id="screen" class="h-[calc(100%-110px)] overflow-y-auto scroll-smooth" style="scrollbar-width:none">
+      <!-- 首页 -->
+      <div id="page-home" class="tab-page active px-5 pt-2 pb-4">
+        <h1 class="text-white text-2xl font-black mb-4">拉了吗 💩</h1>
+        <!-- 角色区域 -->
+        <div class="bg-gradient-to-b from-poop-300/10 to-transparent rounded-3xl p-6 text-center mb-4">
+          <div class="text-7xl animate-float mb-2">🐣</div>
+          <p class="text-white font-bold text-lg">小软团 <span class="text-poop-300">Lv.2</span></p>
+          <div class="w-48 mx-auto h-2 bg-brand-border rounded-full mt-2 overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-poop-300 to-amber-400 rounded-full" style="width:65%"></div>
+          </div>
+          <p class="text-brand-muted text-xs mt-1">经验 65/100 → Lv.3 小香肠</p>
+        </div>
+        <!-- 打卡按钮 -->
+        <button onclick="openCheckin()" class="w-full py-5 bg-gradient-to-r from-poop-300 to-amber-500 rounded-3xl text-white text-xl font-black shadow-lg animate-pulse-glow active:scale-95 transition-transform mb-4">
+          💩 我拉了！
+        </button>
+        <!-- 今日状态 -->
+        <div class="grid grid-cols-3 gap-3 mb-4">
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-3 text-center">
+            <p class="text-2xl font-bold text-poop-300">1</p>
+            <p class="text-brand-muted text-xs">今日打卡</p>
+          </div>
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-3 text-center">
+            <p class="text-2xl font-bold text-green-400">3</p>
+            <p class="text-brand-muted text-xs">连续天数</p>
+          </div>
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-3 text-center">
+            <p class="text-2xl font-bold text-blue-400">🍌</p>
+            <p class="text-brand-muted text-xs">上次类型</p>
+          </div>
+        </div>
+        <!-- 排行榜预览 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-4">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-white font-bold text-sm">🏆 今日畅通榜</h3>
+            <span class="text-brand-muted text-xs">查看全部 ›</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3"><span class="text-amber-400 font-bold w-5">1</span><div class="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center text-sm">💩</div><span class="text-white text-sm flex-1">便便#3721</span><span class="text-brand-muted text-xs">06:32</span></div>
+            <div class="flex items-center gap-3"><span class="text-gray-400 font-bold w-5">2</span><div class="w-8 h-8 bg-gray-500/20 rounded-full flex items-center justify-center text-sm">💩</div><span class="text-white text-sm flex-1">便便#8842</span><span class="text-brand-muted text-xs">07:15</span></div>
+            <div class="flex items-center gap-3"><span class="text-orange-700 font-bold w-5">3</span><div class="w-8 h-8 bg-orange-500/20 rounded-full flex items-center justify-center text-sm">💩</div><span class="text-white text-sm flex-1">我（便便#1024）</span><span class="text-brand-muted text-xs">08:41</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 记录页 -->
+      <div id="page-record" class="tab-page px-5 pt-2 pb-4">
+        <h1 class="text-white text-2xl font-black mb-4">记录 📊</h1>
+        <!-- 月份 -->
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-brand-muted text-sm">‹</span>
+          <span class="text-white font-bold">2026年3月</span>
+          <span class="text-brand-muted text-sm">›</span>
+        </div>
+        <!-- 日历 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-4 mb-4">
+          <div class="grid grid-cols-7 gap-1 text-center text-xs text-brand-muted mb-2">
+            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+          </div>
+          <div class="grid grid-cols-7 gap-1 text-center text-xs">
+            <span class="p-1.5 text-brand-muted">23</span><span class="p-1.5 text-brand-muted">24</span>
+            <span class="p-1.5 text-white bg-poop-300/20 rounded-lg">25💩</span>
+            <span class="p-1.5 text-white bg-poop-300/20 rounded-lg">26💩</span>
+            <span class="p-1.5 text-white bg-poop-300/20 rounded-lg">27💩</span>
+            <span class="p-1.5 text-white bg-poop-300 rounded-lg font-bold">28💩</span>
+            <span class="p-1.5 text-brand-border">29</span>
+          </div>
+        </div>
+        <!-- 周统计 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-4 mb-4">
+          <h3 class="text-white font-bold text-sm mb-3">本周统计</h3>
+          <div class="grid grid-cols-2 gap-4">
+            <div><p class="text-3xl font-black text-poop-300">5</p><p class="text-brand-muted text-xs">排便次数</p></div>
+            <div><p class="text-3xl font-black text-green-400">🍌</p><p class="text-brand-muted text-xs">最常类型</p></div>
+            <div><p class="text-3xl font-black text-blue-400">7:32</p><p class="text-brand-muted text-xs">平均时间</p></div>
+            <div><p class="text-3xl font-black text-amber-400">😊</p><p class="text-brand-muted text-xs">平均心情</p></div>
+          </div>
+        </div>
+        <!-- 趋势 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-4">
+          <h3 class="text-white font-bold text-sm mb-3">形态趋势（近7天）</h3>
+          <div class="flex items-end justify-between h-24 px-2">
+            <div class="flex flex-col items-center gap-1"><div class="bg-red-400/60 rounded-md" style="width:28px;height:20px"></div><span class="text-[10px] text-brand-muted">周一</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="bg-orange-400/60 rounded-md" style="width:28px;height:40px"></div><span class="text-[10px] text-brand-muted">周二</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="bg-yellow-400/60 rounded-md" style="width:28px;height:50px"></div><span class="text-[10px] text-brand-muted">周三</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="bg-green-400/60 rounded-md" style="width:28px;height:70px"></div><span class="text-[10px] text-brand-muted">周四</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="bg-green-400 rounded-md" style="width:28px;height:80px"></div><span class="text-[10px] text-brand-muted">周五</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="bg-green-400 rounded-md" style="width:28px;height:75px"></div><span class="text-[10px] text-brand-muted">周六</span></div>
+            <div class="flex flex-col items-center gap-1"><div class="bg-brand-border rounded-md" style="width:28px;height:10px"></div><span class="text-[10px] text-brand-muted">周日</span></div>
+          </div>
+          <p class="text-center text-brand-muted text-xs mt-2">越绿 = 越接近完美 Type 4 🍌</p>
+        </div>
+      </div>
+
+      <!-- 树洞页 -->
+      <div id="page-community" class="tab-page px-5 pt-2 pb-4">
+        <h1 class="text-white text-2xl font-black mb-4">树洞 💬</h1>
+        <!-- 发帖 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-4 mb-4 flex items-center gap-3">
+          <div class="w-10 h-10 bg-poop-300/20 rounded-full flex items-center justify-center">💩</div>
+          <span class="text-brand-muted text-sm flex-1">说点什么…</span>
+          <button class="bg-poop-300 text-white text-xs px-3 py-1.5 rounded-full font-bold">发布</button>
+        </div>
+        <!-- Feed -->
+        <div class="space-y-3">
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-4">
+            <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center text-sm">🎉</div><span class="text-white text-sm font-bold">便便#3721</span><span class="text-brand-muted text-xs">2小时前</span></div>
+            <p class="text-white text-sm mb-3">连续打卡7天了！！小香肠解锁！🎉🎉🎉 感觉每天早上的习惯真的养成了，分享一下：每天起床先喝一杯温水，然后蹲5分钟。</p>
+            <span class="inline-block bg-green-500/10 text-green-400 text-xs px-2 py-0.5 rounded-full mb-2">🎉 成就晒</span>
+            <div class="flex items-center gap-4 text-brand-muted text-xs"><span>💩 42</span><span>💬 8</span></div>
+          </div>
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-4">
+            <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-sm">😫</div><span class="text-white text-sm font-bold">便便#9901</span><span class="text-brand-muted text-xs">3小时前</span></div>
+            <p class="text-white text-sm mb-3">第5天了……肚子胀得难受，试了开塞露也不行。有没有人懂这种绝望 😭</p>
+            <span class="inline-block bg-red-500/10 text-red-400 text-xs px-2 py-0.5 rounded-full mb-2">😫 吐槽</span>
+            <div class="flex items-center gap-4 text-brand-muted text-xs"><span>💩 128</span><span>💬 31</span></div>
+          </div>
+          <div class="bg-brand-card border border-brand-border rounded-2xl p-4">
+            <div class="flex items-center gap-2 mb-2"><div class="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center text-sm">💡</div><span class="text-white text-sm font-bold">便便#5566</span><span class="text-brand-muted text-xs">5小时前</span></div>
+            <p class="text-white text-sm mb-3">安利一个方法：咖啡 + 香蕉，早上空腹吃，我从 Type 1 变成 Type 4 只用了一周！</p>
+            <span class="inline-block bg-blue-500/10 text-blue-400 text-xs px-2 py-0.5 rounded-full mb-2">💡 小妙招</span>
+            <div class="flex items-center gap-4 text-brand-muted text-xs"><span>💩 89</span><span>💬 22</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 我的页 -->
+      <div id="page-profile" class="tab-page px-5 pt-2 pb-4">
+        <h1 class="text-white text-2xl font-black mb-4">我的 👤</h1>
+        <!-- 个人卡片 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-5 mb-4 text-center">
+          <div class="text-5xl mb-2">🐣</div>
+          <p class="text-white font-bold text-lg">便便#1024</p>
+          <p class="text-brand-muted text-sm">加入第 12 天 · 累计打卡 9 次</p>
+        </div>
+        <!-- 成就 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl p-4 mb-4">
+          <h3 class="text-white font-bold text-sm mb-3">🎯 我的成就</h3>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-poop-300/10 rounded-xl p-3"><div class="text-2xl mb-1">🔥</div><p class="text-white text-xs font-bold">三连畅通</p><p class="text-brand-muted text-[10px]">连续3天</p></div>
+            <div class="bg-green-500/10 rounded-xl p-3"><div class="text-2xl mb-1">🌅</div><p class="text-white text-xs font-bold">晨间勇士</p><p class="text-brand-muted text-[10px]">7点前打卡</p></div>
+            <div class="bg-brand-border/30 rounded-xl p-3"><div class="text-2xl mb-1 grayscale opacity-40">👑</div><p class="text-brand-muted text-xs">便便大师</p><p class="text-brand-muted text-[10px]">连续30天</p></div>
+          </div>
+        </div>
+        <!-- 设置列表 -->
+        <div class="bg-brand-card border border-brand-border rounded-2xl overflow-hidden">
+          <div class="flex items-center justify-between p-4 border-b border-brand-border"><span class="text-white text-sm">🔔 提醒设置</span><span class="text-brand-muted text-xs">›</span></div>
+          <div class="flex items-center justify-between p-4 border-b border-brand-border"><span class="text-white text-sm">🔒 隐私设置</span><span class="text-brand-muted text-xs">›</span></div>
+          <div class="flex items-center justify-between p-4 border-b border-brand-border"><span class="text-white text-sm">📊 导出健康报告</span><span class="text-brand-muted text-xs">›</span></div>
+          <div class="flex items-center justify-between p-4"><span class="text-white text-sm">⚕️ 医疗免责声明</span><span class="text-brand-muted text-xs">›</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TabBar -->
+    <div class="absolute bottom-0 left-0 right-0 h-[80px] bg-brand-dark/80 backdrop-blur-xl border-t border-brand-border flex items-start pt-2 justify-around px-4 z-40">
+      <button onclick="switchTab('home')" data-tab="home" class="tab-btn flex flex-col items-center gap-0.5 text-poop-300">
+        <i class="fas fa-home text-lg"></i><span class="text-[10px]">首页</span>
+      </button>
+      <button onclick="switchTab('record')" data-tab="record" class="tab-btn flex flex-col items-center gap-0.5 text-brand-muted">
+        <i class="fas fa-chart-bar text-lg"></i><span class="text-[10px]">记录</span>
+      </button>
+      <button onclick="switchTab('community')" data-tab="community" class="tab-btn flex flex-col items-center gap-0.5 text-brand-muted">
+        <i class="fas fa-comment-dots text-lg"></i><span class="text-[10px]">树洞</span>
+      </button>
+      <button onclick="switchTab('profile')" data-tab="profile" class="tab-btn flex flex-col items-center gap-0.5 text-brand-muted">
+        <i class="fas fa-user text-lg"></i><span class="text-[10px]">我的</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 打卡弹窗 -->
+<div id="checkin-modal" class="hidden fixed inset-0 z-[100] flex items-end justify-center">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeCheckin()"></div>
+  <div class="relative w-[381px] bg-brand-card rounded-t-3xl p-6 pb-10 animate-slideUp">
+    <div class="w-12 h-1 bg-brand-border rounded-full mx-auto mb-4"></div>
+    <h3 class="text-white text-lg font-bold mb-4">记录一下 💩</h3>
+    <!-- Bristol -->
+    <p class="text-brand-muted text-sm mb-2">什么形态？</p>
+    <div class="grid grid-cols-4 gap-2 mb-4" id="bristol-grid">
+      <!-- BRISTOL_PLACEHOLDER -->
+    </div>
+    <!-- 心情 -->
+    <p class="text-brand-muted text-sm mb-2">心情如何？</p>
+    <div class="flex gap-3 mb-4" id="mood-grid">
+      <!-- MOOD_PLACEHOLDER -->
+    </div>
+    <!-- 备注 -->
+    <textarea class="w-full bg-brand-dark border border-brand-border rounded-xl p-3 text-white text-sm resize-none h-16 placeholder-brand-muted" placeholder="备注一下（可选）"></textarea>
+    <button onclick="submitCheckin()" class="w-full mt-4 bg-gradient-to-r from-poop-300 to-amber-500 text-white font-bold py-3 rounded-2xl active:scale-95 transition-transform">
+      记录！
+    </button>
+  </div>
+</div>
+
+<!-- 成功弹窗 -->
+<div id="success-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center">
+  <div class="absolute inset-0 bg-black/50" onclick="closeSuccess()"></div>
+  <div class="relative bg-brand-card rounded-3xl p-8 text-center w-[340px]">
+    <div class="text-6xl mb-4 animate-bounce">🎉</div>
+    <h3 class="text-white text-xl font-bold mb-2">太棒了！</h3>
+    <p class="text-brand-muted text-sm mb-1">今日第 <span class="text-poop-300 font-bold">1</span> 次打卡</p>
+    <p class="text-brand-muted text-sm mb-4">连续打卡 <span class="text-poop-300 font-bold">3</span> 天 🔥</p>
+    <p class="text-poop-300 text-sm font-medium mb-4">🐣 小软团 经验 +10！</p>
+    <div class="flex gap-3">
+      <button onclick="closeSuccess()" class="flex-1 bg-brand-dark border border-brand-border text-white py-2.5 rounded-xl text-sm">关闭</button>
+      <button onclick="closeSuccess()" class="flex-1 bg-gradient-to-r from-poop-300 to-amber-500 text-white py-2.5 rounded-xl text-sm font-bold">分享战绩</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// TAB DATA
+const bristolTypes = [
+  {id:1,name:'硬球球',icon:'🫘'},{id:2,name:'香肠块',icon:'🌵'},
+  {id:3,name:'裂纹肠',icon:'🌽'},{id:4,name:'完美条',icon:'🍌'},
+  {id:5,name:'软团团',icon:'☁️'},{id:6,name:'泥状',icon:'🍯'},
+  {id:7,name:'水水的',icon:'💧'}
+];
+const moods = [{icon:'😫',label:'难受'},{icon:'😐',label:'一般'},{icon:'😊',label:'还行'},{icon:'🎉',label:'畅快'}];
+
+// Init bristol & mood grids
+const bg = document.getElementById('bristol-grid');
+bristolTypes.forEach((b,i) => {
+  bg.innerHTML += `<button onclick="selectBristol(this,${b.id})" class="bristol-btn flex flex-col items-center p-2 rounded-xl border border-brand-border hover:border-poop-300 transition ${i===3?'border-poop-300 bg-poop-300/10':''}">
+    <span class="text-2xl">${b.icon}</span><span class="text-[10px] text-brand-muted mt-0.5">${b.name}</span></button>`;
+});
+const mg = document.getElementById('mood-grid');
+moods.forEach((m,i) => {
+  mg.innerHTML += `<button onclick="selectMood(this)" class="mood-btn flex flex-col items-center p-2 rounded-xl border border-brand-border hover:border-poop-300 transition ${i===3?'border-poop-300 bg-poop-300/10':''}">
+    <span class="text-2xl">${m.icon}</span><span class="text-[10px] text-brand-muted">${m.label}</span></button>`;
+});
+
+let selectedBristol=4, selectedMood=3;
+function selectBristol(el,id){ selectedBristol=id; document.querySelectorAll('.bristol-btn').forEach(b=>b.classList.remove('border-poop-300','bg-poop-300/10')); el.classList.add('border-poop-300','bg-poop-300/10'); }
+function selectMood(el){ document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('border-poop-300','bg-poop-300/10')); el.classList.add('border-poop-300','bg-poop-300/10'); }
+
+// PAGES
+function switchTab(name) {
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    b.classList.remove('text-poop-300'); b.classList.add('text-brand-muted');
+  });
+  document.querySelector(`[data-tab="${name}"]`).classList.remove('text-brand-muted');
+  document.querySelector(`[data-tab="${name}"]`).classList.add('text-poop-300');
+  document.getElementById('screen').scrollTop = 0;
+}
+function openCheckin(){ document.getElementById('checkin-modal').classList.remove('hidden'); }
+function closeCheckin(){ document.getElementById('checkin-modal').classList.add('hidden'); }
+function submitCheckin(){ closeCheckin(); document.getElementById('success-modal').classList.remove('hidden'); }
+function closeSuccess(){ document.getElementById('success-modal').classList.add('hidden'); }
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拉了吗 — MVP Spec</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#f0883e;--green:#3fb950;--red:#f85149;--blue:#58a6ff;--poop:#8B6914}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:16px;max-width:720px;margin:0 auto}
+h1{font-size:1.5em;margin:24px 0 8px;color:var(--accent)}
+h2{font-size:1.25em;margin:28px 0 12px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px}
+h3{font-size:1.05em;margin:20px 0 8px;color:var(--blue)}
+p,li{font-size:.95em;margin-bottom:6px}
+ul,ol{padding-left:20px;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:12px 0}
+.meta{color:var(--muted);font-size:.85em;margin-bottom:20px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.85em}
+th{background:var(--card);color:var(--accent);text-align:left;padding:8px 10px;border-bottom:2px solid var(--border)}
+td{padding:8px 10px;border-bottom:1px solid var(--border)}
+.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.8em;margin:2px}
+.tag-p0{background:rgba(248,81,73,.2);color:var(--red)}
+.tag-p1{background:rgba(240,136,62,.2);color:var(--accent)}
+.flow{background:var(--card);border-radius:12px;padding:16px;margin:12px 0;font-family:monospace;font-size:.85em;line-height:2}
+.flow .step{color:var(--green)}
+.checklist{list-style:none;padding-left:0}
+.checklist li{padding:6px 0;border-bottom:1px solid var(--border)}
+.checklist li::before{content:"☐ ";color:var(--accent)}
+hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+strong{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<h1>💩 拉了吗 — MVP 功能 Spec</h1>
+<p class="meta">🍊 娜美 | 2026-03-28</p>
+
+<div class="card">
+<strong>定位：</strong>便秘人群的社交支持 + 排便管理工具<br>
+<strong>一句话：</strong>让排便这件事变好玩、有人陪
+</div>
+
+<h2>模块 1：排便打卡 <span class="tag tag-p0">P0</span></h2>
+<p>首页中央大按钮「💩 我拉了！」</p>
+
+<h3>打卡流程</h3>
+<div class="flow">
+<span class="step">①</span> 点击大按钮 → 弹出打卡面板<br>
+<span class="step">②</span> 选 Bristol 类型（7种可爱插图）<br>
+<span class="step">③</span> 选心情（😫😐😊🎉）<br>
+<span class="step">④</span> 可选备注（≤50字）<br>
+<span class="step">⑤</span> 点「记录」→ 动画反馈 + 角色成长<br>
+<span class="step">⑥</span> 成功页 → 统计 + 分享按钮
+</div>
+
+<h3>Bristol 量表（萌化版）</h3>
+<table>
+<tr><th>#</th><th>名称</th><th>图标</th><th>状态</th></tr>
+<tr><td>1</td><td>硬球球</td><td>🫘</td><td>严重便秘</td></tr>
+<tr><td>2</td><td>香肠块</td><td>🌵</td><td>便秘</td></tr>
+<tr><td>3</td><td>裂纹肠</td><td>🌽</td><td>正常偏硬</td></tr>
+<tr><td>4</td><td>完美条</td><td>🍌</td><td>✨ 完美！</td></tr>
+<tr><td>5</td><td>软团团</td><td>☁️</td><td>偏软</td></tr>
+<tr><td>6</td><td>泥状</td><td>🍯</td><td>腹泻前兆</td></tr>
+<tr><td>7</td><td>水水的</td><td>💧</td><td>腹泻</td></tr>
+</table>
+
+<hr>
+
+<h2>模块 2：便便角色养成 <span class="tag tag-p0">P0</span></h2>
+
+<table>
+<tr><th>等级</th><th>名称</th><th>外观</th><th>解锁</th></tr>
+<tr><td>Lv.1</td><td>小硬球</td><td>灰色皱眉便便</td><td>初始</td></tr>
+<tr><td>Lv.2</td><td>小软团</td><td>棕色微笑便便</td><td>累计7次</td></tr>
+<tr><td>Lv.3</td><td>小香肠</td><td>金色+小帽子</td><td>连续7天</td></tr>
+<tr><td>Lv.4</td><td>便便大师</td><td>金色闪亮+皇冠</td><td>连续30天</td></tr>
+<tr><td>Lv.5</td><td>彩虹便便</td><td>彩虹色+翅膀</td><td>连续60天</td></tr>
+</table>
+
+<div class="card">
+<strong>状态机制：</strong><br>
+✅ 正常打卡 → 角色开心动画<br>
+⚠️ 1天未卡 → 表情变焦虑<br>
+❌ 3天未卡 → 角色变灰+下雨<br>
+🎉 回归打卡 → "欢迎回来"动画
+</div>
+
+<hr>
+
+<h2>模块 3：匿名树洞 <span class="tag tag-p1">P1</span></h2>
+<div class="card">
+<strong>帖子类型：</strong><br>
+💩 打卡分享 — "我今天拉了！Type 4！"<br>
+😫 吐槽 — "第5天了…"<br>
+💡 小妙招 — "早上空腹喝温水有用"<br>
+🎉 成就晒 — "连续7天畅通！"<br><br>
+<strong>交互：</strong>点赞（💩代替❤️）+ 评论（≤100字）<br>
+<strong>安全：</strong>关键词过滤 + 举报 + 人工审核
+</div>
+
+<hr>
+
+<h2>模块 4：排行榜 <span class="tag tag-p1">P1</span></h2>
+<table>
+<tr><th>榜单</th><th>规则</th></tr>
+<tr><td>🏆 今日畅通榜</td><td>今天已打卡，越早越靠前</td></tr>
+<tr><td>🔥 连续打卡榜</td><td>连续天数排名</td></tr>
+<tr><td>👫 好友榜</td><td>互加好友可见（微信运动模式）</td></tr>
+</table>
+<p style="color:var(--muted);font-size:.85em">默认匿名（便便#8423），可选实名，可退出排行</p>
+
+<hr>
+
+<h2>模块 5：分享卡片 <span class="tag tag-p1">P1</span></h2>
+<div class="card">
+<strong>触发：</strong>打卡成功 / 达成成就 / 周报生成<br>
+<strong>尺寸：</strong>1080×1920px（适配朋友圈/微博/小红书）<br>
+<strong>内容：</strong>角色形象 + 数据 + App 二维码<br><br>
+<strong>示例文案：</strong><br>
+"我今天拉了！💩 Type 4 完美条！连续第12天~"<br>
+"本周排便5次，击败80%的用户 📊"<br>
+"便便宠物升级 Lv.3 小香肠！🎉"
+</div>
+
+<hr>
+
+<h2>页面结构</h2>
+<table>
+<tr><th>Tab</th><th>图标</th><th>内容</th></tr>
+<tr><td>首页</td><td>🏠</td><td>角色 + 打卡按钮 + 今日状态</td></tr>
+<tr><td>记录</td><td>📊</td><td>日历视图 + 统计图表</td></tr>
+<tr><td>树洞</td><td>💬</td><td>匿名社区 feed</td></tr>
+<tr><td>我的</td><td>👤</td><td>个人资料 + 设置 + 成就</td></tr>
+</table>
+
+<hr>
+
+<h2>验收标准</h2>
+<ul class="checklist">
+<li>用户可完成排便打卡（Bristol类型+心情）</li>
+<li>打卡后角色有动画反馈</li>
+<li>角色根据打卡频率进化/退化</li>
+<li>匿名树洞可发帖、点赞、评论</li>
+<li>排行榜展示今日畅通榜和连续打卡榜</li>
+<li>分享卡片可保存相册/分享微信</li>
+<li>所有数据加密存储</li>
+<li>包含医疗免责声明</li>
+</ul>
+
+<p style="text-align:center;color:var(--muted);margin-top:32px;font-size:.85em">🍊 配套 UI 设计方案 → <a href="lala-ui-design.html" style="color:var(--blue)">点击查看</a></p>
+
+</body>
+</html>
