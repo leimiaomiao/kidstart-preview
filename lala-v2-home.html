@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拉了吗 — 首页</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+body{font-family:'Noto Sans SC',sans-serif;background:#f5ede3;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+.fun{font-family:'ZCOOL KuaiLe',cursive}
+@keyframes wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes pulse{0%,100%{box-shadow:4px 4px 0 #5a3e28}50%{box-shadow:4px 4px 0 #5a3e28,0 0 16px rgba(232,168,76,.4)}}
+.wobble{animation:wobble 2s infinite}
+.btn-glow{animation:pulse 2s infinite}
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+<div class="w-[375px] min-h-[750px] bg-[#faf5ee] rounded-[50px] border-[8px] border-[#2c2c2c] shadow-2xl overflow-hidden relative">
+  <!-- Notch -->
+  <div class="w-[120px] h-[32px] bg-[#2c2c2c] rounded-b-[20px] mx-auto"></div>
+  <!-- Content -->
+  <div class="px-6 pt-3 pb-4">
+    <!-- Header -->
+    <h1 class="fun text-[32px] text-[#5a3e28] -rotate-2">拉了吗 🧻</h1>
+    <p class="text-[#8a7560] text-[13px] rotate-1 mb-5">记录每一次「通畅」的快乐 ✏️</p>
+    <!-- Pet Area -->
+    <div class="bg-white border-[3px] border-dashed border-[#c9b99a] rounded-3xl p-7 text-center mb-5 relative -rotate-[0.5deg]">
+      <span class="absolute -top-3 left-5 bg-[#faf5ee] px-2 text-[12px] text-[#8a7560]">✏️ 我的便便伙伴</span>
+      <span class="text-[72px] block wobble">💩</span>
+      <div class="fun text-[20px] text-[#5a3e28]">小软团</div>
+      <div class="text-[12px] text-[#8a7560] mt-1">Lv.2 <span class="inline-block text-[10px] bg-[#5a3e28] text-[#faf5ee] px-1.5 py-0.5 rounded-lg ml-1 rotate-[3deg]">再打卡2天升级!</span></div>
+      <div class="w-[60%] mx-auto h-[10px] bg-[#e8ddd0] rounded-full mt-2 border-2 border-[#c9b99a] overflow-hidden">
+        <div class="h-full rounded-full w-[65%]" style="background:repeating-linear-gradient(45deg,#e8a84c,#e8a84c 4px,#f0b860 4px,#f0b860 8px)"></div>
+      </div>
+    </div>
+    <!-- Big Button -->
+    <button class="w-full py-5 bg-[#f0b860] border-[3px] border-[#5a3e28] rounded-[20px] fun text-[24px] text-[#5a3e28] rotate-1 btn-glow active:rotate-0 active:scale-[.97] transition-transform mb-5 cursor-pointer">💩 我拉了！！</button>
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-2.5 mb-5">
+      <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-3 text-center"><div class="fun text-[24px] text-[#5a3e28]">1</div><div class="text-[11px] text-[#8a7560]">今天拉了</div></div>
+      <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-3 text-center"><div class="fun text-[24px] text-[#5a3e28]">3🔥</div><div class="text-[11px] text-[#8a7560]">连续打卡</div></div>
+      <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-3 text-center"><div class="fun text-[24px] text-[#5a3e28]">🍌</div><div class="text-[11px] text-[#8a7560]">上次形态</div></div>
+    </div>
+    <!-- Ranking -->
+    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 -rotate-[0.5deg]">
+      <div class="fun text-[16px] text-[#5a3e28] mb-3">🏆 今日谁最早通畅？</div>
+      <div class="flex items-center gap-2.5 py-1.5 border-b border-dashed border-[#e8ddd0]"><span class="fun text-[16px] w-5 text-[#e8a84c]">1</span><span>💩</span><span class="flex-1 text-[13px] text-[#5a3e28]">便便#3721</span><span class="text-[11px] text-[#8a7560]">06:32</span></div>
+      <div class="flex items-center gap-2.5 py-1.5 border-b border-dashed border-[#e8ddd0]"><span class="fun text-[16px] w-5 text-[#8a7560]">2</span><span>💩</span><span class="flex-1 text-[13px] text-[#5a3e28]">便便#8842</span><span class="text-[11px] text-[#8a7560]">07:15</span></div>
+      <div class="flex items-center gap-2.5 py-1.5"><span class="fun text-[16px] w-5 text-[#c07030]">3</span><span>💩</span><span class="flex-1 text-[13px] text-[#5a3e28] font-bold">我!</span><span class="text-[11px] text-[#8a7560]">08:41</span></div>
+    </div>
+    <!-- Tab Bar -->
+    <div class="flex justify-around pt-3 mt-4 border-t-2 border-dashed border-[#c9b99a] pb-7">
+      <div class="text-center text-[#5a3e28]"><span class="text-[20px] block">🏠</span><span class="text-[11px] font-bold">首页</span></div>
+      <a href="lala-v2-record.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">📊</span><span class="text-[11px]">记录</span></a>
+      <a href="lala-v2-community.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">💬</span><span class="text-[11px]">树洞</span></a>
+      <a href="lala-v2-profile.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">👤</span><span class="text-[11px]">我的</span></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
