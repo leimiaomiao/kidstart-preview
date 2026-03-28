@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格A：厕所涂鸦风</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:#f5ede3;display:flex;justify-content:center;padding:20px;min-height:100vh;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5'/%3E%3C/svg%3E")}
+.phone{width:375px;min-height:750px;background:#faf5ee;border-radius:50px;box-shadow:0 20px 60px rgba(0,0,0,.15);overflow:hidden;border:8px solid #2c2c2c;position:relative}
+.notch{width:120px;height:32px;background:#2c2c2c;border-radius:0 0 20px 20px;margin:0 auto;position:relative;z-index:10}
+.screen{padding:20px 24px}
+h1{font-family:'ZCOOL KuaiLe',cursive;font-size:32px;color:#5a3e28;transform:rotate(-2deg);margin:16px 0 4px}
+.subtitle{color:#8a7560;font-size:13px;margin-bottom:20px;transform:rotate(1deg)}
+.pet-area{background:#fff;border:3px dashed #c9b99a;border-radius:24px;padding:28px;text-align:center;margin-bottom:20px;position:relative;transform:rotate(-0.5deg)}
+.pet-area::before{content:'✏️ 我的便便伙伴';position:absolute;top:-12px;left:20px;background:#faf5ee;padding:0 8px;font-size:12px;color:#8a7560}
+.pet{font-size:72px;display:block;margin-bottom:8px;animation:wobble 2s infinite}
+@keyframes wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.pet-name{font-family:'ZCOOL KuaiLe',cursive;font-size:20px;color:#5a3e28}
+.pet-level{font-size:12px;color:#8a7560;margin-top:2px}
+.exp-bar{width:60%;margin:8px auto 0;height:10px;background:#e8ddd0;border-radius:10px;overflow:hidden;border:2px solid #c9b99a}
+.exp-fill{height:100%;background:repeating-linear-gradient(45deg,#e8a84c,#e8a84c 4px,#f0b860 4px,#f0b860 8px);width:65%;border-radius:8px}
+.big-btn{display:block;width:100%;padding:20px;background:#f0b860;border:3px solid #5a3e28;border-radius:20px;font-family:'ZCOOL KuaiLe',cursive;font-size:24px;color:#5a3e28;cursor:pointer;transform:rotate(1deg);transition:transform .1s;text-align:center;margin-bottom:20px;box-shadow:4px 4px 0 #5a3e28}
+.big-btn:active{transform:rotate(0deg) scale(.97);box-shadow:2px 2px 0 #5a3e28}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
+.stat{background:#fff;border:2px solid #c9b99a;border-radius:16px;padding:12px 8px;text-align:center}
+.stat-num{font-family:'ZCOOL KuaiLe',cursive;font-size:24px;color:#5a3e28}
+.stat-label{font-size:11px;color:#8a7560;margin-top:2px}
+.rank-card{background:#fff;border:2px solid #c9b99a;border-radius:16px;padding:16px;transform:rotate(-0.5deg)}
+.rank-title{font-family:'ZCOOL KuaiLe',cursive;font-size:16px;color:#5a3e28;margin-bottom:12px}
+.rank-item{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed #e8ddd0}
+.rank-item:last-child{border:none}
+.rank-num{font-family:'ZCOOL KuaiLe',cursive;font-size:16px;width:20px;color:#e8a84c}
+.rank-name{flex:1;font-size:13px;color:#5a3e28}
+.rank-time{font-size:11px;color:#8a7560}
+.doodle{position:absolute;color:#d4c5b0;font-size:10px;transform:rotate(-15deg)}
+.tab-bar{display:flex;justify-content:space-around;padding:10px 0 28px;border-top:2px dashed #c9b99a;margin-top:12px}
+.tab-item{text-align:center;font-size:11px;color:#8a7560}
+.tab-item.active{color:#5a3e28}
+.tab-item .icon{font-size:20px;display:block;margin-bottom:2px}
+.badge{display:inline-block;font-size:10px;background:#5a3e28;color:#faf5ee;padding:1px 6px;border-radius:8px;margin-left:4px;transform:rotate(3deg)}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen">
+    <h1>拉了吗 🧻</h1>
+    <p class="subtitle">记录每一次「通畅」的快乐 ✏️</p>
+
+    <div class="pet-area">
+      <span class="pet">💩</span>
+      <div class="pet-name">小软团</div>
+      <div class="pet-level">Lv.2 <span class="badge">再打卡2天升级!</span></div>
+      <div class="exp-bar"><div class="exp-fill"></div></div>
+    </div>
+
+    <button class="big-btn">💩 我拉了！！</button>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-num">1</div><div class="stat-label">今天拉了</div></div>
+      <div class="stat"><div class="stat-num">3🔥</div><div class="stat-label">连续打卡</div></div>
+      <div class="stat"><div class="stat-num">🍌</div><div class="stat-label">上次形态</div></div>
+    </div>
+
+    <div class="rank-card">
+      <div class="rank-title">🏆 今日谁最早通畅？</div>
+      <div class="rank-item"><span class="rank-num">1</span><span>💩</span><span class="rank-name">便便#3721</span><span class="rank-time">06:32</span></div>
+      <div class="rank-item"><span class="rank-num">2</span><span>💩</span><span class="rank-name">便便#8842</span><span class="rank-time">07:15</span></div>
+      <div class="rank-item"><span class="rank-num">3</span><span>💩</span><span class="rank-name">我!</span><span class="rank-time">08:41</span></div>
+    </div>
+
+    <div class="tab-bar">
+      <div class="tab-item active"><span class="icon">🏠</span>首页</div>
+      <div class="tab-item"><span class="icon">📊</span>记录</div>
+      <div class="tab-item"><span class="icon">💬</span>树洞</div>
+      <div class="tab-item"><span class="icon">👤</span>我的</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
