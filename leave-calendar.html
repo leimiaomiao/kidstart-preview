@@ -128,6 +128,10 @@ const D = (y,m,d) => new Date(y, m-1, d);
 
 // 2026 holidays
 const holidays = new Map();
+// 清明 4/4-6
+[4,5,6].forEach(d => holidays.set('2026-4-'+d, '🪦'));
+// 劳动节 5/1-5
+[1,2,3,4,5].forEach(d => holidays.set('2026-5-'+d, '✊'));
 // 端午 6/19-21
 [19,20,21].forEach(d => holidays.set('2026-6-'+d, '🐲'));
 // 中秋 9/25-27
@@ -135,7 +139,7 @@ const holidays = new Map();
 // 国庆 10/1-7
 [1,2,3,4,5,6,7].forEach(d => holidays.set('2026-10-'+d, '🇨🇳'));
 // 调休上班日
-const workOnWeekend = new Set(['2026-9-20','2026-10-10']);
+const workOnWeekend = new Set(['2026-5-9','2026-9-20','2026-10-10']);
 
 // 产检用健康假 (预估每月2次，4月到7月)
 // 产检：4/5第一次，之后月检→双周→每周（全部改到工作日）
@@ -177,6 +181,8 @@ while (parentalCount < 10) {
 
 // 2027 春节 2/15-2/23
 for (let d=15; d<=23; d++) holidays.set('2027-2-'+d, '🧧');
+// 2027 元旦 1/1-3 (估)
+[1,2,3].forEach(d => holidays.set('2027-1-'+d, '🎆'));
 // 2027 调休上班
 workOnWeekend.add('2027-2-14');
 workOnWeekend.add('2027-2-28');
