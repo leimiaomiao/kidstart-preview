@@ -26,21 +26,21 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
 </head>
 <body>
 <h1>🏴‍☠️ 草帽团 Agent 监控</h1>
-<div class="update-time">更新于 2026-03-29 23:24:40 · 每5分钟自动刷新</div>
+<div class="update-time">更新于 2026-03-29 23:39:43 · 每5分钟自动刷新</div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🍊</span>
     <div><div class="agent-name">娜美</div><div class="agent-role">PM · 调研/Spec/设计</div></div>
-    <span class="status status-working">🟢 工作中</span>
+    <span class="status status-working">🟢 最近活跃</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 修好了船长！四个页面全部改成**手机全屏适配** 🍊
+    [[reply_to_current]] Spec 更新了！🍊 登录改为**手机号+验证码**，邮箱登录干掉了。
 
-修了什么：
-- ❌ 去掉了手机壳外框（之前是 375px 的小框套在背景里）
-- ✅ 全屏铺满，支持 iPhone 安全区（刘海/底部横条）
+要点：
+- 输入手机号 → 发验证码 → 自动注册/登录（新号自动建账号）
+- 短信推荐阿里云（¥0.045/条，最便宜）
 
-    <div class="time">23:23:23 (1分钟前)</div>
+    <div class="time">23:31:15 (8分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -50,23 +50,30 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    全屏问题修好了，但 emoji 在模拟器上显示成 `?` 方框。这是 iOS 模拟器字体渲染的已知问题——用 Text 直接渲染 emoji 在某些模拟器上会变方框。需要把 emoji 换成 SF Symbol 或者用不同方式渲染。
+    [[reply_to_current]] 船长，代码已修完 push 到 `feat/swiftui-ios`：
 
-不过
-    <div class="time">23:24:40</div>
+1. ✅ 去掉登录页 — 直接进 MainTabView
+2. ✅ 去掉导航栏 — 全屏显示
+3. ✅ Emoji Tab 
+    <div class="time">23:35:51 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🔧</span>
     <div><div class="agent-name">弗兰奇</div><div class="agent-role">QA · 验收/编译</div></div>
-    <span class="status status-working">🟢 工作中</span>
+    <span class="status status-working">🟢 最近活跃</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 收到船长！你说的是 RN 版本的 UI 问题。不过你之前已经拍板换 Swift 原生了，RN 版本就不修了，直接等 SwiftUI 重写版本。
+    [[reply_to_current]] 收到船长！登录方式改为手机号 + 验证码。
 
-<@1486987428647665785> 乔巴，
-    <div class="time">23:20:46 (3分钟前)</div>
+<@1486987428647665785> 乔巴，船长定了新需求：
+
+**登录方式变更：邮箱 → 手机号 + 短信验证码**
+
+需要安排的：
+1. *
+    <div class="time">23:31:14 (8分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -76,15 +83,13 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 收到船长！已看到问题并派索隆修：
+    收到船长！手机号 + 验证码登录比邮箱好多了，也不需要企业资质 👍
 
-1. ❌ 去掉登录页 → 直接进首页
-2. ❌ 全屏显示 → 去掉顶部导航栏
-3. ❌ Emoji 问号 → 修复渲染
-4. ❌ 设计风格 → 对齐涂鸦风原型
+不过 MVP 阶段我建议分两步走：
 
-
-    <div class="time">23:23:18 (1分钟前)</div>
+**现在**：先不做登录，本地数据跑通所有功能体验
+**下一步**：加手机号 + 验证码登录（用 Supabase Phone Au
+    <div class="time">23:39:28</div>
   </div>
 </div>
 
