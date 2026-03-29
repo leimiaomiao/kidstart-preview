@@ -26,7 +26,7 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
 </head>
 <body>
 <h1>🏴‍☠️ 草帽团 Agent 监控</h1>
-<div class="update-time">更新于 2026-03-29 21:39:40 · 每5分钟自动刷新</div>
+<div class="update-time">更新于 2026-03-29 21:44:40 · 每5分钟自动刷新</div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🍊</span>
@@ -35,7 +35,7 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
   </div>
   <div class="last-action">
     NO_REPLY
-    <div class="time">21:37:41 (1分钟前)</div>
+    <div class="time">21:40:44 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -45,14 +45,14 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，测试步骤：
+    [[reply_to_current]] 修好了，已 push。入口文件指错了，现在改成 expo-router 了。
 
-**1. 装 Expo Go**
-- iPhone：App Store 搜 "Expo Go" 下载
-- Android：Google Play 搜 "Expo Go" 下载
-
-
-    <div class="time">21:37:43 (1分钟前)</div>
+重新拉代码跑一下：
+```bash
+git pull origin main
+npx expo start -c
+``
+    <div class="time">21:41:09 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -62,12 +62,10 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，现在还差索隆一个 hotfix（Expo Router 入口修复），修完后流程是这样：
+    [[reply_to_current]] 船长，这个是 Expo 的默认模板页面，说明 App 加载的是一个空壳子，不是我们写的真正页面。
 
-**模拟器测试步骤：**
-1. 索隆修完 push 后，我来拉代码 + 重新启动模拟器
-2. 模拟器上
-    <div class="time">21:37:57 (1分钟前)</div>
+**原因：** `package.json` 里的入口配置指向了旧的 `App.tsx`（模板文件
+    <div class="time">21:40:48 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -77,15 +75,10 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    Bundle 编译成功！模拟器应该已经打开了。
+    [[reply_to_current]] 找到了船长！`App.tsx` 是 Expo 创建时的默认模板文件，它覆盖了我们真正的路由入口。
 
-[[reply_to_current]] 船长，Metro 跑起来了，模拟器应该已弹出 📱
-
-**测试步骤：**
-
-1. **看首页** — 应该能看到大💩按钮和角色展示
-2. **点「💩 
-    <div class="time">21:39:23</div>
+已经把它移走了。现在模拟器里按 **Cmd+D** → **Reload**，应该就能看到拉了吗的
+    <div class="time">21:41:17 (3分钟前)</div>
   </div>
 </div>
 
