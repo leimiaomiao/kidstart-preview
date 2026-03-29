@@ -26,7 +26,7 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
 </head>
 <body>
 <h1>🏴‍☠️ 草帽团 Agent 监控</h1>
-<div class="update-time">更新于 2026-03-29 23:49:40 · 每5分钟自动刷新</div>
+<div class="update-time">更新于 2026-03-29 23:54:40 · 每5分钟自动刷新</div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🍊</span>
@@ -34,10 +34,12 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    船长，编译和跑真机不是我的活（PM 不碰编译部署！），这是 <@1487375364031381544> 弗兰奇的职责 🍊
+    [[reply_to_current]] 船长，"VPN与设备管理"这个选项只有在 App 装上之后才会出现！
 
-<@1487375364031381544> 船长手机已连上 Mac，需要把「拉了吗」App 编译到真机上。项目在
-    <div class="time">23:47:37 (2分钟前)</div>
+流程是这样的：
+1. 先在 Xcode 里点 ▶️ 编译到你手机
+2. 第一次会**安装失败**，这时候手机上才会出现"VPN
+    <div class="time">23:51:25 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -47,12 +49,15 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    Xcode 不认真机作为 destination。DDI 没挂载成功——Mac 需要联网才能激活 Developer Disk Image。
+    [[reply_to_current]] 船长，那个选项只有在 App 安装到手机之后才会出现。
 
-[[reply_to_current]] 船长，真机部署卡住了：
+现在先这样操作：
 
-**问题：Developer
-    <div class="time">23:49:14</div>
+**1. 打开 Xcode**
+```
+open ~/Projects/lala/ios/LaLa.xcodeproj
+
+    <div class="time">23:51:32 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -62,12 +67,12 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，你的 iPhone（milliesphone）已连上 ✅
+    [[reply_to_current]] 船长，你是在 Xcode 里添加 Apple Account 吗？
 
-但现在的情况是：**还没有 SwiftUI 的代码**，索隆的重写还没开始。当前 repo 里只有之前的 RN 代码。
-
-两个选择：
-    <div class="time">23:47:48 (1分钟前)</div>
+常见原因：
+1. **网络问题** — Apple 的开发者服务需要翻墙，检查一下代理是否开着
+2. **双重认证** — Ap
+    <div class="time">23:54:38</div>
   </div>
 </div>
 <div class="agent">
@@ -77,8 +82,14 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    `no DDI` — Developer Disk Image 没挂载。
-    <div class="time">23:49:14</div>
+    [[reply_to_current]] 那个选项要先跑一次 App 才会出现！先操作这些：
+
+**第一步：打开 Xcode 项目**
+电脑终端跑：
+```
+open ~/Projects/lala/ios/LaLa.xcodeproj
+`
+    <div class="time">23:51:31 (3分钟前)</div>
   </div>
 </div>
 
