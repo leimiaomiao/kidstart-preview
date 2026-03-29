@@ -26,57 +26,51 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
 </head>
 <body>
 <h1>🏴‍☠️ 草帽团 Agent 监控</h1>
-<div class="update-time">更新于 2026-03-29 12:36:26 · 每5分钟自动刷新</div>
+<div class="update-time">更新于 2026-03-29 12:57:53 · 每5分钟自动刷新</div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🍊</span>
     <div><div class="agent-name">娜美</div><div class="agent-role">PM · 调研/Spec/设计</div></div>
-    <span class="status status-working">🟢 工作中</span>
+    <span class="status status-working">🟢 最近活跃</span>
   </div>
   <div class="last-action">
     NO_REPLY
-    <div class="time">12:36:23</div>
+    <div class="time">12:36:23 (21分钟前)</div>
   </div>
 </div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">⚔️</span>
     <div><div class="agent-name">索隆</div><div class="agent-role">开发 · 写代码/PR</div></div>
-    <span class="status status-working">🟢 工作中</span>
+    <span class="status status-working">🟢 最近活跃</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，你给的 key 是 `sb_publishable_` 开头的，这个不是 Supabase 的 **anon key**。
-
-去 Supabase Dashboard → **Settings
-    <div class="time">12:33:44 (2分钟前)</div>
+    [[reply_to_current]] ✅ 更新了，API 连通 200。重启 Expo（`npx expo start` 重新跑），再试试模拟器。
+    <div class="time">12:36:39 (21分钟前)</div>
   </div>
 </div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🔧</span>
     <div><div class="agent-name">弗兰奇</div><div class="agent-role">QA · 验收/编译</div></div>
-    <span class="status status-working">🟢 工作中</span>
+    <span class="status status-working">🟢 最近活跃</span>
   </div>
   <div class="last-action">
-    船长，这个 key 看起来不对——Supabase 的 anon key 通常是以 `eyJ` 开头的很长的 JWT token，不是 `sb_publishable_` 开头的。
-
-你去 Supabase Dashboard → Sett
-    <div class="time">12:33:35 (2分钟前)</div>
+    [[reply_to_current]] 已更新 `.env`！重启 Expo 试试：停掉当前的 Metro，重新 `npx expo start` 🔧
+    <div class="time">12:36:30 (21分钟前)</div>
   </div>
 </div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🦌</span>
     <div><div class="agent-name">乔巴</div><div class="agent-role">调度员 · 派活/跟进</div></div>
-    <span class="status status-working">🟢 工作中</span>
+    <span class="status status-working">🟢 最近活跃</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，刚才 503 是因为缺了个依赖（`react-native-worklets`），已经装好了 ✅
+    [[reply_to_current]] 已更新 `.env` 用真实 anon key ✅
 
-Bundle 编译成功（4.8MB），已重新打开模拟器。你看看模拟器现在显示什么？
-
-如果还
-    <div class="time">12:36:18</div>
+这个是 Supabase 的 JWT anon key，之前填的是 publishable key（格式不对）。现在需要重启 Metro 才能生
+    <div class="time">12:36:36 (21分钟前)</div>
   </div>
 </div>
 
