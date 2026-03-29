@@ -2,68 +2,72 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>拉了吗 — 树洞</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap">
 <style>
-body{font-family:'Noto Sans SC',sans-serif;background:#f5ede3;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans SC',sans-serif;background:#faf5ee;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
 .fun{font-family:'ZCOOL KuaiLe',cursive}
+.scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.scroll-area::-webkit-scrollbar{display:none}
+.safe-top{padding-top:max(env(safe-area-inset-top),20px)}
+.safe-bottom{padding-bottom:max(env(safe-area-inset-bottom),16px)}
 </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-<div class="w-[375px] min-h-[750px] bg-[#faf5ee] rounded-[50px] border-[8px] border-[#2c2c2c] shadow-2xl overflow-hidden">
-  <div class="w-[120px] h-[32px] bg-[#2c2c2c] rounded-b-[20px] mx-auto"></div>
-  <div class="px-6 pt-3 pb-4">
-    <h1 class="fun text-[28px] text-[#5a3e28] rotate-1 mb-1">树洞 💬</h1>
-    <p class="text-[#8a7560] text-[12px] mb-4">这里没人认识你，放心说 🤫</p>
-    <!-- 发帖 -->
-    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-3 mb-4 flex items-center gap-3">
-      <div class="w-10 h-10 bg-[#f0b860]/20 rounded-full flex items-center justify-center text-lg">💩</div>
-      <span class="flex-1 text-[#8a7560] text-[13px]">说点什么…</span>
-      <button class="bg-[#f0b860] border-2 border-[#5a3e28] text-[#5a3e28] text-[12px] px-3 py-1 rounded-full fun">发布</button>
-    </div>
-    <!-- Post 1 -->
-    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-3 rotate-[0.3deg]">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-8 h-8 bg-[#7cb342]/20 rounded-full flex items-center justify-center text-sm">🎉</div>
-        <span class="text-[#5a3e28] text-[13px] font-bold">便便#3721</span>
-        <span class="text-[#c9b99a] text-[11px]">2小时前</span>
-      </div>
-      <p class="text-[#5a3e28] text-[13px] mb-2 leading-relaxed">连续打卡7天了！！小香肠解锁！🎉🎉 每天起床先喝一杯温水，然后蹲5分钟，真的管用！</p>
-      <span class="inline-block text-[10px] bg-[#7cb342]/10 text-[#7cb342] px-2 py-0.5 rounded-full border border-[#7cb342]/30 mb-2">🎉 成就晒</span>
-      <div class="flex gap-4 text-[#8a7560] text-[11px]"><span>💩 42</span><span>💬 8</span></div>
-    </div>
-    <!-- Post 2 -->
-    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-3 -rotate-[0.3deg]">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-8 h-8 bg-[#e57373]/20 rounded-full flex items-center justify-center text-sm">😫</div>
-        <span class="text-[#5a3e28] text-[13px] font-bold">便便#9901</span>
-        <span class="text-[#c9b99a] text-[11px]">3小时前</span>
-      </div>
-      <p class="text-[#5a3e28] text-[13px] mb-2 leading-relaxed">第5天了……肚子胀得难受，试了开塞露也不行。有没有人懂这种绝望 😭</p>
-      <span class="inline-block text-[10px] bg-[#e57373]/10 text-[#e57373] px-2 py-0.5 rounded-full border border-[#e57373]/30 mb-2">😫 吐槽</span>
-      <div class="flex gap-4 text-[#8a7560] text-[11px]"><span>💩 128</span><span>💬 31</span></div>
-    </div>
-    <!-- Post 3 -->
-    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-3 rotate-[0.2deg]">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-8 h-8 bg-[#64b5f6]/20 rounded-full flex items-center justify-center text-sm">💡</div>
-        <span class="text-[#5a3e28] text-[13px] font-bold">便便#5566</span>
-        <span class="text-[#c9b99a] text-[11px]">5小时前</span>
-      </div>
-      <p class="text-[#5a3e28] text-[13px] mb-2 leading-relaxed">安利：咖啡+香蕉，早上空腹吃，我从Type 1变成Type 4只用了一周！</p>
-      <span class="inline-block text-[10px] bg-[#64b5f6]/10 text-[#64b5f6] px-2 py-0.5 rounded-full border border-[#64b5f6]/30 mb-2">💡 小妙招</span>
-      <div class="flex gap-4 text-[#8a7560] text-[11px]"><span>💩 89</span><span>💬 22</span></div>
-    </div>
-    <!-- Tab Bar -->
-    <div class="flex justify-around pt-3 mt-4 border-t-2 border-dashed border-[#c9b99a] pb-7">
-      <a href="lala-v2-home.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">🏠</span><span class="text-[11px]">首页</span></a>
-      <a href="lala-v2-record.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">📊</span><span class="text-[11px]">记录</span></a>
-      <div class="text-center text-[#5a3e28]"><span class="text-[20px] block">💬</span><span class="text-[11px] font-bold">树洞</span></div>
-      <a href="lala-v2-profile.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">👤</span><span class="text-[11px]">我的</span></a>
-    </div>
+<body class="flex flex-col h-full">
+<div class="flex-1 scroll-area safe-top px-5 pb-4">
+  <h1 class="fun text-[28px] text-[#5a3e28] rotate-1 mb-1 mt-2">树洞 💬</h1>
+  <p class="text-[#8a7560] text-[12px] mb-4">这里没人认识你，放心说 🤫</p>
+  <!-- 发帖 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-3 mb-4 flex items-center gap-3">
+    <div class="w-10 h-10 bg-[#f0b860]/20 rounded-full flex items-center justify-center text-lg">💩</div>
+    <span class="flex-1 text-[#8a7560] text-[13px]">说点什么…</span>
+    <button class="bg-[#f0b860] border-2 border-[#5a3e28] text-[#5a3e28] text-[12px] px-3 py-1 rounded-full fun">发布</button>
   </div>
+  <!-- Post 1 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-3 rotate-[0.3deg]">
+    <div class="flex items-center gap-2 mb-2">
+      <div class="w-8 h-8 bg-[#7cb342]/20 rounded-full flex items-center justify-center text-sm">🎉</div>
+      <span class="text-[#5a3e28] text-[13px] font-bold">便便#3721</span>
+      <span class="text-[#c9b99a] text-[11px]">2小时前</span>
+    </div>
+    <p class="text-[#5a3e28] text-[13px] mb-2 leading-relaxed">连续打卡7天了！！小香肠解锁！🎉🎉 每天起床先喝一杯温水，然后蹲5分钟，真的管用！</p>
+    <span class="inline-block text-[10px] bg-[#7cb342]/10 text-[#7cb342] px-2 py-0.5 rounded-full border border-[#7cb342]/30 mb-2">🎉 成就晒</span>
+    <div class="flex gap-4 text-[#8a7560] text-[11px]"><span>💩 42</span><span>💬 8</span></div>
+  </div>
+  <!-- Post 2 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-3 -rotate-[0.3deg]">
+    <div class="flex items-center gap-2 mb-2">
+      <div class="w-8 h-8 bg-[#e57373]/20 rounded-full flex items-center justify-center text-sm">😫</div>
+      <span class="text-[#5a3e28] text-[13px] font-bold">便便#9901</span>
+      <span class="text-[#c9b99a] text-[11px]">3小时前</span>
+    </div>
+    <p class="text-[#5a3e28] text-[13px] mb-2 leading-relaxed">第5天了……肚子胀得难受，试了开塞露也不行。有没有人懂这种绝望 😭</p>
+    <span class="inline-block text-[10px] bg-[#e57373]/10 text-[#e57373] px-2 py-0.5 rounded-full border border-[#e57373]/30 mb-2">😫 吐槽</span>
+    <div class="flex gap-4 text-[#8a7560] text-[11px]"><span>💩 128</span><span>💬 31</span></div>
+  </div>
+  <!-- Post 3 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 rotate-[0.2deg]">
+    <div class="flex items-center gap-2 mb-2">
+      <div class="w-8 h-8 bg-[#64b5f6]/20 rounded-full flex items-center justify-center text-sm">💡</div>
+      <span class="text-[#5a3e28] text-[13px] font-bold">便便#5566</span>
+      <span class="text-[#c9b99a] text-[11px]">5小时前</span>
+    </div>
+    <p class="text-[#5a3e28] text-[13px] mb-2 leading-relaxed">安利：咖啡+香蕉，早上空腹吃，我从Type 1变成Type 4只用了一周！</p>
+    <span class="inline-block text-[10px] bg-[#64b5f6]/10 text-[#64b5f6] px-2 py-0.5 rounded-full border border-[#64b5f6]/30 mb-2">💡 小妙招</span>
+    <div class="flex gap-4 text-[#8a7560] text-[11px]"><span>💩 89</span><span>💬 22</span></div>
+  </div>
+</div>
+<!-- Tab Bar -->
+<div class="bg-[#faf5ee]/90 backdrop-blur-md border-t-2 border-dashed border-[#c9b99a] flex justify-around pt-2 safe-bottom">
+  <a href="lala-v2-home.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">🏠</span><span class="text-[11px]">首页</span></a>
+  <a href="lala-v2-record.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">📊</span><span class="text-[11px]">记录</span></a>
+  <div class="text-center text-[#5a3e28]"><span class="text-[22px] block">💬</span><span class="text-[11px] font-bold">树洞</span></div>
+  <a href="lala-v2-profile.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">👤</span><span class="text-[11px]">我的</span></a>
 </div>
 </body>
 </html>

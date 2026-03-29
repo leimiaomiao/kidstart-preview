@@ -2,74 +2,78 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>拉了吗 — 记录</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap">
 <style>
-body{font-family:'Noto Sans SC',sans-serif;background:#f5ede3;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans SC',sans-serif;background:#faf5ee;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
 .fun{font-family:'ZCOOL KuaiLe',cursive}
+.scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.scroll-area::-webkit-scrollbar{display:none}
+.safe-top{padding-top:max(env(safe-area-inset-top),20px)}
+.safe-bottom{padding-bottom:max(env(safe-area-inset-bottom),16px)}
 </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-<div class="w-[375px] min-h-[750px] bg-[#faf5ee] rounded-[50px] border-[8px] border-[#2c2c2c] shadow-2xl overflow-hidden">
-  <div class="w-[120px] h-[32px] bg-[#2c2c2c] rounded-b-[20px] mx-auto"></div>
-  <div class="px-6 pt-3 pb-4">
-    <h1 class="fun text-[28px] text-[#5a3e28] -rotate-1 mb-1">记录 📊</h1>
-    <p class="text-[#8a7560] text-[12px] mb-4">你的排便大数据 📈</p>
-    <!-- 月份切换 -->
-    <div class="flex justify-between items-center mb-3">
-      <span class="text-[#8a7560] text-lg">‹</span>
-      <span class="fun text-[#5a3e28] text-[16px]">2026年3月</span>
-      <span class="text-[#8a7560] text-lg">›</span>
+<body class="flex flex-col h-full">
+<div class="flex-1 scroll-area safe-top px-5 pb-4">
+  <h1 class="fun text-[28px] text-[#5a3e28] -rotate-1 mb-1 mt-2">记录 📊</h1>
+  <p class="text-[#8a7560] text-[12px] mb-4">你的排便大数据 📈</p>
+  <!-- 月份切换 -->
+  <div class="flex justify-between items-center mb-3">
+    <span class="text-[#8a7560] text-lg">‹</span>
+    <span class="fun text-[#5a3e28] text-[16px]">2026年3月</span>
+    <span class="text-[#8a7560] text-lg">›</span>
+  </div>
+  <!-- 日历 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4">
+    <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-[#8a7560] mb-2">
+      <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
     </div>
-    <!-- 日历 -->
-    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4">
-      <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-[#8a7560] mb-2">
-        <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
-      </div>
-      <div class="grid grid-cols-7 gap-1 text-center text-[11px]">
-        <span class="p-1.5 text-[#c9b99a]">22</span>
-        <span class="p-1.5 text-[#c9b99a]">23</span>
-        <span class="p-1.5 text-[#c9b99a]">24</span>
-        <span class="p-1.5 text-[#5a3e28] bg-[#f0b860]/20 rounded-lg">25💩</span>
-        <span class="p-1.5 text-[#5a3e28] bg-[#f0b860]/20 rounded-lg">26💩</span>
-        <span class="p-1.5 text-[#5a3e28] bg-[#f0b860]/20 rounded-lg">27💩</span>
-        <span class="p-1.5 text-white bg-[#e8a84c] rounded-lg font-bold">28💩</span>
-      </div>
-    </div>
-    <!-- 本周统计 -->
-    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 rotate-[0.5deg]">
-      <div class="fun text-[14px] text-[#5a3e28] mb-3">📋 本周报告</div>
-      <div class="grid grid-cols-2 gap-4">
-        <div><span class="fun text-[28px] text-[#5a3e28]">5</span><p class="text-[11px] text-[#8a7560]">排便次数</p></div>
-        <div><span class="text-[28px]">🍌</span><p class="text-[11px] text-[#8a7560]">最常形态</p></div>
-        <div><span class="fun text-[28px] text-[#5a3e28]">7:32</span><p class="text-[11px] text-[#8a7560]">平均时间</p></div>
-        <div><span class="text-[28px]">😊</span><p class="text-[11px] text-[#8a7560]">平均心情</p></div>
-      </div>
-    </div>
-    <!-- 趋势 -->
-    <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 -rotate-[0.3deg]">
-      <div class="fun text-[14px] text-[#5a3e28] mb-3">📈 形态趋势</div>
-      <div class="flex items-end justify-between h-20 px-1">
-        <div class="flex flex-col items-center gap-1"><div class="bg-[#e8a84c]/40 rounded w-7" style="height:20px"></div><span class="text-[9px] text-[#8a7560]">一</span></div>
-        <div class="flex flex-col items-center gap-1"><div class="bg-[#e8a84c]/60 rounded w-7" style="height:35px"></div><span class="text-[9px] text-[#8a7560]">二</span></div>
-        <div class="flex flex-col items-center gap-1"><div class="bg-[#e8a84c]/70 rounded w-7" style="height:50px"></div><span class="text-[9px] text-[#8a7560]">三</span></div>
-        <div class="flex flex-col items-center gap-1"><div class="bg-[#7cb342] rounded w-7" style="height:70px"></div><span class="text-[9px] text-[#8a7560]">四</span></div>
-        <div class="flex flex-col items-center gap-1"><div class="bg-[#7cb342] rounded w-7" style="height:75px"></div><span class="text-[9px] text-[#8a7560]">五</span></div>
-        <div class="flex flex-col items-center gap-1"><div class="bg-[#7cb342] rounded w-7" style="height:68px"></div><span class="text-[9px] text-[#8a7560]">六</span></div>
-        <div class="flex flex-col items-center gap-1"><div class="bg-[#c9b99a]/40 rounded w-7" style="height:8px"></div><span class="text-[9px] text-[#8a7560]">日</span></div>
-      </div>
-      <p class="text-center text-[10px] text-[#8a7560] mt-2">越绿 = 越接近完美🍌</p>
-    </div>
-    <!-- Tab Bar -->
-    <div class="flex justify-around pt-3 mt-4 border-t-2 border-dashed border-[#c9b99a] pb-7">
-      <a href="lala-v2-home.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">🏠</span><span class="text-[11px]">首页</span></a>
-      <div class="text-center text-[#5a3e28]"><span class="text-[20px] block">📊</span><span class="text-[11px] font-bold">记录</span></div>
-      <a href="lala-v2-community.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">💬</span><span class="text-[11px]">树洞</span></a>
-      <a href="lala-v2-profile.html" class="text-center text-[#8a7560] no-underline"><span class="text-[20px] block">👤</span><span class="text-[11px]">我的</span></a>
+    <div class="grid grid-cols-7 gap-1 text-center text-[11px]">
+      <span class="p-1.5 text-[#c9b99a]">22</span>
+      <span class="p-1.5 text-[#c9b99a]">23</span>
+      <span class="p-1.5 text-[#c9b99a]">24</span>
+      <span class="p-1.5 text-[#5a3e28] bg-[#f0b860]/20 rounded-lg">25💩</span>
+      <span class="p-1.5 text-[#5a3e28] bg-[#f0b860]/20 rounded-lg">26💩</span>
+      <span class="p-1.5 text-[#5a3e28] bg-[#f0b860]/20 rounded-lg">27💩</span>
+      <span class="p-1.5 text-white bg-[#e8a84c] rounded-lg font-bold">28💩</span>
     </div>
   </div>
+  <!-- 本周统计 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 rotate-[0.5deg]">
+    <div class="fun text-[14px] text-[#5a3e28] mb-3">📋 本周报告</div>
+    <div class="grid grid-cols-2 gap-4">
+      <div><span class="fun text-[28px] text-[#5a3e28]">5</span><p class="text-[11px] text-[#8a7560]">排便次数</p></div>
+      <div><span class="text-[28px]">🍌</span><p class="text-[11px] text-[#8a7560]">最常形态</p></div>
+      <div><span class="fun text-[28px] text-[#5a3e28]">7:32</span><p class="text-[11px] text-[#8a7560]">平均时间</p></div>
+      <div><span class="text-[28px]">😊</span><p class="text-[11px] text-[#8a7560]">平均心情</p></div>
+    </div>
+  </div>
+  <!-- 趋势 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 -rotate-[0.3deg] mb-4">
+    <div class="fun text-[14px] text-[#5a3e28] mb-3">📈 形态趋势</div>
+    <div class="flex items-end justify-between h-20 px-1">
+      <div class="flex flex-col items-center gap-1"><div class="bg-[#e8a84c]/40 rounded w-7" style="height:20px"></div><span class="text-[9px] text-[#8a7560]">一</span></div>
+      <div class="flex flex-col items-center gap-1"><div class="bg-[#e8a84c]/60 rounded w-7" style="height:35px"></div><span class="text-[9px] text-[#8a7560]">二</span></div>
+      <div class="flex flex-col items-center gap-1"><div class="bg-[#e8a84c]/70 rounded w-7" style="height:50px"></div><span class="text-[9px] text-[#8a7560]">三</span></div>
+      <div class="flex flex-col items-center gap-1"><div class="bg-[#7cb342] rounded w-7" style="height:70px"></div><span class="text-[9px] text-[#8a7560]">四</span></div>
+      <div class="flex flex-col items-center gap-1"><div class="bg-[#7cb342] rounded w-7" style="height:75px"></div><span class="text-[9px] text-[#8a7560]">五</span></div>
+      <div class="flex flex-col items-center gap-1"><div class="bg-[#7cb342] rounded w-7" style="height:68px"></div><span class="text-[9px] text-[#8a7560]">六</span></div>
+      <div class="flex flex-col items-center gap-1"><div class="bg-[#c9b99a]/40 rounded w-7" style="height:8px"></div><span class="text-[9px] text-[#8a7560]">日</span></div>
+    </div>
+    <p class="text-center text-[10px] text-[#8a7560] mt-2">越绿 = 越接近完美🍌</p>
+  </div>
+</div>
+<!-- Tab Bar -->
+<div class="bg-[#faf5ee]/90 backdrop-blur-md border-t-2 border-dashed border-[#c9b99a] flex justify-around pt-2 safe-bottom">
+  <a href="lala-v2-home.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">🏠</span><span class="text-[11px]">首页</span></a>
+  <div class="text-center text-[#5a3e28]"><span class="text-[22px] block">📊</span><span class="text-[11px] font-bold">记录</span></div>
+  <a href="lala-v2-community.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">💬</span><span class="text-[11px]">树洞</span></a>
+  <a href="lala-v2-profile.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">👤</span><span class="text-[11px]">我的</span></a>
 </div>
 </body>
 </html>
