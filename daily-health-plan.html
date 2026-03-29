@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍊 每日健康计划</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0f0f1a;
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 16px;
+  padding-bottom: 100px;
+}
+h1 { font-size: 22px; text-align: center; margin: 12px 0 4px; }
+.subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 16px; }
+.time-section {
+  background: #1a1a2e;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-left: 4px solid #ff9800;
+}
+.time-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px;
+}
+.time-icon { font-size: 24px; }
+.time-label { font-size: 16px; font-weight: 700; color: #ff9800; }
+.time-range { font-size: 12px; color: #888; margin-left: auto; }
+.task-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; margin-bottom: 6px;
+  background: #16213e; border-radius: 10px;
+  cursor: pointer; transition: all 0.2s;
+}
+.task-item:active { transform: scale(0.98); }
+.task-item.done { opacity: 0.5; text-decoration: line-through; }
+.task-check {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid #ff9800; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px; transition: all 0.2s;
+}
+.task-item.done .task-check {
+  background: #ff9800; border-color: #ff9800;
+}
+.task-item.done .task-check::after {
+  content: '✓'; color: #000; font-size: 14px; font-weight: 700;
+}
+.task-text { flex: 1; }
+.task-name { font-size: 14px; font-weight: 600; }
+.task-desc { font-size: 12px; color: #888; margin-top: 2px; }
+.tag {
+  display: inline-block; font-size: 10px; padding: 2px 6px;
+  border-radius: 4px; margin-top: 4px; margin-right: 4px;
+}
+.tag-gut { background: #2d1b00; color: #ff9800; }
+.tag-supplement { background: #0d2b1a; color: #4caf50; }
+.tag-hemorrhoid { background: #2b0d1a; color: #e91e63; }
+.tag-habit { background: #0d1a2b; color: #2196f3; }
+.progress-bar {
+  background: #1a1a2e; border-radius: 12px; padding: 12px 16px;
+  margin-bottom: 16px; text-align: center;
+}
+.progress-track {
+  height: 8px; background: #16213e; border-radius: 4px;
+  margin-top: 8px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, #ff9800, #ff5722);
+  border-radius: 4px; transition: width 0.5s;
+}
+.progress-text { font-size: 13px; color: #ff9800; }
+.section-tip {
+  font-size: 12px; color: #666; padding: 8px 12px;
+  background: #111; border-radius: 8px; margin-top: 8px;
+}
+.reset-btn {
+  display: block; width: 100%; padding: 14px;
+  background: #1a1a2e; border: 1px solid #333;
+  color: #888; border-radius: 12px; font-size: 14px;
+  text-align: center; margin-top: 16px; cursor: pointer;
+}
+.reset-btn:active { background: #2a2a3e; }
+.weekly-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 4px; margin-top: 8px;
+}
+.day-cell {
+  text-align: center; padding: 6px 0; border-radius: 6px;
+  font-size: 11px; background: #16213e;
+}
+.day-cell.today { border: 1px solid #ff9800; }
+.day-cell.completed { background: #2d1b00; color: #ff9800; }
+</style>
+</head>
+<body>
+<h1>🍊 米粒船长の每日健康计划</h1>
+<p class="subtitle">便秘缓解 · 痔疮护理 · 营养补充</p>
+
+<div class="progress-bar">
+  <span class="progress-text" id="progress-label">今日进度 0/16</span>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+</div>
+
+<div class="time-section" style="border-left-color:#ff9800">
+  <div class="time-header">
+    <span class="time-icon">🌅</span>
+    <span class="time-label">起床后</span>
+    <span class="time-range">7:00 - 8:00</span>
+  </div>
+  <div class="task-item" data-id="t1" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">空腹喝温水 300ml</div>
+      <div class="task-desc">起床第一件事，刺激肠道蠕动</div>
+      <span class="tag tag-gut">肠道</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t2" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">🧡 复合维生素 × 1粒</div>
+      <div class="task-desc">随早餐服用，吸收更好</div>
+      <span class="tag tag-supplement">营养补充</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t3" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">🦴 钙片 × 1粒</div>
+      <div class="task-desc">早餐后服用，别和铁剂同时吃</div>
+      <span class="tag tag-supplement">营养补充</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t4" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">🐟 DHA × 1粒</div>
+      <div class="task-desc">随餐服用，促进吸收</div>
+      <span class="tag tag-supplement">营养补充</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t5" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">尝试排便（不超过5分钟）</div>
+      <div class="task-desc">利用早起的胃结肠反射，排不出就起来</div>
+      <span class="tag tag-gut">肠道</span><span class="tag tag-hemorrhoid">痔疮</span>
+    </div>
+  </div>
+  <div class="section-tip">💡 早餐吃点燕麦 + 水果（猕猴桃/火龙果最佳）</div>
+</div>
+<div class="time-section" style="border-left-color:#4caf50">
+  <div class="time-header">
+    <span class="time-icon">☀️</span>
+    <span class="time-label">午间</span>
+    <span class="time-range">12:00 - 13:00</span>
+  </div>
+  <div class="task-item" data-id="t6" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">🩸 补铁剂 × 1粒</div>
+      <div class="task-desc">午餐后2小时服用，配维C促进吸收</div>
+      <span class="tag tag-supplement">营养补充</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t7" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">喝水补充（累计 1000ml）</div>
+      <div class="task-desc">到中午至少喝够 1L 水</div>
+      <span class="tag tag-gut">肠道</span>
+    </div>
+  </div>
+  <div class="section-tip">💡 午餐多吃蔬菜，西兰花、菠菜、木耳都不错</div>
+</div>
+<div class="time-section" style="border-left-color:#2196f3">
+  <div class="time-header">
+    <span class="time-icon">🚶</span>
+    <span class="time-label">下午</span>
+    <span class="time-range">15:00 - 17:00</span>
+  </div>
+  <div class="task-item" data-id="t8" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">散步 15-30 分钟</div>
+      <div class="task-desc">促进肠道蠕动，不要久坐</div>
+      <span class="tag tag-gut">肠道</span><span class="tag tag-habit">习惯</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t9" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">喝水补充（累计 1500ml）</div>
+      <div class="task-desc">下午别忘了喝水</div>
+      <span class="tag tag-gut">肠道</span>
+    </div>
+  </div>
+  <div class="section-tip">💡 每坐1小时起来走动5分钟，减少肛门压力</div>
+</div>
+<div class="time-section" style="border-left-color:#e91e63">
+  <div class="time-header">
+    <span class="time-icon">🌇</span>
+    <span class="time-label">晚间</span>
+    <span class="time-range">19:00 - 21:00</span>
+  </div>
+  <div class="task-item" data-id="t10" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">晚餐后散步 15 分钟</div>
+      <div class="task-desc">助消化，预防腹胀</div>
+      <span class="tag tag-gut">肠道</span><span class="tag tag-habit">习惯</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t11" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">🛁 温水坐浴 10-15 分钟</div>
+      <div class="task-desc">40°C 温水，缓解痔疮不适，坐浴后蘸干</div>
+      <span class="tag tag-hemorrhoid">痔疮</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t12" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">💊 涂痔疮膏 / 塞痔疮栓</div>
+      <div class="task-desc">坐浴后使用，外痔涂抹、内痔塞入</div>
+      <span class="tag tag-hemorrhoid">痔疮</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t13" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">喝水补充（累计 2000ml）</div>
+      <div class="task-desc">今日饮水目标 2L</div>
+      <span class="tag tag-gut">肠道</span>
+    </div>
+  </div>
+  <div class="section-tip">💡 晚餐别吃太辣太油，清淡为主，红薯是好选择</div>
+</div>
+<div class="time-section" style="border-left-color:#9c27b0">
+  <div class="time-header">
+    <span class="time-icon">🌙</span>
+    <span class="time-label">睡前</span>
+    <span class="time-range">22:00 - 23:00</span>
+  </div>
+  <div class="task-item" data-id="t14" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">🍯 乳果糖 15-30ml</div>
+      <div class="task-desc">睡前服用，明早排便会软很多</div>
+      <span class="tag tag-gut">肠道</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t15" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">腹部顺时针按摩 3 分钟</div>
+      <div class="task-desc">躺在床上，顺时针揉肚子，促进肠蠕动</div>
+      <span class="tag tag-gut">肠道</span>
+    </div>
+  </div>
+  <div class="task-item" data-id="t16" onclick="toggle(this)">
+    <div class="task-check"></div>
+    <div class="task-text">
+      <div class="task-name">23:00 前入睡</div>
+      <div class="task-desc">规律作息是肠道健康的基础</div>
+      <span class="tag tag-habit">习惯</span>
+    </div>
+  </div>
+</div>
+<div class="time-section" style="border-left-color:#607d8b">
+  <div class="time-header">
+    <span class="time-icon">📊</span>
+    <span class="time-label">本周打卡</span>
+  </div>
+  <div class="weekly-grid" id="weekly-grid"></div>
+  <div class="section-tip" style="margin-top:10px">💡 坚持一周，便秘和痔疮会明显改善。加油船长！</div>
+</div>
+
+<button class="reset-btn" onclick="resetToday()">🔄 重置今日打卡</button>
+<script>
+const TOTAL = 16;
+const TODAY = new Date().toISOString().slice(0,10);
+const STORAGE_KEY = 'health-plan-' + TODAY;
+const WEEK_KEY = 'health-plan-week';
+
+function getState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } 
+  catch(e) { return {}; }
+}
+function saveState(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+function toggle(el) {
+  const id = el.dataset.id;
+  const state = getState();
+  state[id] = !state[id];
+  saveState(state);
+  render();
+}
+
+function render() {
+  const state = getState();
+  let done = 0;
+  document.querySelectorAll('.task-item').forEach(el => {
+    const id = el.dataset.id;
+    if (state[id]) { el.classList.add('done'); done++; }
+    else { el.classList.remove('done'); }
+  });
+  document.getElementById('progress-label').textContent = '今日进度 ' + done + '/' + TOTAL;
+  document.getElementById('progress-fill').style.width = (done/TOTAL*100) + '%';
+  // save weekly
+  if (done === TOTAL) {
+    const week = getWeek();
+    week[TODAY] = true;
+    localStorage.setItem(WEEK_KEY, JSON.stringify(week));
+  }
+  renderWeek();
+}
+
+function resetToday() {
+  localStorage.removeItem(STORAGE_KEY);
+  const week = getWeek();
+  delete week[TODAY];
+  localStorage.setItem(WEEK_KEY, JSON.stringify(week));
+  render();
+}
+
+function getWeek() {
+  try { return JSON.parse(localStorage.getItem(WEEK_KEY)) || {}; }
+  catch(e) { return {}; }
+}
+
+function renderWeek() {
+  const grid = document.getElementById('weekly-grid');
+  const week = getWeek();
+  const days = ['日','一','二','三','四','五','六'];
+  const now = new Date();
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - now.getDay());
+  let html = '';
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(startOfWeek);
+    d.setDate(startOfWeek.getDate() + i);
+    const key = d.toISOString().slice(0,10);
+    const isToday = key === TODAY;
+    const isDone = week[key];
+    let cls = 'day-cell';
+    if (isToday) cls += ' today';
+    if (isDone) cls += ' completed';
+    html += '<div class="' + cls + '">' + days[i] + (isDone ? '<br>✓' : '<br>·') + '</div>';
+  }
+  grid.innerHTML = html;
+}
+
+render();
+</script>
+
+</body>
+</html>
