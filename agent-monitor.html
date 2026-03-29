@@ -26,7 +26,7 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
 </head>
 <body>
 <h1>🏴‍☠️ 草帽团 Agent 监控</h1>
-<div class="update-time">更新于 2026-03-29 23:54:40 · 每5分钟自动刷新</div>
+<div class="update-time">更新于 2026-03-29 23:59:40 · 每5分钟自动刷新</div>
 <div class="agent">
   <div class="agent-header">
     <span class="agent-avatar">🍊</span>
@@ -34,12 +34,12 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，"VPN与设备管理"这个选项只有在 App 装上之后才会出现！
+    [[reply_to_current]] 那就是代理的问题！`developer.apple.com` 在国内有时候被墙或者很慢。
 
-流程是这样的：
-1. 先在 Xcode 里点 ▶️ 编译到你手机
-2. 第一次会**安装失败**，这时候手机上才会出现"VPN
-    <div class="time">23:51:25 (3分钟前)</div>
+你的 V2RayN 代理端口是 `127.0.0.1:59665`，试试：
+
+**方法 1：开全局代理**
+    <div class="time">23:55:35 (4分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -49,15 +49,13 @@ h1{font-size:20px;margin-bottom:4px;text-align:center}
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，那个选项只有在 App 安装到手机之后才会出现。
+    [[reply_to_current]] 船长，代理没跑起来——端口 59665 上没有进程在监听。V2RayN 没启动。
 
-现在先这样操作：
-
-**1. 打开 Xcode**
-```
-open ~/Projects/lala/ios/LaLa.xcodeproj
-
-    <div class="time">23:51:32 (3分钟前)</div>
+**先启动代理：**
+1. 打开 V2RayN 应用
+2. 确认连接成功（状态栏图标变绿/蓝）
+3. 然后再试 X
+    <div class="time">23:56:03 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -67,12 +65,13 @@ open ~/Projects/lala/ios/LaLa.xcodeproj
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 船长，你是在 Xcode 里添加 Apple Account 吗？
+    [[reply_to_current]] 船长，这是网络问题，Apple 开发者网站国内经常抽风。
 
-常见原因：
-1. **网络问题** — Apple 的开发者服务需要翻墙，检查一下代理是否开着
-2. **双重认证** — Ap
-    <div class="time">23:54:38</div>
+试一下开代理：
+
+你电脑上有 V2RayN（端口 `127.0.0.1:59665`），确认代理开着，然后：
+- 浏览器开代理访问 `de
+    <div class="time">23:55:45 (3分钟前)</div>
   </div>
 </div>
 <div class="agent">
@@ -82,14 +81,15 @@ open ~/Projects/lala/ios/LaLa.xcodeproj
     <span class="status status-working">🟢 工作中</span>
   </div>
   <div class="last-action">
-    [[reply_to_current]] 那个选项要先跑一次 App 才会出现！先操作这些：
+    [[reply_to_current]] 那就是代理没开或者 DNS 被污染了。
 
-**第一步：打开 Xcode 项目**
-电脑终端跑：
+**快速解决：**
+打开 V2RayN 开全局代理，然后再试 Xcode 登录。
+
+或者终端跑：
 ```
-open ~/Projects/lala/ios/LaLa.xcodeproj
-`
-    <div class="time">23:51:31 (3分钟前)</div>
+export https_proxy=http:/
+    <div class="time">23:55:55 (3分钟前)</div>
   </div>
 </div>
 
