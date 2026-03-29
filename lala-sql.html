@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拉了吗 SQL Migration</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;background:#0d1117;color:#e6edf3;padding:16px}
+h1{font-size:18px;margin-bottom:8px}
+p{font-size:13px;color:#7d8590;margin-bottom:12px}
+.copy-btn{background:#238636;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:14px;cursor:pointer;margin-bottom:12px}
+.copy-btn:active{background:#2ea043}
+pre{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;font-size:12px;overflow-x:auto;white-space:pre;line-height:1.5;max-height:70vh;overflow-y:auto}
+</style>
+</head>
+<body>
+<h1>📋 001_init.sql</h1>
+<p>复制下面全部内容，粘贴到 Supabase SQL Editor 运行</p>
+<button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('sql').textContent);this.textContent='✅ 已复制!'">📋 一键复制</button>
+<pre id="sql">-- Users profile table (extends Supabase auth.users)
+create table public.users (
+  id uuid references auth.users(id) primary key,
+  username text unique,
+  avatar_url text,
+  character_level int default 1,
+  character_exp int default 0,
+  current_streak int default 0,
+  max_streak int default 0,
+  total_records int default 0,
+  achievements text[] default array[]::text[],
+  last_record_date date,
+  created_at timestamptz default now()
+);
+
+-- Poop records
+create table public.poop_records (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.users(id) not null,
+  bristol_type int check (bristol_type between 1 and 7) not null,
+  mood text check (mood in ('terrible', 'okay', 'good', 'amazing')) not null,
+  note text check (char_length(note) &lt;= 50),
+  date date default current_date not null,
+  created_at timestamptz default now()
+);
+
+-- Posts (tree hole community)
+create table public.posts (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references public.users(id) not null,
+  type text check (type in ('🎉成就晒', '😫吐槽', '💡小妙招', '💩打卡分享')) not null,
+  content text check (char_length(content) &lt;= 200) not null,
+  likes int default 0,
+  comments int default 0,
+  is_anonymous boolean default true,
+  bristol_type int,
+  created_at timestamptz default now()
+);
+
+-- Comments
+create table public.comments (
+  id uuid default gen_random_uuid() primary key,
+  post_id uuid references public.posts(id) on delete cascade not null,
+  user_id uuid references public.users(id) not null,
+  content text check (char_length(content) &lt;= 100) not null,
+  is_anonymous boolean default true,
+  created_at timestamptz default now()
+);
+
+-- Likes (unique per user per post)
+create table public.likes (
+  id uuid default gen_random_uuid() primary key,
+  post_id uuid references public.posts(id) on delete cascade not null,
+  user_id uuid references public.users(id) not null,
+  created_at timestamptz default now(),
+  unique(post_id, user_id)
+);
+
+-- RLS policies
+alter table public.users enable row level security;
+alter table public.poop_records enable row level security;
+alter table public.posts enable row level security;
+alter table public.comments enable row level security;
+alter table public.likes enable row level security;
+
+create policy "Users can read own profile" on public.users for select using (auth.uid() = id);
+create policy "Users can update own profile" on public.users for update using (auth.uid() = id);
+create policy "Users can insert own profile" on public.users for insert with check (auth.uid() = id);
+
+create policy "Users can read own records" on public.poop_records for select using (auth.uid() = user_id);
+create policy "Users can insert own records" on public.poop_records for insert with check (auth.uid() = user_id);
+
+create policy "Anyone can read posts" on public.posts for select using (true);
+create policy "Users can insert posts" on public.posts for insert with check (auth.uid() = user_id);
+create policy "Users can update own posts" on public.posts for update using (auth.uid() = user_id);
+
+create policy "Anyone can read comments" on public.comments for select using (true);
+create policy "Users can insert comments" on public.comments for insert with check (auth.uid() = user_id);
+
+create policy "Anyone can read likes" on public.likes for select using (true);
+create policy "Users can insert likes" on public.likes for insert with check (auth.uid() = user_id);
+create policy "Users can delete own likes" on public.likes for delete using (auth.uid() = user_id);
+
+-- Indexes
+create index idx_poop_records_user_date on public.poop_records(user_id, date);
+create index idx_posts_created on public.posts(created_at desc);
+create index idx_comments_post on public.comments(post_id, created_at);
+create index idx_likes_post on public.likes(post_id);
+
+-- Function: auto-create user profile on signup
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.users (id, username)
+  values (new.id, '便便#' || substr(new.id::text, 1, 4));
+  return new;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
+
+-- Function: update post like/comment counts
+create or replace function public.update_post_likes_count()
+returns trigger as $$
+begin
+  if TG_OP = 'INSERT' then
+    update public.posts set likes = likes + 1 where id = NEW.post_id;
+  elsif TG_OP = 'DELETE' then
+    update public.posts set likes = likes - 1 where id = OLD.post_id;
+  end if;
+  return null;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_like_change
+  after insert or delete on public.likes
+  for each row execute function public.update_post_likes_count();
+
+create or replace function public.update_post_comments_count()
+returns trigger as $$
+begin
+  if TG_OP = 'INSERT' then
+    update public.posts set comments = comments + 1 where id = NEW.post_id;
+  elsif TG_OP = 'DELETE' then
+    update public.posts set comments = comments - 1 where id = OLD.post_id;
+  end if;
+  return null;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_comment_change
+  after insert or delete on public.comments
+  for each row execute function public.update_post_comments_count();
+
+-- Enable realtime
+alter publication supabase_realtime add table public.posts;
+alter publication supabase_realtime add table public.comments;
+alter publication supabase_realtime add table public.likes;</pre>
+</body>
+</html>
