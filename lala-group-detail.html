@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>办公室畅通联盟</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans SC',sans-serif;background:#faf5ee;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+.fun{font-family:'ZCOOL KuaiLe',cursive}
+.scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.scroll-area::-webkit-scrollbar{display:none}
+.safe-top{padding-top:max(env(safe-area-inset-top),20px)}
+.safe-bottom{padding-bottom:max(env(safe-area-inset-bottom),16px)}
+@keyframes poke{0%{transform:scale(1)}25%{transform:scale(1.3) rotate(10deg)}50%{transform:scale(1)}75%{transform:scale(1.2) rotate(-5deg)}100%{transform:scale(1)}}
+.poke-anim{animation:poke .5s ease-out}
+.tab-btn{cursor:pointer;padding:6px 16px;border-radius:20px;font-size:12px;border:2px solid #c9b99a;background:#fff;color:#5a3e28;transition:all .2s}
+.tab-btn.active{background:#f0b860;border-color:#5a3e28;font-weight:bold}
+</style>
+</head>
+<body class="flex flex-col h-full">
+<div class="flex-1 scroll-area safe-top px-5 pb-4">
+  <!-- 返回 + 标题 -->
+  <div class="flex items-center gap-3 mt-2 mb-3">
+    <a href="lala-group-list.html" class="text-[#8a7560] text-lg no-underline">‹</a>
+    <div class="flex-1">
+      <div class="flex items-center gap-2">
+        <span class="text-[24px]">🔥</span>
+        <span class="fun text-[20px] text-[#5a3e28]">办公室畅通联盟</span>
+      </div>
+      <div class="text-[11px] text-[#8a7560] ml-9">5 位成员 · 邀请码 <span class="bg-[#f0e6d4] px-1.5 py-0.5 rounded font-mono text-[#5a3e28]">LA3K9P</span></div>
+    </div>
+  </div>
+
+  <!-- 本周挑战 -->
+  <div class="bg-white border-2 border-[#f0b860] rounded-2xl p-4 mb-4 rotate-[0.3deg]">
+    <div class="flex items-center justify-between mb-2">
+      <span class="fun text-[14px] text-[#5a3e28]">🎯 本周挑战：谁最规律？</span>
+      <span class="text-[10px] text-[#8a7560] bg-[#f0e6d4] px-2 py-0.5 rounded-full">还剩3天</span>
+    </div>
+    <div class="space-y-2">
+      <div class="flex items-center gap-2"><span class="text-[12px] w-16 text-[#5a3e28]">便便#3721</span><div class="flex-1 h-3 bg-[#e8ddd0] rounded-full overflow-hidden"><div class="h-full bg-[#7cb342] rounded-full" style="width:100%"></div></div><span class="text-[10px] text-[#5a3e28] font-bold">7/7</span></div>
+      <div class="flex items-center gap-2"><span class="text-[12px] w-16 text-[#5a3e28] font-bold">我</span><div class="flex-1 h-3 bg-[#e8ddd0] rounded-full overflow-hidden"><div class="h-full bg-[#f0b860] rounded-full" style="width:71%"></div></div><span class="text-[10px] text-[#5a3e28]">5/7</span></div>
+      <div class="flex items-center gap-2"><span class="text-[12px] w-16 text-[#8a7560]">便便#8842</span><div class="flex-1 h-3 bg-[#e8ddd0] rounded-full overflow-hidden"><div class="h-full bg-[#e8a84c]/60 rounded-full" style="width:57%"></div></div><span class="text-[10px] text-[#8a7560]">4/7</span></div>
+    </div>
+  </div>
+
+  <!-- 排行榜 Tab -->
+  <div class="flex gap-2 mb-3">
+    <button class="tab-btn active" onclick="switchRank('today',this)">🏆 今日榜</button>
+    <button class="tab-btn" onclick="switchRank('streak',this)">🔥 连续榜</button>
+  </div>
+
+  <!-- 今日畅通榜 -->
+  <div id="rank-today" class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 -rotate-[0.3deg]">
+    <!-- 已打卡 -->
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0]">
+      <span class="fun text-[16px] w-5 text-[#e8a84c]">1</span>
+      <div class="w-9 h-9 bg-[#7cb342]/20 rounded-full flex items-center justify-center border-2 border-[#7cb342]/40">💩</div>
+      <div class="flex-1"><div class="text-[13px] text-[#5a3e28] font-bold">便便#3721</div><div class="text-[10px] text-[#8a7560]">🍌 Type 4 · 06:32</div></div>
+      <button onclick="doClap(this)" class="text-[18px] active:scale-125 transition-transform">👏</button>
+    </div>
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0]">
+      <span class="fun text-[16px] w-5 text-[#8a7560]">2</span>
+      <div class="w-9 h-9 bg-[#f0b860]/20 rounded-full flex items-center justify-center border-2 border-[#f0b860]/40">💩</div>
+      <div class="flex-1"><div class="text-[13px] text-[#5a3e28] font-bold">我 ⭐</div><div class="text-[10px] text-[#8a7560]">🍌 Type 4 · 08:41</div></div>
+      <span class="text-[10px] text-[#7cb342]">✓ 已打卡</span>
+    </div>
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0]">
+      <span class="fun text-[16px] w-5 text-[#c07030]">3</span>
+      <div class="w-9 h-9 bg-[#64b5f6]/20 rounded-full flex items-center justify-center border-2 border-[#64b5f6]/40">💩</div>
+      <div class="flex-1"><div class="text-[13px] text-[#5a3e28]">便便#5566</div><div class="text-[10px] text-[#8a7560]">☁️ Type 5 · 10:15</div></div>
+      <button onclick="doClap(this)" class="text-[18px] active:scale-125 transition-transform">👏</button>
+    </div>
+    <!-- 未打卡 -->
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0] opacity-50">
+      <span class="fun text-[16px] w-5 text-[#c9b99a]">-</span>
+      <div class="w-9 h-9 bg-[#e8ddd0] rounded-full flex items-center justify-center border-2 border-[#c9b99a]/40">💩</div>
+      <div class="flex-1"><div class="text-[13px] text-[#8a7560]">便便#8842</div><div class="text-[10px] text-[#c9b99a]">今日未打卡</div></div>
+      <button onclick="doPoke(this)" class="text-[12px] bg-[#f0b860] border-2 border-[#5a3e28] rounded-full px-2 py-0.5 fun opacity-100">💩👈</button>
+    </div>
+    <div class="flex items-center gap-3 py-2.5 opacity-50">
+      <span class="fun text-[16px] w-5 text-[#c9b99a]">-</span>
+      <div class="w-9 h-9 bg-[#e8ddd0] rounded-full flex items-center justify-center border-2 border-[#c9b99a]/40">💩</div>
+      <div class="flex-1"><div class="text-[13px] text-[#8a7560]">便便#9901</div><div class="text-[10px] text-[#c9b99a]">今日未打卡</div></div>
+      <button onclick="doPoke(this)" class="text-[12px] bg-[#f0b860] border-2 border-[#5a3e28] rounded-full px-2 py-0.5 fun opacity-100">💩👈</button>
+    </div>
+  </div>
+
+  <!-- 连续榜（隐藏） -->
+  <div id="rank-streak" class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 hidden">
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0]"><span class="fun text-[16px] w-5 text-[#e8a84c]">1</span><div class="w-9 h-9 bg-[#7cb342]/20 rounded-full flex items-center justify-center border-2 border-[#7cb342]/40">💩</div><div class="flex-1"><div class="text-[13px] text-[#5a3e28] font-bold">便便#3721</div></div><span class="fun text-[14px] text-[#e8a84c]">🔥12天</span></div>
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0]"><span class="fun text-[16px] w-5 text-[#8a7560]">2</span><div class="w-9 h-9 bg-[#64b5f6]/20 rounded-full flex items-center justify-center border-2 border-[#64b5f6]/40">💩</div><div class="flex-1"><div class="text-[13px] text-[#5a3e28]">便便#5566</div></div><span class="fun text-[14px] text-[#8a7560]">🔥7天</span></div>
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0]"><span class="fun text-[16px] w-5 text-[#c07030]">3</span><div class="w-9 h-9 bg-[#f0b860]/20 rounded-full flex items-center justify-center border-2 border-[#f0b860]/40">💩</div><div class="flex-1"><div class="text-[13px] text-[#5a3e28] font-bold">我 ⭐</div></div><span class="fun text-[14px] text-[#5a3e28]">🔥3天</span></div>
+    <div class="flex items-center gap-3 py-2.5 border-b border-dashed border-[#e8ddd0] opacity-50"><span class="fun text-[16px] w-5 text-[#c9b99a]">4</span><div class="w-9 h-9 bg-[#e8ddd0] rounded-full flex items-center justify-center border-2 border-[#c9b99a]/40">💩</div><div class="flex-1"><div class="text-[13px] text-[#8a7560]">便便#8842</div></div><span class="fun text-[14px] text-[#c9b99a]">🔥0天</span></div>
+    <div class="flex items-center gap-3 py-2.5 opacity-50"><span class="fun text-[16px] w-5 text-[#c9b99a]">5</span><div class="w-9 h-9 bg-[#e8ddd0] rounded-full flex items-center justify-center border-2 border-[#c9b99a]/40">💩</div><div class="flex-1"><div class="text-[13px] text-[#8a7560]">便便#9901</div></div><span class="fun text-[14px] text-[#c9b99a]">🔥0天</span></div>
+  </div>
+
+  <!-- 互动消息流 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 rotate-[0.2deg]">
+    <div class="fun text-[14px] text-[#5a3e28] mb-3">💬 最近动态</div>
+    <div class="space-y-2 text-[12px] text-[#5a3e28]">
+      <div class="flex items-center gap-2 py-1 border-b border-dashed border-[#e8ddd0]"><span>👏</span><span>你给 <b>便便#3721</b> 鼓掌了</span><span class="text-[10px] text-[#c9b99a] ml-auto">刚刚</span></div>
+      <div class="flex items-center gap-2 py-1 border-b border-dashed border-[#e8ddd0]"><span>💩👈</span><span><b>便便#5566</b> 戳了 <b>便便#8842</b></span><span class="text-[10px] text-[#c9b99a] ml-auto">1小时前</span></div>
+      <div class="flex items-center gap-2 py-1"><span>🎉</span><span><b>便便#3721</b> 连续打卡12天！</span><span class="text-[10px] text-[#c9b99a] ml-auto">3小时前</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 bg-[#5a3e28] text-[#faf5ee] px-4 py-2 rounded-full fun text-[14px] shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-50"></div>
+
+<!-- Tab Bar -->
+<div class="bg-[#faf5ee]/90 backdrop-blur-md border-t-2 border-dashed border-[#c9b99a] flex justify-around pt-2 safe-bottom">
+  <a href="lala-v2-home.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">🏠</span><span class="text-[11px]">首页</span></a>
+  <a href="lala-v2-record.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">📊</span><span class="text-[11px]">记录</span></a>
+  <div class="text-center text-[#5a3e28]"><span class="text-[22px] block">👫</span><span class="text-[11px] font-bold">好友</span></div>
+  <a href="lala-v2-profile.html" class="text-center text-[#8a7560] no-underline"><span class="text-[22px] block">👤</span><span class="text-[11px]">我的</span></a>
+</div>
+
+<script>
+function switchRank(type, btn) {
+  document.getElementById('rank-today').classList.toggle('hidden', type!=='today');
+  document.getElementById('rank-streak').classList.toggle('hidden', type!=='streak');
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function showToast(msg) {
+  const t=document.getElementById('toast'); t.textContent=msg; t.style.opacity='1';
+  setTimeout(()=>t.style.opacity='0',1500);
+}
+function doPoke(btn) { btn.classList.add('poke-anim'); showToast('💩👈 已戳！快去拉！'); setTimeout(()=>btn.classList.remove('poke-anim'),500); }
+function doClap(btn) { btn.classList.add('poke-anim'); showToast('👏 已鼓掌！'); setTimeout(()=>btn.classList.remove('poke-anim'),500); }
+</script>
+</body>
+</html>
