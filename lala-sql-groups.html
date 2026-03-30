@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拉了吗 SQL - 002 Groups</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,sans-serif;background:#0d1117;color:#e6edf3;padding:16px}
+h1{font-size:18px;margin-bottom:8px}
+p{font-size:13px;color:#7d8590;margin-bottom:12px}
+.copy-btn{background:#238636;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:14px;cursor:pointer;margin-bottom:12px}
+.copy-btn:active{background:#2ea043}
+pre{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;font-size:11px;overflow-x:auto;white-space:pre;line-height:1.5;max-height:70vh;overflow-y:auto}
+</style>
+</head>
+<body>
+<h1>📋 002_groups.sql — 结伴拉便便</h1>
+<p>复制全部内容，粘贴到 Supabase SQL Editor 运行</p>
+<button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('sql').textContent);this.textContent='✅ 已复制!'">📋 一键复制</button>
+<pre id="sql">-- 002: Group Poop feature tables
+
+-- Groups
+create table public.groups (
+  id uuid default gen_random_uuid() primary key,
+  name text not null check (char_length(name) &lt;= 12),
+  emoji text not null default '💩',
+  invite_code text unique not null check (char_length(invite_code) = 6),
+  owner_id uuid references public.users(id) not null,
+  member_count int default 1 check (member_count &lt;= 20),
+  created_at timestamptz default now()
+);
+
+-- Group members
+create table public.group_members (
+  id uuid default gen_random_uuid() primary key,
+  group_id uuid references public.groups(id) on delete cascade not null,
+  user_id uuid references public.users(id) not null,
+  role text default 'member' check (role in ('owner', 'member')),
+  joined_at timestamptz default now(),
+  unique(group_id, user_id)
+);
+
+-- Group interactions (poke/clap/emoji)
+create table public.group_interactions (
+  id uuid default gen_random_uuid() primary key,
+  group_id uuid references public.groups(id) on delete cascade not null,
+  from_user_id uuid references public.users(id) not null,
+  to_user_id uuid references public.users(id),
+  type text not null check (type in ('poke', 'clap', 'emoji')),
+  emoji text,
+  created_at timestamptz default now()
+);
+
+-- Weekly group challenges
+create table public.group_challenges (
+  id uuid default gen_random_uuid() primary key,
+  group_id uuid references public.groups(id) on delete cascade not null,
+  type text not null check (type in ('regularity', 'perfect_type', 'early_bird')),
+  week_start date not null,
+  week_end date not null,
+  winner_id uuid references public.users(id),
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  unique(group_id, week_start)
+);
+
+-- RLS
+alter table public.groups enable row level security;
+alter table public.group_members enable row level security;
+alter table public.group_interactions enable row level security;
+alter table public.group_challenges enable row level security;
+
+create policy "Members can read their groups" on public.groups
+  for select using (true);
+create policy "Authenticated users can create groups" on public.groups
+  for insert with check (auth.uid() = owner_id);
+create policy "Owner can update group" on public.groups
+  for update using (auth.uid() = owner_id);
+
+create policy "Members can read group members" on public.group_members
+  for select using (true);
+create policy "Users can join groups" on public.group_members
+  for insert with check (auth.uid() = user_id);
+create policy "Users can leave groups" on public.group_members
+  for delete using (auth.uid() = user_id);
+
+create policy "Anyone can read interactions" on public.group_interactions
+  for select using (true);
+create policy "Users can create interactions" on public.group_interactions
+  for insert with check (auth.uid() = from_user_id);
+
+create policy "Anyone can read challenges" on public.group_challenges
+  for select using (true);
+create policy "Owner can create challenges" on public.group_challenges
+  for insert with check (
+    group_id in (select id from public.groups where owner_id = auth.uid())
+  );
+create policy "System can update challenges" on public.group_challenges
+  for update using (true);
+
+-- Indexes
+create index idx_group_members_user on public.group_members(user_id);
+create index idx_group_members_group on public.group_members(group_id);
+create index idx_group_interactions_group on public.group_interactions(group_id, created_at desc);
+create index idx_group_challenges_active on public.group_challenges(group_id, is_active);
+create index idx_groups_invite_code on public.groups(invite_code);
+
+-- Trigger: update member_count
+create or replace function public.update_group_member_count()
+returns trigger as $$
+begin
+  if TG_OP = 'INSERT' then
+    update public.groups set member_count = member_count + 1 where id = NEW.group_id;
+  elsif TG_OP = 'DELETE' then
+    update public.groups set member_count = member_count - 1 where id = OLD.group_id;
+  end if;
+  return null;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_member_change
+  after insert or delete on public.group_members
+  for each row execute function public.update_group_member_count();
+
+-- Function: generate random invite code
+create or replace function public.generate_invite_code()
+returns text as $$
+declare
+  chars text := 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  result text := '';
+  i int;
+begin
+  for i in 1..6 loop
+    result := result || substr(chars, floor(random() * length(chars) + 1)::int, 1);
+  end loop;
+  return result;
+end;
+$$ language plpgsql;</pre>
+</body>
+</html>
