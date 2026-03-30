@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>创建小组</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans SC',sans-serif;background:#faf5ee;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+.fun{font-family:'ZCOOL KuaiLe',cursive}
+.scroll-area{overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.scroll-area::-webkit-scrollbar{display:none}
+.safe-top{padding-top:max(env(safe-area-inset-top),20px)}
+.emoji-btn{width:48px;height:48px;border-radius:16px;border:2px solid #c9b99a;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;background:#fff;transition:all .2s}
+.emoji-btn.active{border-color:#5a3e28;background:#f0b860;box-shadow:3px 3px 0 #5a3e28}
+</style>
+</head>
+<body class="flex flex-col h-full">
+<div class="flex-1 scroll-area safe-top px-5 pb-4">
+  <!-- 返回 -->
+  <div class="flex items-center gap-3 mt-2 mb-4">
+    <a href="lala-group-list.html" class="text-[#8a7560] text-lg no-underline">‹</a>
+    <h1 class="fun text-[24px] text-[#5a3e28] -rotate-1">创建小组 ✏️</h1>
+  </div>
+
+  <!-- 选 emoji -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 rotate-[0.3deg]">
+    <div class="fun text-[14px] text-[#5a3e28] mb-3">选个头像</div>
+    <div class="grid grid-cols-4 gap-3 justify-items-center" id="emoji-grid">
+      <button class="emoji-btn active" onclick="pickEmoji(this)">💩</button>
+      <button class="emoji-btn" onclick="pickEmoji(this)">👑</button>
+      <button class="emoji-btn" onclick="pickEmoji(this)">🔥</button>
+      <button class="emoji-btn" onclick="pickEmoji(this)">🌈</button>
+      <button class="emoji-btn" onclick="pickEmoji(this)">🧻</button>
+      <button class="emoji-btn" onclick="pickEmoji(this)">🍌</button>
+      <button class="emoji-btn" onclick="pickEmoji(this)">☁️</button>
+      <button class="emoji-btn" onclick="pickEmoji(this)">⭐</button>
+    </div>
+  </div>
+
+  <!-- 组名 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-4 mb-4 -rotate-[0.2deg]">
+    <div class="fun text-[14px] text-[#5a3e28] mb-3">给小组起个名</div>
+    <input type="text" maxlength="12" placeholder="例如：办公室畅通联盟" value="办公室畅通联盟" class="w-full p-3 border-2 border-[#c9b99a] rounded-xl text-[14px] text-[#5a3e28] bg-[#faf5ee] outline-none focus:border-[#f0b860]">
+    <div class="text-right text-[10px] text-[#c9b99a] mt-1">12字以内</div>
+  </div>
+
+  <!-- 创建按钮 -->
+  <button onclick="createGroup()" id="create-btn" class="w-full py-4 bg-[#f0b860] border-[3px] border-[#5a3e28] rounded-[20px] fun text-[20px] text-[#5a3e28] rotate-1 active:rotate-0 active:scale-[.97] transition-transform mb-4 cursor-pointer" style="box-shadow:4px 4px 0 #5a3e28">
+    ✨ 创建小组！
+  </button>
+
+  <!-- 创建成功 (默认隐藏) -->
+  <div id="success-card" class="hidden bg-white border-2 border-[#7cb342] rounded-2xl p-5 text-center mb-4">
+    <div class="text-[40px] mb-2">🎉</div>
+    <div class="fun text-[18px] text-[#5a3e28] mb-2">小组创建成功！</div>
+    <div class="text-[12px] text-[#8a7560] mb-3">分享邀请码给好友</div>
+    <div class="bg-[#f0e6d4] border-2 border-dashed border-[#c9b99a] rounded-xl p-4 mb-3">
+      <div class="text-[10px] text-[#8a7560] mb-1">邀请码</div>
+      <div class="fun text-[36px] text-[#5a3e28] tracking-[8px]">LA3K9P</div>
+    </div>
+    <div class="flex gap-2">
+      <button class="flex-1 py-2.5 bg-white border-2 border-[#c9b99a] rounded-xl text-[13px] text-[#5a3e28] fun" onclick="copyCode()">📋 复制邀请码</button>
+      <button class="flex-1 py-2.5 bg-[#7cb342] border-2 border-[#5a3e28] rounded-xl text-[13px] text-white fun">📤 分享到微信</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function pickEmoji(btn){document.querySelectorAll('.emoji-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+function createGroup(){document.getElementById('create-btn').classList.add('hidden');document.getElementById('success-card').classList.remove('hidden')}
+function copyCode(){navigator.clipboard?.writeText('LA3K9P');alert('已复制邀请码：LA3K9P')}
+</script>
+</body>
+</html>

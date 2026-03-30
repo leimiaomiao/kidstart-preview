@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>加入小组</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Sans SC',sans-serif;background:#faf5ee;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+.fun{font-family:'ZCOOL KuaiLe',cursive}
+.safe-top{padding-top:max(env(safe-area-inset-top),20px)}
+.code-input{width:44px;height:52px;border:2px solid #c9b99a;border-radius:12px;text-align:center;font-size:22px;font-weight:bold;color:#5a3e28;background:#fff;outline:none;text-transform:uppercase}
+.code-input:focus{border-color:#f0b860;box-shadow:0 0 0 2px rgba(240,184,96,.3)}
+</style>
+</head>
+<body class="flex flex-col h-full">
+<div class="safe-top px-5">
+  <!-- 返回 -->
+  <div class="flex items-center gap-3 mt-2 mb-6">
+    <a href="lala-group-list.html" class="text-[#8a7560] text-lg no-underline">‹</a>
+    <h1 class="fun text-[24px] text-[#5a3e28] rotate-1">加入小组 🎫</h1>
+  </div>
+
+  <!-- 邀请码输入 -->
+  <div class="bg-white border-2 border-[#c9b99a] rounded-2xl p-6 mb-4 text-center -rotate-[0.3deg]">
+    <div class="text-[48px] mb-3">🧻</div>
+    <div class="fun text-[16px] text-[#5a3e28] mb-2">输入 6 位邀请码</div>
+    <div class="text-[12px] text-[#8a7560] mb-5">找你的好友要邀请码吧！</div>
+    <div class="flex justify-center gap-2 mb-4" id="code-inputs">
+      <input type="text" maxlength="1" class="code-input" oninput="jumpNext(this,0)" value="L">
+      <input type="text" maxlength="1" class="code-input" oninput="jumpNext(this,1)" value="A">
+      <input type="text" maxlength="1" class="code-input" oninput="jumpNext(this,2)" value="3">
+      <input type="text" maxlength="1" class="code-input" oninput="jumpNext(this,3)" value="K">
+      <input type="text" maxlength="1" class="code-input" oninput="jumpNext(this,4)" value="9">
+      <input type="text" maxlength="1" class="code-input" oninput="jumpNext(this,5)" value="P">
+    </div>
+    <button onclick="joinGroup()" id="join-btn" class="w-full py-3 bg-[#f0b860] border-[3px] border-[#5a3e28] rounded-[16px] fun text-[18px] text-[#5a3e28] active:scale-[.97] transition-transform cursor-pointer" style="box-shadow:3px 3px 0 #5a3e28">
+      加入！
+    </button>
+  </div>
+
+  <!-- 加入成功 (默认隐藏) -->
+  <div id="success-card" class="hidden bg-white border-2 border-[#7cb342] rounded-2xl p-5 text-center mb-4">
+    <div class="text-[40px] mb-2">🎉</div>
+    <div class="fun text-[18px] text-[#5a3e28] mb-2">加入成功！</div>
+    <div class="flex items-center justify-center gap-3 mb-3">
+      <div class="w-12 h-12 bg-[#f0b860]/20 rounded-2xl flex items-center justify-center text-[28px] border-2 border-[#c9b99a]">🔥</div>
+      <div class="text-left">
+        <div class="fun text-[16px] text-[#5a3e28]">办公室畅通联盟</div>
+        <div class="text-[11px] text-[#8a7560]">5 位成员</div>
+      </div>
+    </div>
+    <a href="lala-group-detail.html" class="block w-full py-3 bg-[#7cb342] border-2 border-[#5a3e28] rounded-xl fun text-[14px] text-white text-center no-underline">进入小组 →</a>
+  </div>
+</div>
+
+<script>
+function jumpNext(el,i){
+  if(el.value&&i<5){document.querySelectorAll('.code-input')[i+1].focus()}
+}
+function joinGroup(){document.getElementById('join-btn').parentElement.classList.add('hidden');document.getElementById('success-card').classList.remove('hidden')}
+</script>
+</body>
+</html>
