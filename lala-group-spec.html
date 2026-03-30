@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结伴拉便便 — Spec</title>
+<style>
+:root{--bg:#faf5ee;--card:#fff;--border:#c9b99a;--text:#5a3e28;--muted:#8a7560;--accent:#e8a84c;--green:#7cb342}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:16px;max-width:720px;margin:0 auto;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+h1{font-size:1.5em;margin:20px 0 8px;color:var(--text)}
+h2{font-size:1.2em;margin:24px 0 10px;color:var(--accent);border-bottom:2px dashed var(--border);padding-bottom:6px}
+h3{font-size:1em;margin:16px 0 6px;color:var(--text)}
+p,li{font-size:.93em;margin-bottom:5px}
+ul,ol{padding-left:18px;margin-bottom:10px}
+.card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:14px;margin:10px 0}
+.meta{color:var(--muted);font-size:.82em;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.83em}
+th{background:var(--card);color:var(--accent);text-align:left;padding:7px 8px;border-bottom:2px solid var(--border)}
+td{padding:7px 8px;border-bottom:1px dashed var(--border)}
+strong{color:var(--accent)}
+code{background:#f0e6d4;padding:1px 5px;border-radius:4px;font-size:.85em}
+.note{background:#f0e6d4;border:2px dashed var(--border);border-radius:12px;padding:12px;margin:10px 0;font-size:.85em}
+hr{border:none;border-top:2px dashed var(--border);margin:20px 0}
+.check{list-style:none;padding-left:0}
+.check li{padding:4px 0;border-bottom:1px dashed var(--border)}
+.check li::before{content:"☐ ";color:var(--accent)}
+</style>
+</head>
+<body>
+<h1>👫 结伴拉便便 — 好友小组</h1>
+<p class="meta">🍊 娜美 | 2026-03-30 | <a href="https://github.com/leimiaomiao/lala/blob/main/docs/specs/feat-group-poop.md">GitHub 原文</a></p>
+
+<div class="card">
+<strong>核心思路：</strong>公开树洞需要大量用户才有内容，MVP 冷启动难。<br>
+好友小组是熟人关系，<strong>2 个人就能玩起来</strong>。微信运动排行榜已经验证：熟人轻竞争 = 最强留存。
+</div>
+
+<h2>1. 创建小组</h2>
+<div class="card">
+输入组名（≤12字）→ 选 emoji 头像 → 系统生成 6 位邀请码（如 <code>LA3K9P</code>）→ 分享邀请卡片到微信<br><br>
+<strong>限制：</strong>每人最多创建 3 个组 / 加入 5 个组 / 每组最多 20 人
+</div>
+
+<h2>2. 加入小组</h2>
+<div class="card">
+输入邀请码 → 确认小组信息 → 加入 → 组员收到通知<br>
+邀请码永久有效，满员自动失效，群主可重新生成
+</div>
+
+<h2>3. 组内功能</h2>
+
+<h3>3.1 打卡排行</h3>
+<table>
+<tr><th>榜单</th><th>排序规则</th></tr>
+<tr><td>🏆 今日畅通榜</td><td>按今日首次打卡时间，越早越前</td></tr>
+<tr><td>🔥 连续打卡榜</td><td>按连续天数降序</td></tr>
+</table>
+<p>未打卡成员灰色显示在底部，自己的排名高亮</p>
+
+<h3>3.2 互动消息</h3>
+<div class="card">
+<strong>不是聊天，是轻量互动：</strong><br>
+💩👈 <strong>戳一戳</strong> — 催未打卡的人"快去拉！"<br>
+👏 <strong>鼓掌</strong> — 给已打卡的人点赞<br>
+预设 emoji：💩👏🔥😂💪🎉<br><br>
+<strong>不支持自由文字</strong>（MVP 简化 + 不用做内容审核）
+</div>
+
+<h3>3.3 周挑战</h3>
+<table>
+<tr><th>挑战</th><th>规则</th></tr>
+<tr><td>🎯 本周谁最规律</td><td>打卡天数最多</td></tr>
+<tr><td>🍌 完美排便王</td><td>Type 4 次数最多</td></tr>
+<tr><td>🌅 早起通畅赛</td><td>8 点前打卡次数最多</td></tr>
+</table>
+<p>每周一自动开始，周日结算。获胜者 +20 EXP，头像加金框一周。3 种挑战每周轮换。</p>
+
+<hr>
+
+<h2>4. Tab 结构调整</h2>
+<div class="card">
+<strong>方案：树洞 → 好友</strong><br><br>
+<table>
+<tr><th>Tab</th><th>图标</th><th>变化</th></tr>
+<tr><td>首页</td><td>🏠</td><td>不变</td></tr>
+<tr><td>记录</td><td>📊</td><td>不变</td></tr>
+<tr><td><strong>好友</strong></td><td>👫</td><td><strong>替换树洞</strong></td></tr>
+<tr><td>我的</td><td>👤</td><td>不变</td></tr>
+</table>
+<p style="color:var(--muted);font-size:.82em;margin-top:6px">树洞后续可作为「发现」Tab 加回来</p>
+</div>
+
+<hr>
+
+<h2>5. 验收标准</h2>
+<ul class="check">
+<li>可创建小组（名称 + emoji → 邀请码）</li>
+<li>可通过邀请码加入小组</li>
+<li>组内展示今日畅通榜</li>
+<li>组内展示连续打卡榜</li>
+<li>可对成员戳一戳/鼓掌</li>
+<li>每周自动生成挑战，周日结算</li>
+<li>邀请卡片可分享到微信</li>
+<li>小组满 20 人后无法加入</li>
+<li>群主可重新生成邀请码</li>
+</ul>
+
+<div class="note">
+⚠️ <strong>依赖账号体系</strong>：此功能需等登录功能上线后开发。Spec 先定，UI 原型可以先做。
+</div>
+
+</body>
+</html>
