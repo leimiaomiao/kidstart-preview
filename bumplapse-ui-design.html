@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孕肚时光机 · UI 设计方案</title>
+<style>
+/* === Reset & Base === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', sans-serif;
+  background: #FFF8F0;
+  color: #5D4E3C;
+  line-height: 1.6;
+  padding: 20px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* === Typography === */
+h1 { font-size: 24px; text-align: center; margin: 30px 0 8px; color: #8B6F4E; }
+h2 { font-size: 18px; margin: 32px 0 12px; color: #8B6F4E; border-bottom: 2px dashed #E8D5BC; padding-bottom: 8px; }
+h3 { font-size: 15px; margin: 20px 0 8px; color: #A0845C; }
+p, li { font-size: 14px; margin-bottom: 8px; }
+.subtitle { text-align: center; color: #B8A08A; font-size: 13px; margin-bottom: 30px; }
+
+/* === Design Overview Card === */
+.overview-card {
+  background: #FFF;
+  border-radius: 20px;
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: 0 2px 12px rgba(139,111,78,0.08);
+}
+
+/* === Color Palette === */
+.palette {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.swatch {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  font-size: 10px;
+  color: #FFF;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* === Phone Mockup === */
+.phone-frame {
+  width: 280px;
+  height: 560px;
+  border-radius: 36px;
+  border: 3px solid #E8D5BC;
+  background: #FFF;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(139,111,78,0.12);
+}
+.phone-notch {
+  width: 120px;
+  height: 28px;
+  background: #E8D5BC;
+  border-radius: 0 0 16px 16px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+.phone-screen {
+  width: 100%;
+  height: calc(100% - 28px);
+  overflow: hidden;
+  position: relative;
+}
+
+/* === Screen Content Styles === */
+.screen-welcome {
+  background: linear-gradient(180deg, #FFF5E8 0%, #FFECD2 100%);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+.welcome-emoji { font-size: 64px; margin-bottom: 16px; }
+.welcome-title { font-size: 22px; color: #8B6F4E; font-weight: 700; margin-bottom: 8px; }
+.welcome-sub { font-size: 13px; color: #B8A08A; margin-bottom: 32px; line-height: 1.5; }
+.btn-primary {
+  background: linear-gradient(135deg, #F4A261, #E8865C);
+  color: #FFF;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 48px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(244,162,97,0.35);
+}
+.btn-secondary {
+  background: transparent;
+  color: #B8A08A;
+  border: none;
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+/* PLACEHOLDER: camera screen styles */
+.screen-camera {
+  background: #1A1A1A;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.camera-viewfinder {
+  flex: 1;
+  background: linear-gradient(135deg, #2A2520 0%, #3A3028 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.camera-guide {
+  width: 100px;
+  height: 200px;
+  border: 2px dashed rgba(255,255,255,0.25);
+  border-radius: 50px;
+  position: relative;
+}
+.camera-guide::before {
+  content: '👤';
+  font-size: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.2;
+}
+.camera-week-badge {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  color: #FFF;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.camera-bottom {
+  height: 100px;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 0 24px;
+}
+.camera-shutter {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 4px solid #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.camera-shutter-inner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #FFF;
+}
+.camera-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+/* PLACEHOLDER: timeline screen styles */
+.screen-timeline {
+  background: #FFF8F0;
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.timeline-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8B6F4E;
+}
+.timeline-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  flex: 1;
+  align-items: flex-start;
+  padding-bottom: 12px;
+}
+.timeline-card {
+  min-width: 120px;
+  background: #FFF;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(139,111,78,0.08);
+  flex-shrink: 0;
+}
+.timeline-card-img {
+  width: 120px;
+  height: 160px;
+  background: linear-gradient(135deg, #FFECD2, #F4A261);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.timeline-card-info {
+  padding: 8px 10px;
+  text-align: center;
+}
+.timeline-card-week {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8B6F4E;
+}
+.timeline-card-date {
+  font-size: 10px;
+  color: #B8A08A;
+  margin-top: 2px;
+}
+.timeline-card-empty {
+  min-width: 120px;
+  height: 200px;
+  border: 2px dashed #E8D5BC;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #D4C4AD;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.timeline-generate-btn {
+  background: linear-gradient(135deg, #F4A261, #E8865C);
+  color: #FFF;
+  border: none;
+  border-radius: 20px;
+  padding: 14px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 12px;
+  box-shadow: 0 4px 16px rgba(244,162,97,0.3);
+}
+/* PLACEHOLDER: video preview styles */
+.screen-video {
+  background: #1A1A1A;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.video-player {
+  flex: 1;
+  background: linear-gradient(180deg, #2A2520 0%, #1A1510 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.video-play-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.video-watermark {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+}
+.video-week-label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+.video-controls {
+  background: rgba(0,0,0,0.7);
+  padding: 16px;
+}
+.video-progress {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.video-progress-fill {
+  width: 60%;
+  height: 100%;
+  background: #F4A261;
+  border-radius: 2px;
+}
+.video-bgm-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.video-bgm-chip {
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  color: #B8A08A;
+  background: rgba(255,255,255,0.08);
+}
+.video-bgm-chip.active {
+  background: rgba(244,162,97,0.2);
+  color: #F4A261;
+}
+.video-export-btn {
+  background: linear-gradient(135deg, #F4A261, #E8865C);
+  color: #FFF;
+  border: none;
+  border-radius: 20px;
+  padding: 14px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+}
+/* PLACEHOLDER: share card styles */
+.screen-share {
+  background: #FFF8F0;
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.share-card {
+  width: 220px;
+  background: #FFF;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(139,111,78,0.12);
+}
+.share-card-img {
+  width: 220px;
+  height: 200px;
+  background: linear-gradient(135deg, #FFECD2, #F4C275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+.share-card-info {
+  padding: 16px;
+  text-align: center;
+  background: linear-gradient(180deg, #FFF 0%, #FFF8F0 100%);
+}
+.share-card-week {
+  font-size: 16px;
+  font-weight: 700;
+  color: #8B6F4E;
+}
+.share-card-desc {
+  font-size: 12px;
+  color: #B8A08A;
+  margin-top: 4px;
+}
+.share-card-brand {
+  font-size: 9px;
+  color: #D4C4AD;
+  margin-top: 8px;
+}
+/* PLACEHOLDER: settings styles */
+.screen-settings {
+  background: #FFF8F0;
+  height: 100%;
+  padding: 16px;
+  overflow-y: auto;
+}
+.settings-group {
+  background: #FFF;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(139,111,78,0.05);
+}
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #F5EDE3;
+  font-size: 14px;
+  color: #5D4E3C;
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-value {
+  font-size: 13px;
+  color: #B8A08A;
+}
+.settings-toggle {
+  width: 44px;
+  height: 26px;
+  background: #F4A261;
+  border-radius: 13px;
+  position: relative;
+}
+.settings-toggle::after {
+  content: '';
+  width: 22px;
+  height: 22px;
+  background: #FFF;
+  border-radius: 50%;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+}
+
+/* === Spec Table === */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.spec-table th {
+  background: #F5EBE0;
+  text-align: left;
+  padding: 8px 12px;
+  color: #8B6F4E;
+  font-weight: 600;
+}
+.spec-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #F0E6D8;
+}
+
+/* === Section Divider === */
+.divider {
+  text-align: center;
+  margin: 32px 0;
+  color: #E8D5BC;
+  font-size: 20px;
+  letter-spacing: 8px;
+}
+
+/* === Tag === */
+.tag {
+  display: inline-block;
+  background: #FFF5E8;
+  color: #D4915A;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  margin: 2px;
+}
+</style>
+</head>
+<body>
+
+<h1>🤰 孕肚时光机</h1>
+<p class="subtitle">UI 设计方案 · v1.0 · 温馨手帐风</p>
+
+<!-- SECTION: Design Philosophy -->
+<h2>🎨 设计理念</h2>
+<div class="overview-card">
+  <h3>温馨手帐风 · 零 AI 感</h3>
+  <p>设计灵感来源于妈妈的手写育儿日记。用奶油色系 + 圆润形状 + 手写质感，营造出「纸质手帐」的温暖感。拒绝冷色、拒绝渐变光效、拒绝科技感元素。</p>
+  <br>
+  <h3>三个设计原则</h3>
+  <p>🍼 <strong>温暖如手帐</strong> — 奶油暖色背景，所有元素圆角 ≥ 16px，颜色饱和度克制</p>
+  <p>🌿 <strong>简单如呼吸</strong> — 每屏只有一个主操作，没有二级菜单，没有 Tab 切换</p>
+  <p>🧸 <strong>真实如妈妈</strong> — 不用渐变、不用光效、不用炫技动画。水果 emoji 代替抽象图标</p>
+  <br>
+  <h3>关键词</h3>
+  <p>
+    <span class="tag">奶油色</span>
+    <span class="tag">手帐感</span>
+    <span class="tag">圆润</span>
+    <span class="tag">留白</span>
+    <span class="tag">水果emoji</span>
+    <span class="tag">无渐变光效</span>
+    <span class="tag">大圆角</span>
+  </p>
+</div>
+
+<!-- SECTION: Color & Typography -->
+<h2>🎨 色彩系统</h2>
+<div class="overview-card">
+  <h3>主色板</h3>
+  <div class="palette">
+    <div class="swatch" style="background:#FFF8F0;">&nbsp;</div>
+    <div class="swatch" style="background:#FFECD2;">&nbsp;</div>
+    <div class="swatch" style="background:#F4A261;">主色</div>
+    <div class="swatch" style="background:#E8865C;">强调</div>
+    <div class="swatch" style="background:#8B6F4E;">文字</div>
+    <div class="swatch" style="background:#B8A08A;">次要</div>
+  </div>
+  <table class="spec-table">
+    <tr><th>Token</th><th>色值</th><th>用途</th></tr>
+    <tr><td>Cream Background</td><td>#FFF8F0</td><td>页面背景、默认底色</td></tr>
+    <tr><td>Warm Peach</td><td>#FFECD2</td><td>卡片背景、渐变起点</td></tr>
+    <tr><td>Sunset Orange</td><td>#F4A261</td><td>主按钮、进度条、高亮</td></tr>
+    <tr><td>Coral Accent</td><td>#E8865C</td><td>主按钮渐变终点、CTA</td></tr>
+    <tr><td>Cocoa Text</td><td>#8B6F4E</td><td>标题文字</td></tr>
+    <tr><td>Sand Text</td><td>#B8A08A</td><td>次要文字、描述</td></tr>
+    <tr><td>Linen White</td><td>#FFFFFF</td><td>卡片、弹窗背景</td></tr>
+    <tr><td>Dashed Border</td><td>#E8D5BC</td><td>分割线、虚线框</td></tr>
+  </table>
+
+  <h3 style="margin-top:20px">字体规范</h3>
+  <table class="spec-table">
+    <tr><th>层级</th><th>字号</th><th>字重</th><th>颜色</th></tr>
+    <tr><td>页面标题</td><td>24px</td><td>Bold (700)</td><td>#8B6F4E</td></tr>
+    <tr><td>模块标题</td><td>18px</td><td>SemiBold (600)</td><td>#8B6F4E</td></tr>
+    <tr><td>卡片标题</td><td>16px</td><td>SemiBold (600)</td><td>#5D4E3C</td></tr>
+    <tr><td>正文</td><td>14px</td><td>Regular (400)</td><td>#5D4E3C</td></tr>
+    <tr><td>辅助说明</td><td>12px</td><td>Regular (400)</td><td>#B8A08A</td></tr>
+    <tr><td>标签/Badge</td><td>11px</td><td>SemiBold (600)</td><td>#D4915A</td></tr>
+  </table>
+  <p style="margin-top:12px;font-size:12px;color:#B8A08A;">字体系统：SF Pro（英文）+ PingFang SC（中文）。不使用自定义字体，保持系统原生流畅感。</p>
+
+  <h3 style="margin-top:20px">圆角 & 间距</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>圆角</th><th>内边距</th></tr>
+    <tr><td>页面级卡片</td><td>20px</td><td>24px</td></tr>
+    <tr><td>时光轴卡片</td><td>16px</td><td>0（图片撑满）</td></tr>
+    <tr><td>按钮（主）</td><td>24px</td><td>14px 48px</td></tr>
+    <tr><td>按钮（次）</td><td>20px</td><td>12px 32px</td></tr>
+    <tr><td>输入框</td><td>16px</td><td>16px</td></tr>
+    <tr><td>标签 Tag</td><td>12px</td><td>3px 10px</td></tr>
+    <tr><td>手机整体</td><td>36px（模拟圆角屏）</td><td>—</td></tr>
+  </table>
+</div>
+
+<!-- SECTION: Screen 0 - Welcome -->
+<div class="divider">· · · · ·</div>
+<h2>📱 Screen 0：欢迎页</h2>
+<p>用户第一次打开 app 看到的界面。一屏说明产品是什么，一个按钮开始。</p>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="screen-welcome">
+      <div class="welcome-emoji">🤰</div>
+      <div class="welcome-title">孕肚时光机</div>
+      <div class="welcome-sub">每周拍一张孕肚照<br>自动变成让你感动的延时视频</div>
+      <button class="btn-primary">开始记录 📸</button>
+      <button class="btn-secondary">已经在用？恢复数据</button>
+    </div>
+  </div>
+</div>
+
+<div class="overview-card">
+  <h3>设计要点</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>规格</th></tr>
+    <tr><td>背景</td><td>线性渐变 #FFF5E8 → #FFECD2（从上到下）</td></tr>
+    <tr><td>Emoji</td><td>🤰 64px，居中</td></tr>
+    <tr><td>标题</td><td>"孕肚时光机"，22px Bold，#8B6F4E</td></tr>
+    <tr><td>副标题</td><td>13px Regular，#B8A08A，两行居中</td></tr>
+    <tr><td>主按钮</td><td>渐变 #F4A261→#E8865C，圆角 24px，阴影 rgba(244,162,97,0.35)</td></tr>
+    <tr><td>次要链接</td><td>"恢复数据" 纯文字，13px，#B8A08A，点击进入 iCloud 恢复流程</td></tr>
+    <tr><td>无注册</td><td>没有登录/注册入口，直接进入</td></tr>
+  </table>
+</div>
+
+<!-- SECTION: Screen 0.5 - Due Date -->
+<div class="divider">· · · · ·</div>
+<h2>📱 Screen 0.5：预产期设置</h2>
+<p>点击"开始记录"后进入。一屏完成，选完日期直接进相机。</p>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen" style="background: #FFF8F0; padding: 32px 24px; display: flex; flex-direction: column; align-items: center;">
+    <div style="font-size: 40px; margin-bottom: 16px;">🍼</div>
+    <div style="font-size: 18px; color: #8B6F4E; font-weight: 600; margin-bottom: 8px;">宝宝什么时候来？</div>
+    <div style="font-size: 12px; color: #B8A08A; margin-bottom: 32px;">选择预产期，我来帮你算孕周</div>
+    
+    <div style="background: #FFF; border-radius: 16px; padding: 20px; width: 100%; text-align: center; box-shadow: 0 2px 8px rgba(139,111,78,0.06);">
+      <div style="font-size: 13px; color: #B8A08A; margin-bottom: 8px;">预产期</div>
+      <div style="font-size: 28px; color: #8B6F4E; font-weight: 700;">2025 年 8 月 15 日</div>
+      <div style="margin-top: 12px; font-size: 14px; color: #F4A261; font-weight: 600;">🌽 现在是第 24 周</div>
+    </div>
+
+    <div style="margin-top: 24px; background: #FFF5E8; border-radius: 12px; padding: 12px 16px; width: 100%;">
+      <div style="font-size: 12px; color: #B8A08A; text-align: center;">还可以设置每周拍照提醒 ⏰</div>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+        <span style="font-size: 13px; color: #5D4E3C;">每周日 上午 10:00</span>
+        <span style="font-size: 12px; color: #B8A08A;">修改 ›</span>
+      </div>
+    </div>
+
+    <button class="btn-primary" style="margin-top: 32px; width: 100%;">拍第一张 📸</button>
+    <button class="btn-secondary">跳过提醒，直接开始</button>
+  </div>
+</div>
+
+<div class="overview-card">
+  <h3>设计要点</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>规格</th></tr>
+    <tr><td>日期选择器</td><td>iOS 原生 DatePicker wheel 样式，嵌入卡片内</td></tr>
+    <tr><td>孕周计算</td><td>选完日期实时显示当前孕周 + 对应水果 emoji</td></tr>
+    <tr><td>提醒设置</td><td>默认周日 10:00，可修改日期和时间，可跳过</td></tr>
+    <tr><td>底色</td><td>#FFF8F0 纯色，不用渐变</td></tr>
+    <tr><td>总耗时</td><td>≤ 15 秒完成设置</td></tr>
+  </table>
+</div>
+
+<!-- SECTION: Screen 1 - Camera -->
+<div class="divider">· · · · ·</div>
+<h2>📱 Screen 1：拍照页（主页面）</h2>
+<p>App 的核心页面。打开 app 默认进入这里。全屏相机 + 半透明引导。</p>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="screen-camera">
+      <div class="camera-viewfinder">
+        <div class="camera-week-badge">🌽 第 24 周</div>
+        <div class="camera-guide"></div>
+        <!-- 叠影提示 -->
+        <div style="position:absolute; bottom:12px; left:12px; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); border-radius:12px; padding:4px 10px; font-size:10px; color:rgba(255,255,255,0.7);">
+          👻 上周叠影已开启
+        </div>
+        <!-- 前后摄切换 -->
+        <div style="position:absolute; top:12px; right:12px;" class="camera-icon-btn">🔄</div>
+        <!-- 倒计时 -->
+        <div style="position:absolute; top:12px; left:12px;" class="camera-icon-btn">⏱</div>
+      </div>
+      <div class="camera-bottom">
+        <!-- 相册入口 -->
+        <div style="width:40px;height:40px;border-radius:10px;background:#FFF5E8;display:flex;align-items:center;justify-content:center;font-size:14px;">📅</div>
+        <!-- 快门 -->
+        <div class="camera-shutter"><div class="camera-shutter-inner"></div></div>
+        <!-- 设置 -->
+        <div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:14px;">⚙️</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overview-card">
+  <h3>设计要点</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>规格</th></tr>
+    <tr><td>取景器</td><td>全屏，竖屏锁定，默认后置摄像头</td></tr>
+    <tr><td>对齐引导</td><td>半透明白色人形虚线轮廓，opacity: 0.25，圆角椭圆形</td></tr>
+    <tr><td>上周叠影</td><td>上一张照片叠在取景器上，opacity: 0.3，帮助对齐站位</td></tr>
+    <tr><td>孕周标签</td><td>顶部居中，毛玻璃胶囊 rgba(0,0,0,0.4) + backdrop-filter:blur(8px)，白色文字 14px Bold</td></tr>
+    <tr><td>快门按钮</td><td>底部居中，外圈 64px 白色描边 4px，内圈 48px 白色实心，标准 iOS 相机交互</td></tr>
+    <tr><td>倒计时</td><td>左上角，支持 3s/5s/关 三挡切换</td></tr>
+    <tr><td>前后切换</td><td>右上角翻转图标</td></tr>
+    <tr><td>相册入口</td><td>左下角，奶油色圆角方块，点击进入时光轴</td></tr>
+    <tr><td>设置入口</td><td>右下角，半透明圆角方块</td></tr>
+  </table>
+  
+  <h3 style="margin-top:16px">拍照后反馈</h3>
+  <p>📸 拍照瞬间：屏幕白闪 0.15s + 轻震动反馈（haptic light）</p>
+  <p>✅ 拍照成功：底部弹出奶油色 toast "第24周 ✓ 已保存"，1.5s 后自动消失</p>
+  <p>🚫 不做：没有滤镜、没有美颜、没有贴纸选择。保持极简。</p>
+</div>
+
+<!-- SECTION: Screen 2 - Timeline -->
+<div class="divider">· · · · ·</div>
+<h2>📱 Screen 2：时光轴</h2>
+<p>所有孕肚照的时间线。横向滑动浏览，每张卡片 = 一个孕周。</p>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="screen-timeline">
+      <div class="timeline-header">
+        <span class="timeline-title">📅 我的时光轴</span>
+        <span style="font-size:12px;color:#B8A08A;">6 张照片</span>
+      </div>
+      
+      <div class="timeline-scroll">
+        <div class="timeline-card">
+          <div class="timeline-card-img" style="background:linear-gradient(135deg,#FFF5E8,#F4D4A5);">🍋</div>
+          <div class="timeline-card-info">
+            <div class="timeline-card-week">第 12 周</div>
+            <div class="timeline-card-date">03/01</div>
+          </div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-card-img" style="background:linear-gradient(135deg,#FFE8E0,#F4B5A5);">🍎</div>
+          <div class="timeline-card-info">
+            <div class="timeline-card-week">第 16 周</div>
+            <div class="timeline-card-date">03/29</div>
+          </div>
+        </div>
+        <div class="timeline-card-empty">
+          <div style="font-size:24px;margin-bottom:4px;">📷</div>
+          <div>第 20 周</div>
+          <div style="color:#F4A261;margin-top:4px;">补拍</div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-card-img" style="background:linear-gradient(135deg,#FFECD2,#F4C275);">🌽</div>
+          <div class="timeline-card-info">
+            <div class="timeline-card-week">第 24 周</div>
+            <div class="timeline-card-date">05/24</div>
+          </div>
+        </div>
+      </div>
+      
+      <button class="timeline-generate-btn">✨ 生成时光视频</button>
+    </div>
+  </div>
+</div>
+
+<div class="overview-card">
+  <h3>设计要点</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>规格</th></tr>
+    <tr><td>布局</td><td>横向滚动，每张卡片 width: 120px</td></tr>
+    <tr><td>卡片</td><td>白色背景，圆角 16px，阴影 rgba(139,111,78,0.08)</td></tr>
+    <tr><td>照片区</td><td>120×160px，顶部圆角，居中显示水果 emoji（实际为照片缩略图）</td></tr>
+    <tr><td>信息栏</td><td>padding 8px 10px，显示 "第 XX 周" + 日期</td></tr>
+    <tr><td>水果 emoji</td><td>12w🍋 16w🍎 20w🥭 24w🌽 28w🍆 32w🥥 36w🍉 40w🎃</td></tr>
+    <tr><td>空位卡片</td><td>虚线框 2px dashed #E8D5BC，显示📷 + "补拍"链接</td></tr>
+    <tr><td>生成按钮</td><td>≥4 张照片时出现，底部固定，渐变 #F4A261→#E8865C，圆角 20px</td></tr>
+    <tr><td>长按交互</td><td>长按卡片 → 弹出 ActionSheet：删除 / 重新拍摄</td></tr>
+  </table>
+</div>
+
+<!-- SECTION: Screen 3 - Video Preview -->
+<div class="divider">· · · · ·</div>
+<h2>📱 Screen 3：视频预览 & 导出</h2>
+<p>生成的延时视频预览。免费带水印，付费去水印导出。</p>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="screen-video">
+      <div class="video-player">
+        <div class="video-play-btn">▶️</div>
+        <div class="video-week-label">Week 24 🌽</div>
+        <div class="video-watermark">BumpLapse 📸</div>
+      </div>
+      <div class="video-controls">
+        <div class="video-progress"><div class="video-progress-fill"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span style="font-size:11px;color:rgba(255,255,255,0.5);">0:12 / 0:20</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.5);">🔊</span>
+        </div>
+        <div style="font-size:11px;color:#B8A08A;margin-bottom:8px;">🎵 背景音乐</div>
+        <div class="video-bgm-row">
+          <div class="video-bgm-chip active">🌿 轻柔钢琴</div>
+          <div class="video-bgm-chip">🌸 春日微风</div>
+          <div class="video-bgm-chip">🌙 摇篮曲</div>
+        </div>
+        <button class="video-export-btn">💾 无水印导出 ¥6.9</button>
+        <div style="text-align:center;margin-top:8px;font-size:11px;color:#B8A08A;">免费保存带水印版本 →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overview-card">
+  <h3>设计要点</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>规格</th></tr>
+    <tr><td>视频比例</td><td>9:16 竖屏（1080×1920），适配小红书/抖音/朋友圈</td></tr>
+    <tr><td>过渡效果</td><td>CrossDissolve 交叉淡入，每张 0.8-1.2s</td></tr>
+    <tr><td>孕周字幕</td><td>左下角 "Week XX" + 水果emoji，白色 + 阴影</td></tr>
+    <tr><td>水印</td><td>免费版：右下角 "BumpLapse 📸"，rgba(255,255,255,0.4)</td></tr>
+    <tr><td>BGM 选择</td><td>3 首免版权音乐，胶囊切换，选中态 #F4A261</td></tr>
+    <tr><td>导出按钮</td><td>渐变主色，显示价格 ¥6.9</td></tr>
+    <tr><td>免费导出</td><td>次要文字链接，保存带水印版本到相册</td></tr>
+    <tr><td>进度条</td><td>3px 高，#F4A261 填充色</td></tr>
+  </table>
+</div>
+
+<!-- SECTION: Screen 4 - Share Card -->
+<div class="divider">· · · · ·</div>
+<h2>📱 Screen 4：孕周分享卡片</h2>
+<p>一键生成精美分享图，发朋友圈 / 小红书。温暖奶油色调。</p>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="screen-share">
+      <div style="font-size:15px;color:#8B6F4E;font-weight:600;margin-bottom:16px;">✨ 分享卡片预览</div>
+      
+      <div class="share-card">
+        <div class="share-card-img">🤰</div>
+        <div class="share-card-info">
+          <div class="share-card-week">第 24 周 🌽</div>
+          <div class="share-card-desc">宝宝现在像一个玉米</div>
+          <div class="share-card-brand">BumpLapse</div>
+        </div>
+      </div>
+      
+      <div style="display:flex;gap:12px;margin-top:20px;">
+        <div style="width:44px;height:44px;border-radius:50%;background:#FFF;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:20px;">💬</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#FFF;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:20px;">📱</div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#FFF;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;font-size:20px;">💾</div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:4px;">
+        <span style="font-size:9px;color:#B8A08A;width:44px;text-align:center;">微信</span>
+        <span style="font-size:9px;color:#B8A08A;width:44px;text-align:center;">小红书</span>
+        <span style="font-size:9px;color:#B8A08A;width:44px;text-align:center;">保存</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overview-card">
+  <h3>设计要点</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>规格</th></tr>
+    <tr><td>卡片尺寸</td><td>1080×1350 (4:5 竖屏)，适合小红书/Instagram</td></tr>
+    <tr><td>布局</td><td>照片占上方 80%，底部 20% 信息栏</td></tr>
+    <tr><td>信息栏</td><td>"第 XX 周 + 水果emoji · 宝宝像一个XX"</td></tr>
+    <tr><td>色调</td><td>温暖奶油色调，圆角 20px</td></tr>
+    <tr><td>品牌</td><td>底部小字 "BumpLapse"，9px，#D4C4AD（极淡）</td></tr>
+    <tr><td>分享按钮</td><td>底部圆形图标：微信 / 小红书 / 保存到相册</td></tr>
+    <tr><td>交互</td><td>iOS 原生 UIActivityViewController 分享面板</td></tr>
+  </table>
+</div>
+
+<!-- SECTION: Screen 5 - Settings -->
+<div class="divider">· · · · ·</div>
+<h2>📱 Screen 5：设置页</h2>
+<p>从相机页右下角齿轮进入。简洁的分组列表。</p>
+
+<div class="phone-frame">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="screen-settings">
+      <div style="font-size:18px;font-weight:700;color:#8B6F4E;margin-bottom:16px;">⚙️ 设置</div>
+      
+      <div class="settings-group">
+        <div class="settings-row">
+          <span>🍼 预产期</span>
+          <span class="settings-value">2025-08-15 ›</span>
+        </div>
+        <div class="settings-row">
+          <span>⏰ 拍照提醒</span>
+          <div class="settings-toggle"></div>
+        </div>
+        <div class="settings-row">
+          <span>📅 提醒时间</span>
+          <span class="settings-value">每周日 10:00 ›</span>
+        </div>
+      </div>
+      
+      <div class="settings-group">
+        <div class="settings-row">
+          <span>👻 拍照叠影</span>
+          <div class="settings-toggle"></div>
+        </div>
+        <div class="settings-row">
+          <span>👤 对齐引导</span>
+          <div class="settings-toggle"></div>
+        </div>
+      </div>
+      
+      <div class="settings-group">
+        <div class="settings-row">
+          <span>☁️ iCloud 同步</span>
+          <span class="settings-value" style="color:#D4C4AD;">即将推出</span>
+        </div>
+        <div class="settings-row">
+          <span>🔒 隐私政策</span>
+          <span class="settings-value">›</span>
+        </div>
+        <div class="settings-row">
+          <span>💌 反馈建议</span>
+          <span class="settings-value">›</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:16px;font-size:11px;color:#D4C4AD;">
+        BumpLapse v1.0 · Made with 🧡
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overview-card">
+  <h3>设计要点</h3>
+  <table class="spec-table">
+    <tr><th>元素</th><th>规格</th></tr>
+    <tr><td>布局</td><td>iOS 标准分组列表风格，白色卡片 + 奶油色底</td></tr>
+    <tr><td>分组</td><td>① 孕期信息 ② 拍照偏好 ③ 其他</td></tr>
+    <tr><td>圆角</td><td>分组卡片 16px</td></tr>
+    <tr><td>Toggle</td><td>44×26px，激活色 #F4A261（不用系统绿色！）</td></tr>
+    <tr><td>行高</td><td>每行 padding 14px 16px</td></tr>
+    <tr><td>分割线</td><td>1px solid #F5EDE3</td></tr>
+  </table>
+</div>
+
+<!-- SECTION: Design Tokens -->
+<div class="divider">· · · · ·</div>
+<h2>📐 Design Tokens 汇总</h2>
+
+<div class="overview-card">
+  <h3>完整色彩 Tokens（SwiftUI Asset Catalog）</h3>
+  <table class="spec-table">
+    <tr><th>Token 名</th><th>Light</th><th>用途</th></tr>
+    <tr><td>creamBackground</td><td>#FFF8F0</td><td>全局背景</td></tr>
+    <tr><td>warmPeach</td><td>#FFECD2</td><td>卡片高亮背景、渐变起</td></tr>
+    <tr><td>sunsetOrange</td><td>#F4A261</td><td>主按钮、进度、Toggle</td></tr>
+    <tr><td>coralAccent</td><td>#E8865C</td><td>CTA 渐变终点</td></tr>
+    <tr><td>cocoaText</td><td>#8B6F4E</td><td>标题文字</td></tr>
+    <tr><td>bodyText</td><td>#5D4E3C</td><td>正文文字</td></tr>
+    <tr><td>sandText</td><td>#B8A08A</td><td>次要/辅助文字</td></tr>
+    <tr><td>linenWhite</td><td>#FFFFFF</td><td>卡片背景</td></tr>
+    <tr><td>dashedBorder</td><td>#E8D5BC</td><td>虚线、分割</td></tr>
+    <tr><td>mutedHint</td><td>#D4C4AD</td><td>禁用态、极淡文字</td></tr>
+  </table>
+
+  <h3 style="margin-top:20px;">间距系统（8pt Grid）</h3>
+  <table class="spec-table">
+    <tr><th>Token</th><th>值</th><th>用途</th></tr>
+    <tr><td>spacingXS</td><td>4px</td><td>极小间距</td></tr>
+    <tr><td>spacingSM</td><td>8px</td><td>卡片内元素间距</td></tr>
+    <tr><td>spacingMD</td><td>12px</td><td>卡片间距、列表间距</td></tr>
+    <tr><td>spacingLG</td><td>16px</td><td>页面边距、分组间距</td></tr>
+    <tr><td>spacingXL</td><td>24px</td><td>卡片内边距</td></tr>
+    <tr><td>spacingXXL</td><td>32px</td><td>区块间距</td></tr>
+  </table>
+
+  <h3 style="margin-top:20px;">动效规范</h3>
+  <table class="spec-table">
+    <tr><th>动效</th><th>参数</th><th>场景</th></tr>
+    <tr><td>页面切换</td><td>0.3s ease-in-out</td><td>相机 ↔ 时光轴 ↔ 设置</td></tr>
+    <tr><td>拍照闪白</td><td>0.15s opacity 0→1→0</td><td>快门按下</td></tr>
+    <tr><td>Toast 弹出</td><td>0.25s spring, 1.5s 停留后 fadeOut</td><td>拍照成功提示</td></tr>
+    <tr><td>卡片长按</td><td>0.2s scale(0.95)</td><td>时光轴卡片长按反馈</td></tr>
+    <tr><td>按钮按压</td><td>0.1s scale(0.97)</td><td>所有按钮点击态</td></tr>
+    <tr><td>视频过渡</td><td>CrossDissolve 0.5s</td><td>延时视频帧切换</td></tr>
+  </table>
+
+  <h3 style="margin-top:20px;">Haptic 反馈</h3>
+  <table class="spec-table">
+    <tr><th>场景</th><th>Haptic 类型</th></tr>
+    <tr><td>拍照</td><td>UIImpactFeedbackGenerator(.light)</td></tr>
+    <tr><td>生成视频完成</td><td>UINotificationFeedbackGenerator(.success)</td></tr>
+    <tr><td>长按卡片</td><td>UIImpactFeedbackGenerator(.medium)</td></tr>
+    <tr><td>切换 Toggle</td><td>UIImpactFeedbackGenerator(.light)</td></tr>
+  </table>
+</div>
+
+<div class="divider">· · · · ·</div>
+
+<h2>📋 页面导航结构</h2>
+<div class="overview-card">
+  <h3>信息架构（极简）</h3>
+  <p style="font-size:13px;color:#B8A08A;margin-bottom:12px;">没有 TabBar、没有汉堡菜单。全部靠自然的页面跳转。</p>
+  <pre style="font-size:12px;color:#5D4E3C;line-height:1.8;background:#FFF8F0;padding:16px;border-radius:12px;overflow-x:auto;">
+欢迎页 → 预产期设置 → 📸 相机（主页面）
+                              ├── 📅 时光轴（左下角入口）
+                              │     └── ✨ 视频预览 & 导出
+                              │           └── 💬 分享
+                              ├── ⚙️ 设置（右下角入口）
+                              └── 📷 拍照 → Toast 提示 → 留在相机
+  </pre>
+  <p style="font-size:12px;color:#B8A08A;margin-top:8px;">
+    <strong>核心路径</strong>：打开 app → 拍照 → 看时光轴 → 生成视频 → 分享<br>
+    <strong>设计原则</strong>：每屏只有一个主操作，用户永远知道下一步该做什么。
+  </p>
+</div>
+
+<div style="text-align:center;margin:40px 0;color:#E8D5BC;">
+  <p style="font-size:14px;">— 设计方案 v1.0 完 —</p>
+  <p style="font-size:11px;margin-top:4px;">🍊 娜美 · 2026-03-30</p>
+</div>
+
+</body>
+</html>
