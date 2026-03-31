@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孕肚时光机 · 三种风格效果图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'SF Pro Display', 'PingFang SC', sans-serif;
+  background: #0A0A0A;
+  color: #F5F5F7;
+  line-height: 1.5;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* === Hero === */
+.hero {
+  text-align: center;
+  padding: 56px 24px 40px;
+  background: linear-gradient(180deg, #0A0A0A 0%, #111 100%);
+}
+.hero h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+.hero p { font-size: 14px; color: #86868B; }
+
+/* === Style Section === */
+.style-section {
+  padding: 40px 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.style-label {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.style-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.style-desc {
+  font-size: 13px;
+  color: #86868B;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.style-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.kw {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* === Phone Frame === */
+.phones {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.phone {
+  width: 200px;
+  height: 400px;
+  border-radius: 30px;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+.phone-label {
+  text-align: center;
+  font-size: 11px;
+  color: #86868B;
+  margin-top: 8px;
+}
+.notch {
+  width: 70px;
+  height: 18px;
+  border-radius: 0 0 10px 10px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+.screen {
+  width: 100%;
+  height: calc(100% - 18px);
+  overflow: hidden;
+  position: relative;
+}
+
+/* === Spec Summary === */
+.spec-box {
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 20px;
+  font-size: 12px;
+}
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-key { color: #86868B; }
+.spec-val { color: #F5F5F7; font-weight: 500; text-align: right; max-width: 60%; }
+
+/* === Vote Section === */
+.vote-section {
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.vote-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 6px;
+  color: #FFF;
+  text-decoration: none;
+}
+
+/* === Style A: 柔和自然风 === */
+.a-phone { border: 2.5px solid #D4CFC7; background: #FAF8F5; box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+.a-notch { background: #EDE9E3; }
+.a-welcome {
+  background: linear-gradient(180deg, #FAF8F5 0%, #F0EDE7 50%, #E8E2D8 100%);
+  height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; text-align: center;
+}
+.a-camera {
+  background: #1A1A1A; height: 100%; display: flex; flex-direction: column;
+}
+.a-cam-view {
+  flex: 1; background: linear-gradient(180deg, #2C2820 0%, #1A1610 100%);
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.a-guide {
+  width: 70px; height: 140px; border: 1.5px solid rgba(255,255,255,0.18); border-radius: 35px;
+}
+.a-cam-bar {
+  height: 70px; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center; gap: 28px;
+}
+.a-shutter {
+  width: 50px; height: 50px; border-radius: 50%; border: 3px solid #FFF;
+  display: flex; align-items: center; justify-content: center;
+}
+.a-shutter-inner { width: 38px; height: 38px; border-radius: 50%; background: #FFF; }
+.a-timeline {
+  background: #FAF8F5; height: 100%; padding: 12px; display: flex; flex-direction: column;
+}
+.a-tl-card {
+  min-width: 80px; background: #FFF; border-radius: 12px; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06); flex-shrink: 0;
+}
+.a-tl-img {
+  width: 80px; height: 100px; display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.a-btn-primary {
+  background: #8B7355; color: #FFF; border: none; border-radius: 12px;
+  padding: 10px 28px; font-size: 13px; font-weight: 600;
+  box-shadow: 0 4px 12px rgba(139,115,85,0.25);
+}
+.a-gen-btn {
+  background: #8B7355; color: #FFF; border: none; border-radius: 10px;
+  padding: 10px; width: 100%; font-size: 12px; font-weight: 600; margin-top: 8px;
+}
+/* === Style B: 深邃科技风 === */
+.b-phone { border: 2.5px solid #2C2C2E; background: #000; box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05); }
+.b-notch { background: #000; }
+.b-welcome {
+  background: #000; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; padding: 16px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.b-welcome::before {
+  content: ''; position: absolute; width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(175,130,255,0.2) 0%, transparent 70%);
+  top: 22%; left: 50%; transform: translateX(-50%);
+}
+.b-welcome::after {
+  content: ''; position: absolute; width: 120px; height: 120px;
+  background: radial-gradient(circle, rgba(255,107,138,0.12) 0%, transparent 70%);
+  top: 55%; left: 60%;
+}
+.b-camera {
+  background: #000; height: 100%; display: flex; flex-direction: column;
+}
+.b-cam-view {
+  flex: 1; background: linear-gradient(180deg, #0D0D12 0%, #000 100%);
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.b-guide {
+  width: 70px; height: 140px; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 35px; position: relative;
+}
+.b-dot {
+  width: 5px; height: 5px; background: #0A84FF; border-radius: 50%;
+  position: absolute; left: 50%; transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(10,132,255,0.4);
+}
+.b-cam-bar {
+  height: 70px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center; gap: 28px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.b-shutter {
+  width: 50px; height: 50px; border-radius: 50%; border: 2.5px solid #FFF;
+  display: flex; align-items: center; justify-content: center;
+}
+.b-shutter-inner { width: 38px; height: 38px; border-radius: 50%; background: #FFF; }
+.b-timeline {
+  background: #000; height: 100%; padding: 12px; display: flex; flex-direction: column;
+}
+.b-tl-card {
+  min-width: 80px; background: #1C1C1E; border-radius: 12px; overflow: hidden;
+  flex-shrink: 0; border: 1px solid rgba(255,255,255,0.06);
+}
+.b-tl-img {
+  width: 80px; height: 100px; display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.b-btn-cta {
+  background: linear-gradient(135deg, #AF82FF, #FF6B8A); color: #FFF; border: none;
+  border-radius: 12px; padding: 10px 28px; font-size: 13px; font-weight: 600;
+  box-shadow: 0 4px 16px rgba(175,130,255,0.3);
+}
+.b-gen-btn {
+  background: linear-gradient(135deg, #AF82FF, #FF6B8A); color: #FFF; border: none;
+  border-radius: 10px; padding: 10px; width: 100%; font-size: 12px; font-weight: 600; margin-top: 8px;
+  box-shadow: 0 4px 16px rgba(175,130,255,0.2);
+}
+/* === Style C: 温暖极简风 === */
+.c-phone { border: 2.5px solid #E8E8ED; background: #FFF; box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+.c-notch { background: #F2F2F7; }
+.c-welcome {
+  background: #FFFFFF; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; padding: 16px; text-align: center;
+}
+.c-camera {
+  background: #1A1A1A; height: 100%; display: flex; flex-direction: column;
+}
+.c-cam-view {
+  flex: 1; background: linear-gradient(180deg, #2A2A2C 0%, #1C1C1E 100%);
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.c-guide {
+  width: 70px; height: 140px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 35px;
+}
+.c-cam-bar {
+  height: 70px; background: #000;
+  display: flex; align-items: center; justify-content: center; gap: 28px;
+}
+.c-shutter {
+  width: 50px; height: 50px; border-radius: 50%; border: 3px solid #FFF;
+  display: flex; align-items: center; justify-content: center;
+}
+.c-shutter-inner { width: 38px; height: 38px; border-radius: 50%; background: #FFF; }
+.c-timeline {
+  background: #FFFFFF; height: 100%; padding: 12px; display: flex; flex-direction: column;
+}
+.c-tl-card {
+  min-width: 80px; background: #F9F9F9; border-radius: 14px; overflow: hidden;
+  flex-shrink: 0;
+}
+.c-tl-img {
+  width: 80px; height: 100px; display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.c-btn-primary {
+  background: #FF6B6B; color: #FFF; border: none; border-radius: 24px;
+  padding: 10px 28px; font-size: 13px; font-weight: 600;
+}
+.c-gen-btn {
+  background: #FF6B6B; color: #FFF; border: none; border-radius: 24px;
+  padding: 10px; width: 100%; font-size: 12px; font-weight: 600; margin-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🤰 孕肚时光机</h1>
+  <p>三种风格效果图对比 · 选一个你最喜欢的</p>
+</div>
+
+<!-- ==================== STYLE A ==================== -->
+<div class="style-section">
+  <div class="style-label" style="background:rgba(139,115,85,0.2);color:#C4A882;">STYLE A</div>
+  <div class="style-title">☁️ 柔和自然风</div>
+  <div class="style-desc">
+    大地色系 + 亚麻纹理质感。像一本精装的孕期日记本。<br>
+    温暖但不幼稚，克制但不冰冷。适合追求「高级感」的妈妈。
+  </div>
+  <div class="style-keywords">
+    <span class="kw" style="background:rgba(139,115,85,0.15);color:#C4A882;">亚麻白底</span>
+    <span class="kw" style="background:rgba(139,115,85,0.15);color:#C4A882;">大地色强调</span>
+    <span class="kw" style="background:rgba(139,115,85,0.15);color:#C4A882;">圆角 12px</span>
+    <span class="kw" style="background:rgba(139,115,85,0.15);color:#C4A882;">柔和阴影</span>
+    <span class="kw" style="background:rgba(139,115,85,0.15);color:#C4A882;">留白充裕</span>
+  </div>
+
+  <div class="phones">
+    <!-- A: Welcome -->
+    <div>
+      <div class="phone a-phone">
+        <div class="notch a-notch"></div>
+        <div class="screen">
+          <div class="a-welcome">
+            <div style="font-size:44px;margin-bottom:12px;">🤰</div>
+            <div style="font-size:18px;font-weight:700;color:#5D4E3C;margin-bottom:4px;">孕肚时光机</div>
+            <div style="font-size:11px;color:#A09585;margin-bottom:24px;line-height:1.5;">每周一张孕肚照<br>自动生成延时视频</div>
+            <button class="a-btn-primary">开始记录 📸</button>
+            <div style="font-size:10px;color:#C4B8A8;margin-top:12px;">已有数据？恢复</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">欢迎页</div>
+    </div>
+
+    <!-- A: Camera -->
+    <div>
+      <div class="phone a-phone" style="background:#1A1A1A;">
+        <div class="notch" style="background:#000;"></div>
+        <div class="screen">
+          <div class="a-camera">
+            <div class="a-cam-view">
+              <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);background:rgba(250,248,245,0.85);backdrop-filter:blur(12px);padding:3px 12px;border-radius:14px;font-size:11px;color:#5D4E3C;font-weight:600;">🌽 第 24 周</div>
+              <div class="a-guide"></div>
+              <div style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:11px;">🔄</div>
+              <div style="position:absolute;top:8px;left:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:9px;color:#FFF;">3s</div>
+            </div>
+            <div class="a-cam-bar">
+              <div style="width:30px;height:30px;border-radius:8px;background:rgba(250,248,245,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;">📅</div>
+              <div class="a-shutter"><div class="a-shutter-inner"></div></div>
+              <div style="width:30px;height:30px;border-radius:8px;background:rgba(250,248,245,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;">⚙️</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">拍照页</div>
+    </div>
+
+    <!-- A: Timeline -->
+    <div>
+      <div class="phone a-phone">
+        <div class="notch a-notch"></div>
+        <div class="screen">
+          <div class="a-timeline">
+            <div style="font-size:15px;font-weight:700;color:#5D4E3C;margin-bottom:10px;">📅 时光轴</div>
+            <div style="display:flex;gap:8px;flex:1;overflow-x:auto;align-items:flex-start;">
+              <div class="a-tl-card">
+                <div class="a-tl-img" style="background:linear-gradient(180deg,#F0EDE7,#E8E2D8);">🍋</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#5D4E3C;">W12</div>
+                  <div style="font-size:8px;color:#A09585;">03/01</div>
+                </div>
+              </div>
+              <div class="a-tl-card">
+                <div class="a-tl-img" style="background:linear-gradient(180deg,#EDE5DC,#DED4C8);">🍎</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#5D4E3C;">W16</div>
+                  <div style="font-size:8px;color:#A09585;">03/29</div>
+                </div>
+              </div>
+              <div style="min-width:80px;height:132px;border:1.5px dashed #D4CFC7;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:#C4B8A8;flex-shrink:0;">
+                <div style="font-size:16px;">📷</div>
+                <div>W20</div>
+                <div style="color:#8B7355;font-size:8px;margin-top:2px;">补拍</div>
+              </div>
+              <div class="a-tl-card">
+                <div class="a-tl-img" style="background:linear-gradient(180deg,#E8DFD2,#D8CFC0);">🌽</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#5D4E3C;">W24</div>
+                  <div style="font-size:8px;color:#A09585;">05/24</div>
+                </div>
+              </div>
+            </div>
+            <button class="a-gen-btn">✨ 生成时光视频</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">时光轴</div>
+    </div>
+  </div>
+
+  <!-- A: Spec Summary -->
+  <div class="spec-box" style="background:#1C1C1E;border:1px solid rgba(255,255,255,0.06);">
+    <div class="spec-row"><span class="spec-key">页面背景</span><span class="spec-val">#FAF8F5 亚麻白</span></div>
+    <div class="spec-row"><span class="spec-key">强调色</span><span class="spec-val">#8B7355 大地棕</span></div>
+    <div class="spec-row"><span class="spec-key">文字主色</span><span class="spec-val">#5D4E3C 深褐</span></div>
+    <div class="spec-row"><span class="spec-key">文字次色</span><span class="spec-val">#A09585 暖灰</span></div>
+    <div class="spec-row"><span class="spec-key">圆角</span><span class="spec-val">12px 统一</span></div>
+    <div class="spec-row"><span class="spec-key">相机孕周胶囊</span><span class="spec-val">亚麻白磨砂 rgba(250,248,245,0.85)</span></div>
+    <div class="spec-row"><span class="spec-key">阴影风格</span><span class="spec-val">柔和 rgba(0,0,0,0.06)</span></div>
+    <div class="spec-row"><span class="spec-key">适合人群</span><span class="spec-val">追求高级感、自然感的妈妈</span></div>
+  </div>
+</div>
+<!-- ==================== STYLE B ==================== -->
+<div class="style-section">
+  <div class="style-label" style="background:rgba(175,130,255,0.2);color:#AF82FF;">STYLE B</div>
+  <div class="style-title">🌙 深邃科技风</div>
+  <div class="style-desc">
+    纯黑底 + 紫蓝渐变光晕 + 磨砂玻璃。像 Apple 发布会上的 Demo。<br>
+    有科技感但不冰冷，暗色护眼适合夜间使用。有「专业工具」的质感。
+  </div>
+  <div class="style-keywords">
+    <span class="kw" style="background:rgba(175,130,255,0.15);color:#AF82FF;">纯黑底</span>
+    <span class="kw" style="background:rgba(175,130,255,0.15);color:#AF82FF;">紫粉渐变</span>
+    <span class="kw" style="background:rgba(10,132,255,0.15);color:#0A84FF;">蓝色锚点</span>
+    <span class="kw" style="background:rgba(10,132,255,0.15);color:#0A84FF;">磨砂玻璃</span>
+    <span class="kw" style="background:rgba(48,209,88,0.15);color:#30D158;">Dark Mode</span>
+  </div>
+
+  <div class="phones">
+    <!-- B: Welcome -->
+    <div>
+      <div class="phone b-phone">
+        <div class="notch b-notch"></div>
+        <div class="screen">
+          <div class="b-welcome">
+            <div style="font-size:44px;margin-bottom:12px;position:relative;z-index:1;">🤰</div>
+            <div style="font-size:18px;font-weight:700;color:#F5F5F7;margin-bottom:4px;position:relative;z-index:1;">孕肚时光机</div>
+            <div style="font-size:11px;color:#86868B;margin-bottom:24px;line-height:1.5;position:relative;z-index:1;">每周一张孕肚照<br>自动生成延时视频</div>
+            <button class="b-btn-cta" style="position:relative;z-index:1;">开始记录</button>
+            <div style="font-size:10px;color:#48484A;margin-top:12px;position:relative;z-index:1;">已有数据？恢复</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">欢迎页</div>
+    </div>
+
+    <!-- B: Camera -->
+    <div>
+      <div class="phone b-phone">
+        <div class="notch b-notch"></div>
+        <div class="screen">
+          <div class="b-camera">
+            <div class="b-cam-view">
+              <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);background:rgba(28,28,30,0.7);backdrop-filter:blur(20px);padding:3px 12px;border-radius:14px;font-size:11px;color:#F5F5F7;font-weight:600;border:1px solid rgba(255,255,255,0.08);">🌽 第 24 周</div>
+              <div class="b-guide">
+                <div class="b-dot" style="top:18%;"></div>
+                <div class="b-dot" style="top:48%;"></div>
+                <div class="b-dot" style="top:78%;"></div>
+              </div>
+              <div style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px;">🔄</div>
+              <div style="position:absolute;top:8px;left:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;color:#86868B;">3s</div>
+              <div style="position:absolute;bottom:8px;left:8px;background:rgba(28,28,30,0.7);backdrop-filter:blur(12px);border-radius:6px;padding:2px 6px;font-size:8px;color:#86868B;border:1px solid rgba(255,255,255,0.04);">👻 叠影</div>
+            </div>
+            <div class="b-cam-bar">
+              <div style="width:30px;height:30px;border-radius:8px;background:#1C1C1E;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;">📅</div>
+              <div class="b-shutter"><div class="b-shutter-inner"></div></div>
+              <div style="width:30px;height:30px;border-radius:8px;background:#1C1C1E;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:12px;">⚙️</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">拍照页</div>
+    </div>
+
+    <!-- B: Timeline -->
+    <div>
+      <div class="phone b-phone">
+        <div class="notch b-notch"></div>
+        <div class="screen">
+          <div class="b-timeline">
+            <div style="font-size:15px;font-weight:700;color:#F5F5F7;margin-bottom:6px;">时光轴</div>
+            <!-- Progress ring -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;background:#1C1C1E;border-radius:10px;padding:8px 12px;border:1px solid rgba(255,255,255,0.06);">
+              <div style="width:32px;height:32px;border-radius:50%;border:2.5px solid #AF82FF;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:9px;font-weight:700;color:#AF82FF;">60%</span>
+              </div>
+              <div>
+                <div style="font-size:11px;color:#F5F5F7;font-weight:600;">第 24 / 40 周</div>
+                <div style="font-size:9px;color:#86868B;">还有 16 周 🧡</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;flex:1;overflow-x:auto;align-items:flex-start;">
+              <div class="b-tl-card">
+                <div class="b-tl-img" style="background:linear-gradient(180deg,#1A1A2E,#16213E);">🍋</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#F5F5F7;">W12</div>
+                  <div style="font-size:8px;color:#86868B;">03/01</div>
+                </div>
+              </div>
+              <div class="b-tl-card">
+                <div class="b-tl-img" style="background:linear-gradient(180deg,#1A1A2E,#1E2A3A);">🍎</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#F5F5F7;">W16</div>
+                  <div style="font-size:8px;color:#86868B;">03/29</div>
+                </div>
+              </div>
+              <div style="min-width:80px;height:132px;border:1.5px dashed rgba(255,255,255,0.1);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:#48484A;flex-shrink:0;">
+                <div style="font-size:16px;">📷</div>
+                <div>W20</div>
+                <div style="color:#0A84FF;font-size:8px;margin-top:2px;">补拍</div>
+              </div>
+              <div class="b-tl-card">
+                <div class="b-tl-img" style="background:linear-gradient(180deg,#1A1520,#2A1A2E);">🌽</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#F5F5F7;">W24</div>
+                  <div style="font-size:8px;color:#86868B;">05/24</div>
+                </div>
+              </div>
+            </div>
+            <button class="b-gen-btn">✨ 生成时光视频</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">时光轴</div>
+    </div>
+  </div>
+
+  <div class="spec-box" style="background:#1C1C1E;border:1px solid rgba(255,255,255,0.06);">
+    <div class="spec-row"><span class="spec-key">页面背景</span><span class="spec-val">#000000 纯黑</span></div>
+    <div class="spec-row"><span class="spec-key">CTA 渐变</span><span class="spec-val">#AF82FF → #FF6B8A</span></div>
+    <div class="spec-row"><span class="spec-key">卡片底色</span><span class="spec-val">#1C1C1E (系统 Dark)</span></div>
+    <div class="spec-row"><span class="spec-key">文字主色</span><span class="spec-val">#F5F5F7</span></div>
+    <div class="spec-row"><span class="spec-key">科技细节</span><span class="spec-val">蓝色锚点 #0A84FF + glow</span></div>
+    <div class="spec-row"><span class="spec-key">磨砂玻璃</span><span class="spec-val">blur(20px) + rgba 半透明</span></div>
+    <div class="spec-row"><span class="spec-key">独特元素</span><span class="spec-val">进度环 + 光晕背景</span></div>
+    <div class="spec-row"><span class="spec-key">适合人群</span><span class="spec-val">喜欢 Apple 风格的科技爱好者</span></div>
+  </div>
+</div>
+<!-- ==================== STYLE C ==================== -->
+<div class="style-section">
+  <div class="style-label" style="background:rgba(255,107,107,0.15);color:#FF6B6B;">STYLE C</div>
+  <div class="style-title">🍑 温暖极简风</div>
+  <div class="style-desc">
+    纯白底 + 一个珊瑚粉强调色。极致留白，字大行疏。<br>
+    像无印良品的产品 — 没有多余的装饰，每一处都有用。给人「值得信赖」的感觉。
+  </div>
+  <div class="style-keywords">
+    <span class="kw" style="background:rgba(255,107,107,0.12);color:#FF6B6B;">纯白底</span>
+    <span class="kw" style="background:rgba(255,107,107,0.12);color:#FF6B6B;">珊瑚粉强调</span>
+    <span class="kw" style="background:rgba(255,107,107,0.12);color:#FF6B6B;">大圆角 24px</span>
+    <span class="kw" style="background:rgba(255,107,107,0.12);color:#FF6B6B;">无阴影</span>
+    <span class="kw" style="background:rgba(255,107,107,0.12);color:#FF6B6B;">极致留白</span>
+  </div>
+
+  <div class="phones">
+    <!-- C: Welcome -->
+    <div>
+      <div class="phone c-phone">
+        <div class="notch c-notch"></div>
+        <div class="screen">
+          <div class="c-welcome">
+            <div style="font-size:44px;margin-bottom:16px;">🤰</div>
+            <div style="font-size:20px;font-weight:700;color:#1D1D1F;margin-bottom:6px;">孕肚时光机</div>
+            <div style="font-size:11px;color:#8E8E93;margin-bottom:28px;line-height:1.6;">每周一张孕肚照<br>自动生成延时视频</div>
+            <button class="c-btn-primary">开始记录</button>
+            <div style="font-size:10px;color:#C7C7CC;margin-top:14px;">已有数据？恢复</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">欢迎页</div>
+    </div>
+
+    <!-- C: Camera -->
+    <div>
+      <div class="phone c-phone" style="background:#000;border-color:#2C2C2E;">
+        <div class="notch" style="background:#000;"></div>
+        <div class="screen">
+          <div class="c-camera">
+            <div class="c-cam-view">
+              <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);padding:4px 14px;border-radius:20px;font-size:11px;color:#1D1D1F;font-weight:600;">🌽 第 24 周</div>
+              <div class="c-guide"></div>
+              <div style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:11px;">🔄</div>
+              <div style="position:absolute;top:8px;left:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:9px;color:rgba(255,255,255,0.7);">3s</div>
+            </div>
+            <div class="c-cam-bar">
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;">📅</div>
+              <div class="c-shutter"><div class="c-shutter-inner"></div></div>
+              <div style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px;">⚙️</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">拍照页</div>
+    </div>
+
+    <!-- C: Timeline -->
+    <div>
+      <div class="phone c-phone">
+        <div class="notch c-notch"></div>
+        <div class="screen">
+          <div class="c-timeline">
+            <div style="font-size:15px;font-weight:700;color:#1D1D1F;margin-bottom:6px;">时光轴</div>
+            <div style="font-size:10px;color:#8E8E93;margin-bottom:10px;">第 24 周 · 还有 16 周</div>
+            <!-- Simple progress bar -->
+            <div style="width:100%;height:4px;background:#F2F2F7;border-radius:2px;margin-bottom:12px;">
+              <div style="width:60%;height:100%;background:#FF6B6B;border-radius:2px;"></div>
+            </div>
+            <div style="display:flex;gap:8px;flex:1;overflow-x:auto;align-items:flex-start;">
+              <div class="c-tl-card">
+                <div class="c-tl-img" style="background:#F2F2F7;">🍋</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#1D1D1F;">W12</div>
+                  <div style="font-size:8px;color:#8E8E93;">03/01</div>
+                </div>
+              </div>
+              <div class="c-tl-card">
+                <div class="c-tl-img" style="background:#FFF0F0;">🍎</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#1D1D1F;">W16</div>
+                  <div style="font-size:8px;color:#8E8E93;">03/29</div>
+                </div>
+              </div>
+              <div style="min-width:80px;height:132px;border:1.5px dashed #E5E5EA;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:#C7C7CC;flex-shrink:0;">
+                <div style="font-size:16px;">📷</div>
+                <div>W20</div>
+                <div style="color:#FF6B6B;font-size:8px;margin-top:2px;">补拍</div>
+              </div>
+              <div class="c-tl-card">
+                <div class="c-tl-img" style="background:#FFF5EB;">🌽</div>
+                <div style="padding:6px;text-align:center;">
+                  <div style="font-size:11px;font-weight:600;color:#1D1D1F;">W24</div>
+                  <div style="font-size:8px;color:#8E8E93;">05/24</div>
+                </div>
+              </div>
+            </div>
+            <button class="c-gen-btn">✨ 生成时光视频</button>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">时光轴</div>
+    </div>
+  </div>
+
+  <div class="spec-box" style="background:#1C1C1E;border:1px solid rgba(255,255,255,0.06);">
+    <div class="spec-row"><span class="spec-key">页面背景</span><span class="spec-val">#FFFFFF 纯白</span></div>
+    <div class="spec-row"><span class="spec-key">强调色</span><span class="spec-val">#FF6B6B 珊瑚粉</span></div>
+    <div class="spec-row"><span class="spec-key">文字主色</span><span class="spec-val">#1D1D1F (Apple 黑)</span></div>
+    <div class="spec-row"><span class="spec-key">文字次色</span><span class="spec-val">#8E8E93 (系统灰)</span></div>
+    <div class="spec-row"><span class="spec-key">卡片底色</span><span class="spec-val">#F9F9F9 微灰</span></div>
+    <div class="spec-row"><span class="spec-key">圆角</span><span class="spec-val">按钮 24px / 卡片 14px</span></div>
+    <div class="spec-row"><span class="spec-key">阴影</span><span class="spec-val">无阴影，靠色差区分层级</span></div>
+    <div class="spec-row"><span class="spec-key">适合人群</span><span class="spec-val">喜欢无印良品、极简风的妈妈</span></div>
+  </div>
+</div>
+<!-- ==================== COMPARISON & VOTE ==================== -->
+<div class="style-section" style="padding-bottom:20px;">
+  <h2>📊 三种风格对比</h2>
+  <div class="spec-box" style="background:#1C1C1E;border:1px solid rgba(255,255,255,0.06);overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:360px;">
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+        <th style="text-align:left;padding:8px;color:#86868B;"></th>
+        <th style="text-align:center;padding:8px;color:#C4A882;">☁️ A 柔和自然</th>
+        <th style="text-align:center;padding:8px;color:#AF82FF;">🌙 B 深邃科技</th>
+        <th style="text-align:center;padding:8px;color:#FF6B6B;">🍑 C 温暖极简</th>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:8px;color:#86868B;">底色</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">亚麻白 #FAF8F5</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">纯黑 #000</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">纯白 #FFF</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:8px;color:#86868B;">强调色</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">大地棕</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">紫→粉渐变</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">珊瑚粉</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:8px;color:#86868B;">科技感</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">⭐</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">⭐⭐⭐</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">⭐⭐</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:8px;color:#86868B;">温暖感</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">⭐⭐⭐</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">⭐</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">⭐⭐</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:8px;color:#86868B;">Dark Mode</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">仅相机页</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">全局深色</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">仅相机页</td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:8px;color:#86868B;">特色元素</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">亚麻质感</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">光晕 + 蓝色锚点</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">极致留白</td>
+      </tr>
+      <tr>
+        <td style="padding:8px;color:#86868B;">对标产品</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">日记本 app</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">Apple 原生 app</td>
+        <td style="padding:8px;text-align:center;color:#F5F5F7;">无印良品</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="vote-section">
+  <h2 style="margin-bottom:6px;">🗳 船长选一个</h2>
+  <p style="font-size:13px;color:#86868B;margin-bottom:20px;">选定后我会出完整的 6 页设计规格</p>
+  <div>
+    <div class="vote-btn" style="background:linear-gradient(135deg,#8B7355,#A0845C);">☁️ A 柔和自然</div>
+    <div class="vote-btn" style="background:linear-gradient(135deg,#AF82FF,#FF6B8A);">🌙 B 深邃科技</div>
+    <div class="vote-btn" style="background:linear-gradient(135deg,#FF6B6B,#FF8E8E);">🍑 C 温暖极简</div>
+  </div>
+  <p style="font-size:11px;color:#48484A;margin-top:20px;">也可以混搭：比如「A 的底色 + B 的科技细节」</p>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center;padding:32px 20px;border-top:1px solid rgba(255,255,255,0.06);">
+  <p style="font-size:12px;color:#48484A;">🍊 娜美 · 2026-03-31</p>
+</div>
+
+</body>
+</html>
