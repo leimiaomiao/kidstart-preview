@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>孕肚时光机 · Prototype v2.1</title>
 <!-- v2.1 build 20260331-1535 -->
+<script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden}
@@ -124,7 +125,7 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
 <div id="s0" class="s on">
 <div class="bar">9:41</div>
 <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center">
-<div style="font-size:72px;margin-bottom:20px">🤰</div>
+<div style="font-size:72px;margin-bottom:20px"><i class="ph-thin ph-baby" style="font-size:72px;color:inherit"></i></div>
 <div style="font-size:28px;font-weight:700;letter-spacing:-.5px;margin-bottom:6px">孕肚时光机</div>
 <div style="font-size:15px;color:#86868B;line-height:1.5;margin-bottom:36px">每周一张孕肚照<br>自动变成让你感动的延时视频</div>
 <button class="btn" style="width:auto;padding:16px 48px" onclick="go('s1')">开始记录</button>
@@ -136,13 +137,13 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
 <div id="s1" class="s hide">
 <div class="bar">9:41</div>
 <div style="flex:1;display:flex;flex-direction:column;align-items:center;padding:0 24px;overflow-y:auto">
-<div style="font-size:48px;margin-top:16px;margin-bottom:10px">🍼</div>
+<div style="font-size:48px;margin-top:16px;margin-bottom:10px"><i class="ph-thin ph-baby" style="font-size:48px;color:inherit"></i></div>
 <div style="font-size:22px;font-weight:700;margin-bottom:4px">宝宝什么时候来？</div>
 <div style="font-size:13px;color:#86868B;margin-bottom:24px">选择预产期，我来帮你算孕周</div>
 <div style="width:100%;background:#F5F5F7;border-radius:16px;padding:24px;text-align:center">
 <div style="font-size:13px;color:#86868B;margin-bottom:6px">预产期</div>
 <div style="font-size:32px;font-weight:700;letter-spacing:-.5px">8 月 15 日</div>
-<div style="margin-top:12px;display:inline-block;background:#E8F5E8;padding:4px 14px;border-radius:10px;font-size:14px;color:#34A853;font-weight:600">🌽 第 24 周</div>
+<div style="margin-top:12px;display:inline-block;background:#E8F5E8;padding:4px 14px;border-radius:10px;font-size:14px;color:#34A853;font-weight:600">第 24 周</div>
 </div>
 <div style="width:100%;margin-top:24px">
 <button class="btn" onclick="go('s1b')">下一步</button>
@@ -160,21 +161,21 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
   </div>
   <div class="preview-gallery">
     <div class="preview-strip">
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#fce4d6,#f0d5be)">🍋</div><div class="preview-card-label">W12 · 柠檬</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f8d7d0,#e8bfb5)">🍎</div><div class="preview-card-label">W16 · 苹果</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#fbe8c8,#ebd5a8)">🥭</div><div class="preview-card-label">W20 · 芒果</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f5e6c0,#e5d0a0)">🌽</div><div class="preview-card-label">W24 · 玉米</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#e8daf0,#d0c0e0)">🍆</div><div class="preview-card-label">W28 · 茄子</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f0e0d0,#d8c8b0)">🥥</div><div class="preview-card-label">W32 · 椰子</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#ffe0e0,#f0c0c0)">🍉</div><div class="preview-card-label">W36 · 西瓜</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#ffe8c0,#f0d090)">🎃</div><div class="preview-card-label">W40 · 南瓜</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#fce4d6,#f0d5be)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W12</span></div><div class="preview-card-label">W12 · 柠檬</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f8d7d0,#e8bfb5)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W16</span></div><div class="preview-card-label">W16 · 苹果</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#fbe8c8,#ebd5a8)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W20</span></div><div class="preview-card-label">W20 · 芒果</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f5e6c0,#e5d0a0)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W24</span></div><div class="preview-card-label">W24 · 玉米</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#e8daf0,#d0c0e0)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W28</span></div><div class="preview-card-label">W28 · 茄子</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f0e0d0,#d8c8b0)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W32</span></div><div class="preview-card-label">W32 · 椰子</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#ffe0e0,#f0c0c0)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W36</span></div><div class="preview-card-label">W36 · 西瓜</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#ffe8c0,#f0d090)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W40</span></div><div class="preview-card-label">W40 · 南瓜</div></div>
       <!-- duplicate for infinite scroll -->
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#fce4d6,#f0d5be)">🍋</div><div class="preview-card-label">W12 · 柠檬</div></div>
-      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f8d7d0,#e8bfb5)">🍎</div><div class="preview-card-label">W16 · 苹果</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#fce4d6,#f0d5be)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W12</span></div><div class="preview-card-label">W12 · 柠檬</div></div>
+      <div class="preview-card"><div class="preview-card-img" style="background:linear-gradient(160deg,#f8d7d0,#e8bfb5)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W16</span></div><div class="preview-card-label">W16 · 苹果</div></div>
     </div>
   </div>
   <div style="padding:0 24px 32px;display:flex;flex-direction:column;gap:10px">
-    <button class="btn" onclick="go('s3')">拍第一张 📸</button>
+    <button class="btn" onclick="go('s3')">拍第一张 <i class="ph-thin ph-camera" style="font-size:inherit;color:inherit"></i></button>
     <button class="btn-o" onclick="go('s2')">先看看时光轴</button>
   </div>
 </div>
@@ -188,12 +189,12 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
     <div class="home-hero-bg"></div>
     <div class="home-carousel" id="hc">
       <div class="home-track" id="ht">
-        <div class="home-card side" data-i="0"><div class="home-card-img" style="background:linear-gradient(160deg,#fce4d6,#f0d5be)">🍋</div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 12 周</div><div class="home-card-date">3 月 1 日</div></div></div>
-        <div class="home-card side" data-i="1"><div class="home-card-img" style="background:linear-gradient(160deg,#f8d7d0,#e8bfb5)">🍎</div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 16 周</div><div class="home-card-date">3 月 29 日</div></div></div>
-        <div class="home-card center" data-i="2"><div class="home-card-img" style="background:linear-gradient(160deg,#fbe8c8,#ebd5a8)">🥭</div><div class="home-card-overlay"></div><div class="home-card-badge">本周</div><div class="home-card-info"><div class="home-card-week">第 20 周</div><div class="home-card-date">4 月 26 日</div></div></div>
-        <div class="home-card side" data-i="3"><div class="home-card-img" style="background:linear-gradient(160deg,#f5e6c0,#e5d0a0)">🌽</div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 24 周</div><div class="home-card-date">5 月 24 日</div></div></div>
-        <div class="home-card side" data-i="4"><div class="home-card-img" style="background:linear-gradient(160deg,#e8daf0,#d0c0e0)">🍆</div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 28 周</div><div class="home-card-date">6 月 21 日</div></div></div>
-        <div class="home-card side" data-i="5"><div class="home-card-img" style="background:linear-gradient(160deg,#f0e0d0,#d8c8b0)">🥥</div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 32 周</div><div class="home-card-date">7 月 19 日</div></div></div>
+        <div class="home-card side" data-i="0"><div class="home-card-img" style="background:linear-gradient(160deg,#fce4d6,#f0d5be)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W12</span></div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 12 周</div><div class="home-card-date">3 月 1 日</div></div></div>
+        <div class="home-card side" data-i="1"><div class="home-card-img" style="background:linear-gradient(160deg,#f8d7d0,#e8bfb5)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W16</span></div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 16 周</div><div class="home-card-date">3 月 29 日</div></div></div>
+        <div class="home-card center" data-i="2"><div class="home-card-img" style="background:linear-gradient(160deg,#fbe8c8,#ebd5a8)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W20</span></div><div class="home-card-overlay"></div><div class="home-card-badge">本周</div><div class="home-card-info"><div class="home-card-week">第 20 周</div><div class="home-card-date">4 月 26 日</div></div></div>
+        <div class="home-card side" data-i="3"><div class="home-card-img" style="background:linear-gradient(160deg,#f5e6c0,#e5d0a0)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W24</span></div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 24 周</div><div class="home-card-date">5 月 24 日</div></div></div>
+        <div class="home-card side" data-i="4"><div class="home-card-img" style="background:linear-gradient(160deg,#e8daf0,#d0c0e0)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W28</span></div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 28 周</div><div class="home-card-date">6 月 21 日</div></div></div>
+        <div class="home-card side" data-i="5"><div class="home-card-img" style="background:linear-gradient(160deg,#f0e0d0,#d8c8b0)"><span style="font-size:22px;font-weight:700;color:rgba(0,0,0,.3)">W32</span></div><div class="home-card-overlay"></div><div class="home-card-info"><div class="home-card-week">第 32 周</div><div class="home-card-date">7 月 19 日</div></div></div>
       </div>
     </div>
     <div class="home-glow"></div>
@@ -207,14 +208,14 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
     <div class="home-week-info">
       <div class="home-week-ring">60%</div>
       <div>
-        <div style="font-size:17px;font-weight:600">第 24 周 🌽</div>
+        <div style="font-size:17px;font-weight:600">第 24 周</div>
         <div style="font-size:13px;color:#86868B">还有 16 周 · 宝宝像一个玉米</div>
       </div>
     </div>
-    <button class="btn" onclick="go('s3')">📸 记录本周</button>
+    <button class="btn" onclick="go('s3')"><i class="ph-thin ph-camera" style="font-size:inherit;color:inherit"></i> 记录本周</button>
     <div class="home-actions">
-      <button class="btn-o" style="flex:1" onclick="go('s5')">✨ 生成视频</button>
-      <button class="btn-o" style="flex:1" onclick="go('s6')">⚙️ 设置</button>
+      <button class="btn-o" style="flex:1" onclick="go('s5')"><i class="ph-thin ph-sparkle" style="font-size:inherit;color:inherit"></i> 生成视频</button>
+      <button class="btn-o" style="flex:1" onclick="go('s6')"><i class="ph-thin ph-gear" style="font-size:inherit;color:inherit"></i> 设置</button>
     </div>
   </div>
 </div>
@@ -224,9 +225,9 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
 <div id="s3" class="s hide">
 <div class="cam-w">
   <div class="cam-vf">
-    <div class="cam-pill">🌽 第 24 周</div>
+    <div class="cam-pill">第 24 周</div>
     <!-- 上周叠影 (ghost) -->
-    <div class="cam-ghost-overlay">🤰</div>
+    <div class="cam-ghost-overlay"><i class="ph-thin ph-baby" style="font-size:120px;color:inherit"></i></div>
     <!-- 侧身剪影引导 -->
     <div class="cam-silhouette">
       <div class="cam-sil-body">
@@ -236,21 +237,21 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
           <div class="cam-sil-belly-label">对齐<br>孕肚</div>
         </div>
         <div class="cam-sil-legs"></div>
-        <div class="cam-sil-feet">👣 站在这里</div>
+    <div class="cam-sil-feet"><i class="ph-thin ph-footprints" style="font-size:9px;color:rgba(255,255,255,.4)"></i> 站在这里</div>
       </div>
     </div>
     <!-- 提示 -->
     <div class="cam-hint" id="cam-hint">侧身站立 · 孕肚对准虚线圆 · 保持同一位置</div>
     <!-- 按钮 -->
-    <div class="cam-icon" style="top:14px;right:14px" onclick="this.textContent=this.textContent==='🔄'?'🤳':'🔄'">🔄</div>
+    <div class="cam-icon" style="top:14px;right:14px" onclick="this.querySelector('i').className=this.querySelector('i').className.includes('camera-rotate')?'ph-thin ph-arrows-clockwise':'ph-thin ph-camera-rotate'"><i class="ph-thin ph-arrows-clockwise" style="font-size:inherit;color:inherit"></i></div>
     <div class="cam-icon" style="top:14px;left:14px" id="tbtn" onclick="cycleTimer()">3s</div>
-    <div class="cam-icon" style="top:14px;left:60px" id="gbtn" onclick="toggleGhost()" style="font-size:12px">👻</div>
+    <div class="cam-icon" style="top:14px;left:60px" id="gbtn" onclick="toggleGhost()"><i class="ph-thin ph-ghost" style="font-size:inherit;color:inherit"></i></div>
     <div class="cam-flash" id="cf"></div>
   </div>
   <div class="cam-bar">
-    <div class="cam-side" onclick="goBack('s2')">📅</div>
+    <div class="cam-side" onclick="goBack('s2')"><i class="ph-thin ph-calendar-blank" style="font-size:inherit;color:inherit"></i></div>
     <div class="cam-shut" onclick="takePhoto()"><div class="cam-shut-in"></div></div>
-    <div class="cam-side" onclick="go('s6')">⚙️</div>
+    <div class="cam-side" onclick="go('s6')"><i class="ph-thin ph-gear" style="font-size:inherit;color:inherit"></i></div>
   </div>
 </div>
 </div>
@@ -259,15 +260,15 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
 <div id="s4" class="s hide">
 <div class="bar">9:41</div>
 <div class="done-wrap">
-  <div style="font-size:40px;margin-top:16px;margin-bottom:8px">🎉</div>
+  <div style="font-size:40px;margin-top:16px;margin-bottom:8px"><i class="ph-thin ph-sparkle" style="font-size:40px;color:inherit"></i></div>
   <div style="font-size:22px;font-weight:700;margin-bottom:4px">第 24 周 · 已记录!</div>
   <div style="font-size:13px;color:#86868B;margin-bottom:20px">你已经坚持了 6 周，太棒了！</div>
 
   <!-- 分享卡片预览 -->
   <div class="done-card">
-    <div class="done-card-img" style="background:linear-gradient(160deg,#f5e6c0,#e5d0a0)">🤰</div>
+    <div class="done-card-img" style="background:linear-gradient(160deg,#f5e6c0,#e5d0a0)"><i class="ph-thin ph-baby" style="font-size:72px;color:rgba(0,0,0,.2)"></i></div>
     <div class="done-card-info">
-      <div style="font-size:18px;font-weight:700">第 24 周 🌽</div>
+      <div style="font-size:18px;font-weight:700">第 24 周</div>
       <div style="font-size:13px;color:#86868B;margin-top:4px">宝宝现在像一个玉米</div>
       <div style="font-size:9px;color:#C7C7CC;margin-top:8px;letter-spacing:1px">BUMPLAPSE</div>
     </div>
@@ -275,17 +276,17 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
 
   <!-- 里程碑激励 -->
   <div class="done-milestone">
-    <div style="font-size:32px;margin-bottom:4px">🏆</div>
+    <div style="font-size:32px;margin-bottom:4px"><i class="ph-thin ph-trophy" style="font-size:32px;color:inherit"></i></div>
     <div style="font-size:15px;font-weight:600">连续 6 周打卡！</div>
     <div style="font-size:12px;color:#86868B;margin-top:4px">再拍 2 周就能生成第一个延时视频</div>
   </div>
 
   <!-- Actions -->
   <div style="width:100%;max-width:300px;display:flex;flex-direction:column;gap:10px;padding-bottom:32px">
-    <button class="btn" onclick="shareCard()" style="background:#007AFF">📤 分享到朋友圈</button>
+    <button class="btn" onclick="shareCard()" style="background:#007AFF"><i class="ph-thin ph-share-network"></i> 分享到朋友圈</button>
     <div style="display:flex;gap:10px">
-      <button class="btn-o" style="flex:1" onclick="go('s5')">✨ 生成视频</button>
-      <button class="btn-o" style="flex:1" onclick="go('s2')">📅 时光轴</button>
+      <button class="btn-o" style="flex:1" onclick="go('s5')"><i class="ph-thin ph-sparkle"></i> 生成视频</button>
+      <button class="btn-o" style="flex:1" onclick="go('s2')"><i class="ph-thin ph-calendar-blank"></i> 时光轴</button>
     </div>
     <button class="link" onclick="go('s3')" style="text-align:center;padding:8px">再拍一张 →</button>
   </div>
@@ -297,8 +298,8 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
 <div class="vid-w">
   <div class="vid-player">
     <div style="position:absolute;top:14px;left:14px"><button style="background:rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:none;border-radius:50%;width:36px;height:36px;font-size:16px;cursor:pointer;color:#FFF" onclick="goBack('s2')">✕</button></div>
-    <div class="vid-play" id="vp" onclick="playVid()">▶</div>
-    <div style="position:absolute;bottom:14px;left:14px;font-size:14px;font-weight:600;color:rgba(255,255,255,.8);text-shadow:0 2px 6px rgba(0,0,0,.4)">Week 24 🌽</div>
+    <div class="vid-play" id="vp" onclick="playVid()"><i class="ph-thin ph-play" style="font-size:28px"></i></div>
+    <div style="position:absolute;bottom:14px;left:14px;font-size:14px;font-weight:600;color:rgba(255,255,255,.8);text-shadow:0 2px 6px rgba(0,0,0,.4)">Week 24 </div>
     <div style="position:absolute;bottom:14px;right:14px;font-size:11px;color:rgba(255,255,255,.3)">BumpLapse</div>
   </div>
   <div class="vid-ctrl">
@@ -306,14 +307,14 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
     <div style="display:flex;justify-content:space-between;font-size:11px;color:#86868B;margin-bottom:14px"><span id="vt">0:00</span><span>0:20</span></div>
     <div style="font-size:12px;color:#48484A;margin-bottom:6px">🎵 背景音乐</div>
     <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto">
-      <div class="vid-chip on" onclick="selBgm(this)">🌿 轻柔钢琴</div>
-      <div class="vid-chip" onclick="selBgm(this)">🌸 春日微风</div>
-      <div class="vid-chip" onclick="selBgm(this)">🌙 摇篮曲</div>
+      <div class="vid-chip on" onclick="selBgm(this)"><i class="ph-thin ph-music-note"></i> 轻柔钢琴</div>
+      <div class="vid-chip" onclick="selBgm(this)"><i class="ph-thin ph-music-note"></i> 春日微风</div>
+      <div class="vid-chip" onclick="selBgm(this)"><i class="ph-thin ph-moon"></i> 摇篮曲</div>
     </div>
-    <button class="btn" onclick="alert('购买成功！(demo)')">💾 无水印导出 ¥6.9</button>
+    <button class="btn" onclick="alert('购买成功！(demo)')"><i class="ph-thin ph-download-simple"></i> 无水印导出 ¥6.9</button>
     <div style="display:flex;justify-content:center;gap:16px;margin-top:12px">
       <button class="link" style="font-size:13px">免费保存(带水印)</button>
-      <button class="link" style="font-size:13px" onclick="shareCard()">📤 分享</button>
+      <button class="link" style="font-size:13px" onclick="shareCard()"><i class="ph-thin ph-share-network"></i> 分享</button>
     </div>
   </div>
 </div>
@@ -328,18 +329,18 @@ body{font-family:-apple-system,'SF Pro Display','PingFang SC',sans-serif;backgro
     <div style="font-size:17px;font-weight:600">设置</div>
   </div>
   <div class="set-grp">
-    <div class="set-r"><span>🍼 预产期</span><span style="font-size:15px;color:#86868B">2025-08-15 ›</span></div>
-    <div class="set-r"><span>⏰ 拍照提醒</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
-    <div class="set-r"><span>📅 提醒时间</span><span style="font-size:15px;color:#86868B">每周日 10:00 ›</span></div>
+    <div class="set-r"><span><i class="ph-thin ph-baby"></i> 预产期</span><span style="font-size:15px;color:#86868B">2025-08-15 ›</span></div>
+    <div class="set-r"><span><i class="ph-thin ph-bell"></i> 拍照提醒</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
+    <div class="set-r"><span><i class="ph-thin ph-calendar-blank"></i> 提醒时间</span><span style="font-size:15px;color:#86868B">每周日 10:00 ›</span></div>
   </div>
   <div class="set-grp">
-    <div class="set-r"><span>👻 拍照叠影</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
-    <div class="set-r"><span>👤 对齐引导</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
+    <div class="set-r"><span><i class="ph-thin ph-eye"></i> 拍照叠影</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
+    <div class="set-r"><span><i class="ph-thin ph-crosshair"></i> 对齐引导</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
   </div>
   <div class="set-grp">
-    <div class="set-r"><span>☁️ iCloud 同步</span><span style="color:#C7C7CC">即将推出</span></div>
-    <div class="set-r"><span>🔒 隐私政策</span><span style="color:#C7C7CC">›</span></div>
-    <div class="set-r"><span>💌 反馈</span><span style="color:#C7C7CC">›</span></div>
+    <div class="set-r"><span><i class="ph-thin ph-cloud"></i> iCloud 同步</span><span style="color:#C7C7CC">即将推出</span></div>
+    <div class="set-r"><span><i class="ph-thin ph-lock"></i> 隐私政策</span><span style="color:#C7C7CC">›</span></div>
+    <div class="set-r"><span><i class="ph-thin ph-envelope"></i> 反馈</span><span style="color:#C7C7CC">›</span></div>
   </div>
   <div style="text-align:center;padding:24px;font-size:12px;color:#C7C7CC">BumpLapse v1.0</div>
 </div>
@@ -414,7 +415,7 @@ function selBgm(el){el.parentElement.querySelectorAll('.vid-chip').forEach(c=>c.
 
 // === Share ===
 function shareCard(){
-  if(navigator.share){navigator.share({title:'孕肚时光机',text:'第24周 🌽 宝宝像一个玉米！',url:'https://bumplapse.app'})}
+  if(navigator.share){navigator.share({title:'孕肚时光机',text:'第24周  宝宝像一个玉米！',url:'https://bumplapse.app'})}
   else{alert('已复制分享链接！(demo)')}
 }
 </script>
