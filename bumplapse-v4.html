@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>BumpLapse · v4</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:-apple-system,'SF Pro Text','PingFang SC',sans-serif;background:#FFF;color:#000;max-width:430px;margin:0 auto;height:100dvh;overflow:hidden;position:relative}
+
+/* === Screens === */
+.s{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.s.on{opacity:1;pointer-events:auto}
+
+/* === Status Bar === */
+.sbar{height:54px;flex-shrink:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-size:15px;font-weight:600}
+
+/* === Buttons === */
+.btn-fill{background:#000;color:#FFF;border:none;border-radius:12px;padding:16px;width:100%;font-size:17px;font-weight:600;cursor:pointer;transition:opacity .12s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-fill:active{opacity:.7}
+.btn-ghost{background:none;color:#000;border:1.5px solid #D1D1D6;border-radius:12px;padding:14px;width:100%;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-ghost:active{background:#F5F5F5}
+.btn-link{background:none;border:none;color:#8E8E93;font-size:13px;cursor:pointer;padding:8px}
+
+/* === Bottom Tab Bar (2 tabs only) === */
+.tabs{position:absolute;bottom:0;left:0;right:0;height:80px;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #E5E5EA;display:none;padding-bottom:20px;z-index:50}
+.tabs.show{display:flex}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:#8E8E93;transition:color .2s}
+.tab.on{color:#000}
+.tab-ico{width:24px;height:24px}
+.tab-ico svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab-lbl{font-size:10px;font-weight:500;letter-spacing:.2px}
+
+/* === Inline SVG icon === */
+.ic{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle}
+.ic svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* === Welcome === */
+.wel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center}
+.wel-mark{width:64px;height:64px;border:2px solid #000;border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.wel-h{font-size:28px;font-weight:700;letter-spacing:-.5px;margin-bottom:6px}
+.wel-p{font-size:15px;color:#8E8E93;line-height:1.5;margin-bottom:40px}
+
+/* === Due Date === */
+.dd{flex:1;display:flex;flex-direction:column;align-items:center;padding:0 24px}
+.dd-card{width:100%;background:#F5F5F5;border-radius:16px;padding:24px;text-align:center;margin-bottom:16px}
+.dd-date{font-size:34px;font-weight:700;letter-spacing:-.5px}
+.dd-badge{display:inline-block;margin-top:12px;background:#F0F0F0;padding:4px 14px;border-radius:8px;font-size:14px;color:#000;font-weight:600}
+
+/* === Preview === */
+.pv{flex:1;display:flex;flex-direction:column;background:#FFF;overflow:hidden}
+.pv-gallery{flex:1;position:relative;overflow:hidden}
+.pv-strip{display:flex;gap:12px;align-items:center;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);animation:pvs 16s linear infinite}
+@keyframes pvs{0%{transform:translate(-50%,-50%) translateX(0)}100%{transform:translate(-50%,-50%) translateX(-516px)}}
+.pv-card{width:160px;height:280px;border-radius:14px;flex-shrink:0;overflow:hidden;position:relative}
+.pv-card-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.pv-card-lbl{position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(0deg,rgba(0,0,0,.5) 0%,transparent 100%);color:#FFF}
+.pv-card-wk{font-size:15px;font-weight:600}
+.pv-card-sz{font-size:11px;opacity:.8;margin-top:2px}
+
+/* === Timeline (Home) === */
+.tl{flex:1;display:flex;flex-direction:column;background:#FFF;padding-bottom:80px;overflow:hidden}
+.tl-nav{height:44px;display:flex;align-items:center;padding:0 16px;flex-shrink:0}
+.tl-title{flex:1;font-size:17px;font-weight:600}
+.tl-nav-btn{background:none;border:none;cursor:pointer;padding:6px;color:#000}
+.tl-hero{position:relative;flex-shrink:0;height:52%;background:#000;overflow:hidden}
+.tl-bg{position:absolute;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.tl-carousel{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.tl-track{display:flex;align-items:center;gap:14px;transition:transform .4s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+.tl-card{width:180px;height:312px;border-radius:14px;flex-shrink:0;overflow:hidden;position:relative;transition:all .4s cubic-bezier(.25,.46,.45,.94);background:#333}
+.tl-card.ctr{width:224px;height:388px;border-radius:16px;box-shadow:0 12px 20px rgba(0,0,0,.2),0 24px 48px rgba(0,0,0,.3)}
+.tl-card.sd{opacity:.6;transform:scale(.88)}
+.tl-card-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.tl-card-ov{position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(0deg,rgba(0,0,0,.5) 0%,transparent 100%)}
+.tl-card-info{position:absolute;left:14px;bottom:16px;z-index:2}
+.tl-card-wk{font-size:18px;font-weight:600;color:#FFF;letter-spacing:-.2px}
+.tl-card-dt{font-size:11px;color:rgba(255,255,255,.6);margin-top:3px}
+.tl-card-tag{position:absolute;top:10px;left:10px;z-index:2;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:3px 8px;border-radius:6px;font-size:10px;color:#000;font-weight:500}
+.tl-dots{display:flex;justify-content:center;gap:5px;padding:10px 0}
+.tl-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:.3s}
+.tl-dot.on{width:18px;border-radius:3px;background:#FFF}
+.tl-info{flex:1;display:flex;flex-direction:column;padding:14px 20px;gap:10px;justify-content:center}
+.tl-wk-row{display:flex;align-items:center;gap:12px}
+.tl-wk-num{font-size:32px;font-weight:700;letter-spacing:-1px}
+.tl-wk-detail{font-size:13px;color:#8E8E93;line-height:1.4}
+
+/* === Camera === */
+.cm{flex:1;display:flex;flex-direction:column;background:#000;padding-bottom:80px}
+.cm-vf{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cm-sil{position:absolute;width:200px;height:360px}
+.cm-sil-head{width:44px;height:44px;border:1.5px solid rgba(255,255,255,.15);border-radius:50%;position:absolute;top:6%;left:48%;transform:translateX(-50%)}
+.cm-sil-neck{width:2px;height:16px;background:rgba(255,255,255,.1);position:absolute;top:calc(6% + 44px);left:48%}
+.cm-sil-torso{width:56px;height:90px;border:1.5px solid rgba(255,255,255,.15);border-radius:28px 28px 16px 16px;position:absolute;top:20%;left:38%;transform:rotate(-3deg)}
+.cm-sil-belly{width:76px;height:76px;border:1.5px dashed rgba(255,255,255,.25);border-radius:50%;position:absolute;top:33%;left:48%;display:flex;align-items:center;justify-content:center}
+.cm-sil-belly-txt{font-size:9px;color:rgba(255,255,255,.35);text-align:center;line-height:1.2}
+.cm-sil-leg-l,.cm-sil-leg-r{width:1.5px;height:110px;background:rgba(255,255,255,.1);position:absolute;bottom:4px}
+.cm-sil-leg-l{left:44%}.cm-sil-leg-r{left:56%}
+.cm-sil-floor{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:1px;background:rgba(255,255,255,.15)}
+.cm-sil-floor-txt{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:9px;color:rgba(255,255,255,.3);white-space:nowrap}
+.cm-ghost{position:absolute;inset:0;pointer-events:none;opacity:.1;display:flex;align-items:center;justify-content:center}
+.cm-pill{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:5px 16px;border-radius:20px;font-size:14px;font-weight:600;color:#000}
+.cm-hint{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);text-align:center;font-size:11px;color:rgba(255,255,255,.4);line-height:1.5;max-width:260px}
+.cm-bar{height:96px;background:#000;display:flex;align-items:center;justify-content:center;gap:48px;flex-shrink:0}
+.cm-shut{width:68px;height:68px;border-radius:50%;border:3.5px solid #FFF;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .1s}
+.cm-shut:active{transform:scale(.92)}
+.cm-shut-in{width:54px;height:54px;border-radius:50%;background:#FFF}
+.cm-ctrl{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.7)}
+.cm-ctrl:active{transform:scale(.88)}
+.cm-ctrl svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cm-top-btn{position:absolute;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.6)}
+.cm-top-btn:active{opacity:.5}
+.cm-top-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cm-flash{position:absolute;inset:0;background:#FFF;opacity:0;pointer-events:none}
+
+/* === Done === */
+.dn{flex:1;display:flex;flex-direction:column;align-items:center;background:#FFF;padding:0 24px;overflow-y:auto}
+.dn-card{width:100%;max-width:300px;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);margin-bottom:20px}
+.dn-card-img{width:100%;height:240px;display:flex;align-items:center;justify-content:center}
+.dn-card-info{padding:16px;text-align:center}
+.dn-mile{background:#F5F5F5;border-radius:12px;padding:16px;width:100%;max-width:300px;text-align:center;margin-bottom:16px}
+
+/* === Video === */
+.vd{flex:1;display:flex;flex-direction:column;background:#000}
+.vd-player{flex:1;position:relative;display:flex;align-items:center;justify-content:center}
+.vd-play{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#FFF}
+.vd-play:active{transform:scale(.92)}
+.vd-play svg{width:24px;height:24px;fill:currentColor;stroke:none}
+.vd-ctrl{background:rgba(0,0,0,.92);backdrop-filter:blur(20px);padding:20px;flex-shrink:0;border-top:1px solid rgba(255,255,255,.06)}
+.vd-prog{width:100%;height:3px;background:rgba(255,255,255,.08);border-radius:2px;margin-bottom:8px}
+.vd-prog-fill{height:100%;background:#FFF;border-radius:2px;width:0;transition:width 20s linear}
+.vd-chip{padding:8px 14px;border-radius:20px;font-size:13px;white-space:nowrap;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);cursor:pointer;border:1px solid rgba(255,255,255,.04);transition:.2s}
+.vd-chip.on{background:rgba(255,255,255,.12);color:#FFF;border-color:rgba(255,255,255,.12)}
+
+/* === Settings === */
+.st{flex:1;display:flex;flex-direction:column;background:#F2F2F7;overflow-y:auto}
+.st-grp{background:#FFF;border-radius:12px;overflow:hidden;margin:8px 16px}
+.st-r{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid #F2F2F7;font-size:15px}
+.st-r:last-child{border-bottom:none}
+.tog{width:51px;height:31px;background:#34C759;border-radius:16px;position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
+.tog::after{content:'';width:27px;height:27px;background:#FFF;border-radius:50%;position:absolute;right:2px;top:2px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.tog.off{background:#E5E5EA}.tog.off::after{transform:translateX(-20px)}
+</style>
+</head>
+<body>
+
+<!-- Tab Bar (shared, shows on s-tl and s-cam) -->
+<div class="tabs" id="tabs">
+  <div class="tab on" onclick="switchTab('s-tl')">
+    <div class="tab-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+    <div class="tab-lbl">时光轴</div>
+  </div>
+  <div class="tab" onclick="switchTab('s-cam')">
+    <div class="tab-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="4"/><path d="M5 7h2l1.5-2h7L17 7h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg></div>
+    <div class="tab-lbl">拍照</div>
+  </div>
+</div>
+
+<!-- S-WEL: Welcome -->
+<div id="s-wel" class="s on">
+<div class="sbar">9:41</div>
+<div class="wel">
+  <div class="wel-mark"><span class="ic" style="width:32px;height:32px"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="4"/><path d="M5 7h2l1.5-2h7L17 7h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/></svg></span></div>
+  <div class="wel-h">BumpLapse</div>
+  <div class="wel-p">每周一张孕肚照<br>自动生成延时视频</div>
+  <button class="btn-fill" style="width:auto;padding:16px 48px" onclick="go('s-dd')">开始记录</button>
+  <button class="btn-link" style="margin-top:12px">已有数据？恢复</button>
+</div>
+</div>
+
+<!-- S-DD: Due Date -->
+<div id="s-dd" class="s">
+<div class="sbar">9:41</div>
+<div class="dd">
+  <div style="width:44px;height:44px;margin-top:16px;margin-bottom:14px;color:#8E8E93" class="ic"><svg viewBox="0 0 24 24" style="width:44px;height:44px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+  <div style="font-size:22px;font-weight:700;margin-bottom:4px">预产期是哪天？</div>
+  <div style="font-size:13px;color:#8E8E93;margin-bottom:24px">自动计算当前孕周</div>
+  <div class="dd-card">
+    <div style="font-size:13px;color:#8E8E93;margin-bottom:6px">预产期</div>
+    <div class="dd-date">8 月 15 日</div>
+    <div class="dd-badge">第 24 周</div>
+  </div>
+  <div style="width:100%;background:#F5F5F5;border-radius:16px;padding:16px;margin-bottom:24px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:15px">每周拍照提醒</span>
+      <div class="tog" onclick="this.classList.toggle('off')"></div>
+    </div>
+    <div style="font-size:12px;color:#8E8E93;margin-top:8px">每周日 上午 10:00</div>
+  </div>
+  <button class="btn-fill" onclick="go('s-pv')">下一步</button>
+</div>
+</div>
+
+<!-- S-PV: Journey Preview -->
+<div id="s-pv" class="s">
+<div class="sbar">9:41</div>
+<div class="pv">
+  <div style="text-align:center;padding:20px 24px 8px">
+    <div style="font-size:22px;font-weight:700">你的 28 周旅程</div>
+    <div style="font-size:13px;color:#8E8E93;margin-top:4px">每一周都值得被记住</div>
+  </div>
+  <div class="pv-gallery">
+    <div class="pv-strip">
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#e8e4e0,#d8d0c8)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W12</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 12 周</div><div class="pv-card-sz">柠檬大小</div></div></div>
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#e0dce0,#d0c8d0)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W16</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 16 周</div><div class="pv-card-sz">苹果大小</div></div></div>
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#e4dcd4,#d4ccc0)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W20</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 20 周</div><div class="pv-card-sz">芒果大小</div></div></div>
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#ddd8d0,#cdc4b8)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W24</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 24 周</div><div class="pv-card-sz">玉米大小</div></div></div>
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#d8d4d8,#c8c0c8)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W28</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 28 周</div><div class="pv-card-sz">茄子大小</div></div></div>
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#dcd8d0,#ccc4b8)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W32</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 32 周</div><div class="pv-card-sz">椰子大小</div></div></div>
+      <!-- loop -->
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#e8e4e0,#d8d0c8)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W12</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 12 周</div><div class="pv-card-sz">柠檬大小</div></div></div>
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#e0dce0,#d0c8d0)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W16</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 16 周</div><div class="pv-card-sz">苹果大小</div></div></div>
+      <div class="pv-card"><div class="pv-card-bg" style="background:linear-gradient(150deg,#e4dcd4,#d4ccc0)"><span style="font-size:20px;font-weight:700;color:rgba(0,0,0,.15)">W20</span></div><div class="pv-card-lbl"><div class="pv-card-wk">第 20 周</div><div class="pv-card-sz">芒果大小</div></div></div>
+    </div>
+  </div>
+  <div style="padding:0 24px 32px;display:flex;flex-direction:column;gap:10px">
+    <button class="btn-fill" onclick="enterApp('s-cam')">拍第一张</button>
+    <button class="btn-ghost" onclick="enterApp('s-tl')">先看看时光轴</button>
+  </div>
+</div>
+</div>
+
+<!-- S-TL: Timeline (Tab 1) -->
+<div id="s-tl" class="s">
+<div class="tl">
+  <div class="sbar" style="color:#FFF;background:transparent;position:relative;z-index:10">9:41</div>
+  <div class="tl-nav" style="background:transparent;position:relative;z-index:10">
+    <div class="tl-title" style="color:#FFF">时光轴</div>
+    <button class="tl-nav-btn" style="color:rgba(255,255,255,.6)" onclick="go('s-set')"><span class="ic" style="width:22px;height:22px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span></button>
+  </div>
+
+  <!-- Immersive Carousel -->
+  <div class="tl-hero">
+    <div class="tl-bg"></div>
+    <div class="tl-carousel" id="tc">
+      <div class="tl-track" id="tt">
+        <div class="tl-card sd" data-i="0"><div class="tl-card-bg" style="background:linear-gradient(150deg,#e8e4e0,#d0c8c0)"><span style="font-size:18px;font-weight:700;color:rgba(255,255,255,.2)">W12</span></div><div class="tl-card-ov"></div><div class="tl-card-info"><div class="tl-card-wk">第 12 周</div><div class="tl-card-dt">3月1日</div></div></div>
+        <div class="tl-card sd" data-i="1"><div class="tl-card-bg" style="background:linear-gradient(150deg,#e0dce0,#c8c0c8)"><span style="font-size:18px;font-weight:700;color:rgba(255,255,255,.2)">W16</span></div><div class="tl-card-ov"></div><div class="tl-card-info"><div class="tl-card-wk">第 16 周</div><div class="tl-card-dt">3月29日</div></div></div>
+        <div class="tl-card ctr" data-i="2"><div class="tl-card-bg" style="background:linear-gradient(150deg,#e4dcd4,#ccc0b4)"><span style="font-size:18px;font-weight:700;color:rgba(255,255,255,.2)">W20</span></div><div class="tl-card-ov"></div><div class="tl-card-tag">本周</div><div class="tl-card-info"><div class="tl-card-wk">第 20 周</div><div class="tl-card-dt">4月26日</div></div></div>
+        <div class="tl-card sd" data-i="3"><div class="tl-card-bg" style="background:linear-gradient(150deg,#ddd8d0,#c4bcb0)"><span style="font-size:18px;font-weight:700;color:rgba(255,255,255,.2)">W24</span></div><div class="tl-card-ov"></div><div class="tl-card-info"><div class="tl-card-wk">第 24 周</div><div class="tl-card-dt">5月24日</div></div></div>
+        <div class="tl-card sd" data-i="4"><div class="tl-card-bg" style="background:linear-gradient(150deg,#d8d4d8,#c0b8c0)"><span style="font-size:18px;font-weight:700;color:rgba(255,255,255,.2)">W28</span></div><div class="tl-card-ov"></div><div class="tl-card-info"><div class="tl-card-wk">第 28 周</div><div class="tl-card-dt">6月21日</div></div></div>
+        <div class="tl-card sd" data-i="5"><div class="tl-card-bg" style="background:linear-gradient(150deg,#dcd8d0,#c4bcb0)"><span style="font-size:18px;font-weight:700;color:rgba(255,255,255,.2)">W32</span></div><div class="tl-card-ov"></div><div class="tl-card-info"><div class="tl-card-wk">第 32 周</div><div class="tl-card-dt">7月19日</div></div></div>
+      </div>
+    </div>
+    <div class="tl-dots" id="td"><div class="tl-dot"></div><div class="tl-dot"></div><div class="tl-dot on"></div><div class="tl-dot"></div><div class="tl-dot"></div><div class="tl-dot"></div></div>
+  </div>
+
+  <!-- Bottom info -->
+  <div class="tl-info">
+    <div class="tl-wk-row">
+      <div class="tl-wk-num">W24</div>
+      <div>
+        <div style="font-size:15px;font-weight:600">宝宝像一个玉米</div>
+        <div class="tl-wk-detail">还有 16 周 · 已记录 6 张</div>
+      </div>
+    </div>
+    <button class="btn-ghost" onclick="go('s-vid')"><span class="ic" style="width:18px;height:18px"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></span> 生成延时视频</button>
+  </div>
+</div>
+</div>
+
+<!-- S-CAM: Camera (Tab 2) -->
+<div id="s-cam" class="s">
+<div class="cm">
+  <div class="cm-vf">
+    <div class="cm-pill">第 24 周</div>
+    <div class="cm-ghost" id="cm-ghost"><svg viewBox="0 0 100 180" width="120" height="216" style="stroke:rgba(255,255,255,.15);stroke-width:1;fill:none"><ellipse cx="50" cy="20" rx="12" ry="14"/><path d="M38 34 Q30 60 32 90 Q34 110 50 120 Q66 110 68 90 Q70 60 62 34Z"/><line x1="42" y1="120" x2="38" y2="175"/><line x1="58" y1="120" x2="62" y2="175"/></svg></div>
+    <!-- Silhouette guide -->
+    <div class="cm-sil">
+      <div class="cm-sil-head"></div>
+      <div class="cm-sil-neck"></div>
+      <div class="cm-sil-torso"></div>
+      <div class="cm-sil-belly"><div class="cm-sil-belly-txt">对齐<br>孕肚</div></div>
+      <div class="cm-sil-leg-l"></div>
+      <div class="cm-sil-leg-r"></div>
+      <div class="cm-sil-floor"></div>
+      <div class="cm-sil-floor-txt">站在此处</div>
+    </div>
+    <div class="cm-hint">侧身站立 · 孕肚对准虚线圆 · 保持同一位置</div>
+    <!-- Top buttons -->
+    <div class="cm-top-btn" style="top:14px;right:14px" onclick="flipCam()"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M8 21H3v-5"/><path d="M21 3l-7 7M3 21l7-7"/></svg></div>
+    <div class="cm-top-btn" style="top:14px;left:14px" id="tbtn" onclick="cycleTimer()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+    <div class="cm-top-btn" style="top:14px;left:60px" id="gbtn" onclick="toggleGhost()"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.76 1.12 5.26 2.93 7.07L3 22h4l-1-2.5c1.5.97 3.18 1.5 5 1.5s3.5-.53 5-1.5L15 22h4l-1.93-2.93C18.88 17.26 20 14.76 20 12c0-5.52-4.48-10-10-10z"/><circle cx="9" cy="11" r="1.5" style="fill:currentColor;stroke:none"/><circle cx="15" cy="11" r="1.5" style="fill:currentColor;stroke:none"/></svg></div>
+    <div class="cm-flash" id="cf"></div>
+  </div>
+  <div class="cm-bar">
+    <div class="cm-ctrl" id="timer-display" style="font-size:13px;font-weight:600">3s</div>
+    <div class="cm-shut" onclick="takePhoto()"><div class="cm-shut-in"></div></div>
+    <div class="cm-ctrl" onclick="flipCam()"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M8 21H3v-5"/><path d="M21 3l-7 7M3 21l7-7"/></svg></div>
+  </div>
+</div>
+</div>
+
+<!-- S-DONE: Photo Done -->
+<div id="s-done" class="s">
+<div class="sbar">9:41</div>
+<div class="dn">
+  <div style="margin-top:12px;margin-bottom:6px;width:40px;height:40px;color:#000" class="ic"><svg viewBox="0 0 24 24" style="width:40px;height:40px"><path d="M20 6L9 17l-5-5"/></svg></div>
+  <div style="font-size:22px;font-weight:700;margin-bottom:4px">第 24 周 · 已记录</div>
+  <div style="font-size:13px;color:#8E8E93;margin-bottom:20px">你已坚持 6 周，太棒了</div>
+  <div class="dn-card">
+    <div class="dn-card-img" style="background:linear-gradient(150deg,#ddd8d0,#c4bcb0)"><span style="font-size:18px;font-weight:700;color:rgba(0,0,0,.12)">W24</span></div>
+    <div class="dn-card-info">
+      <div style="font-size:17px;font-weight:600">第 24 周</div>
+      <div style="font-size:13px;color:#8E8E93;margin-top:4px">宝宝像一个玉米</div>
+      <div style="font-size:9px;color:#C7C7CC;margin-top:8px;letter-spacing:2px">BUMPLAPSE</div>
+    </div>
+  </div>
+  <div class="dn-mile">
+    <div style="font-size:15px;font-weight:600;margin-bottom:4px">连续 6 周</div>
+    <div style="font-size:12px;color:#8E8E93">再拍 2 周就能生成延时视频</div>
+  </div>
+  <div style="width:100%;max-width:300px;display:flex;flex-direction:column;gap:10px;padding-bottom:32px">
+    <button class="btn-fill" onclick="shareCard()"><span class="ic" style="width:20px;height:20px"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></span> 分享到朋友圈</button>
+    <div style="display:flex;gap:10px">
+      <button class="btn-ghost" style="flex:1" onclick="go('s-vid')">生成视频</button>
+      <button class="btn-ghost" style="flex:1" onclick="enterApp('s-tl')">时光轴</button>
+    </div>
+    <button class="btn-link" onclick="enterApp('s-cam')" style="text-align:center">再拍一张</button>
+  </div>
+</div>
+</div>
+
+<!-- S-VID: Video Preview -->
+<div id="s-vid" class="s">
+<div class="vd">
+  <div class="sbar" style="color:#FFF">9:41</div>
+  <div style="height:44px;display:flex;align-items:center;padding:0 16px;flex-shrink:0">
+    <button style="background:none;border:none;color:#FFF;font-size:15px;cursor:pointer;display:flex;align-items:center;gap:4px" onclick="goBack()"><span class="ic" style="width:20px;height:20px"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></span> 返回</button>
+  </div>
+  <div class="vd-player">
+    <div class="vd-play" id="vp" onclick="playVid()"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+    <div style="position:absolute;bottom:14px;left:14px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7)">Week 24</div>
+    <div style="position:absolute;bottom:14px;right:14px;font-size:10px;color:rgba(255,255,255,.25);letter-spacing:1px">BUMPLAPSE</div>
+  </div>
+  <div class="vd-ctrl">
+    <div class="vd-prog"><div class="vd-prog-fill" id="vpf"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.4);margin-bottom:14px"><span id="vt">0:00</span><span>0:20</span></div>
+    <div style="font-size:12px;color:rgba(255,255,255,.3);margin-bottom:6px">背景音乐</div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto">
+      <div class="vd-chip on" onclick="selBgm(this)">轻柔钢琴</div>
+      <div class="vd-chip" onclick="selBgm(this)">春日微风</div>
+      <div class="vd-chip" onclick="selBgm(this)">摇篮曲</div>
+    </div>
+    <button class="btn-fill" style="background:#FFF;color:#000" onclick="alert('购买成功 (demo)')">无水印导出 ¥6.9</button>
+    <div style="display:flex;justify-content:center;gap:16px;margin-top:10px">
+      <button style="background:none;border:none;color:rgba(255,255,255,.5);font-size:13px;cursor:pointer">免费保存(带水印)</button>
+      <button style="background:none;border:none;color:rgba(255,255,255,.5);font-size:13px;cursor:pointer" onclick="shareCard()">分享</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- S-SET: Settings -->
+<div id="s-set" class="s">
+<div class="st">
+  <div class="sbar" style="background:#F2F2F7">9:41</div>
+  <div style="background:#F2F2F7;padding:0 16px 8px;display:flex;align-items:center;gap:8px">
+    <button style="background:none;border:none;color:#007AFF;font-size:17px;cursor:pointer;display:flex;align-items:center;gap:2px" onclick="goBack()"><span class="ic" style="width:20px;height:20px"><svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg></span> 返回</button>
+    <div style="flex:1;text-align:center;font-size:17px;font-weight:600">设置</div>
+    <div style="width:60px"></div>
+  </div>
+  <div class="st-grp">
+    <div class="st-r"><span>预产期</span><span style="color:#8E8E93">2025-08-15 ›</span></div>
+    <div class="st-r"><span>拍照提醒</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
+    <div class="st-r"><span>提醒时间</span><span style="color:#8E8E93">每周日 10:00 ›</span></div>
+  </div>
+  <div class="st-grp">
+    <div class="st-r"><span>拍照叠影</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
+    <div class="st-r"><span>对齐引导</span><div class="tog" onclick="this.classList.toggle('off')"></div></div>
+  </div>
+  <div class="st-grp">
+    <div class="st-r"><span>iCloud 同步</span><span style="color:#C7C7CC">即将推出</span></div>
+    <div class="st-r"><span>隐私政策</span><span style="color:#C7C7CC">›</span></div>
+    <div class="st-r"><span>反馈建议</span><span style="color:#C7C7CC">›</span></div>
+  </div>
+  <div style="text-align:center;padding:24px;font-size:12px;color:#C7C7CC;letter-spacing:1px">BUMPLAPSE v1.0</div>
+</div>
+</div>
+
+<script>
+let cur='s-wel',prev=[];
+const tabs=document.getElementById('tabs');
+function go(id){
+  if(cur===id)return;
+  prev.push(cur);
+  document.getElementById(cur).classList.remove('on');
+  document.getElementById(id).classList.add('on');
+  cur=id;
+  updateTabs();
+}
+function goBack(){
+  if(!prev.length)return;
+  const p=prev.pop();
+  document.getElementById(cur).classList.remove('on');
+  document.getElementById(p).classList.add('on');
+  cur=p;
+  updateTabs();
+}
+function enterApp(id){
+  prev=[]; // clear onboarding history
+  document.querySelectorAll('.s').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  cur=id;
+  tabs.classList.add('show');
+  updateTabs();
+  if(id==='s-tl')initCarousel();
+}
+function switchTab(id){
+  if(cur===id)return;
+  prev=[];
+  document.querySelectorAll('.s').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  cur=id;
+  updateTabs();
+  if(id==='s-tl')initCarousel();
+}
+function updateTabs(){
+  const showTabs=['s-tl','s-cam'];
+  if(showTabs.includes(cur)){tabs.classList.add('show')}else{tabs.classList.remove('show')}
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  if(cur==='s-tl')document.querySelectorAll('.tab')[0].classList.add('on');
+  if(cur==='s-cam')document.querySelectorAll('.tab')[1].classList.add('on');
+}
+
+// === Carousel ===
+let cIdx=2;const CC=6;
+function initCarousel(){setTimeout(()=>updateCarousel(false),50)}
+function updateCarousel(anim){
+  const t=document.getElementById('tt'),cards=t.querySelectorAll('.tl-card'),dots=document.querySelectorAll('#td .tl-dot');
+  const cw=document.getElementById('tc').offsetWidth;
+  let pos=[],x=0;
+  cards.forEach((_,i)=>{const w=i===cIdx?224:180*.88;pos.push(x+w/2);x+=w+14});
+  const shift=cw/2-pos[cIdx];
+  t.style.transition=anim?'transform .4s cubic-bezier(.25,.46,.45,.94)':'none';
+  t.style.transform=`translateX(${shift}px)`;
+  cards.forEach((c,i)=>{c.classList.remove('ctr','sd');c.classList.add(i===cIdx?'ctr':'sd')});
+  dots.forEach((d,i)=>d.classList.toggle('on',i===cIdx));
+}
+let tsx=0,tdx=0;
+document.getElementById('tc')?.addEventListener('touchstart',e=>{tsx=e.touches[0].clientX;tdx=0});
+document.getElementById('tc')?.addEventListener('touchmove',e=>{tdx=e.touches[0].clientX-tsx;e.preventDefault()},{passive:false});
+document.getElementById('tc')?.addEventListener('touchend',()=>{if(Math.abs(tdx)>40){if(tdx<0&&cIdx<CC-1)cIdx++;if(tdx>0&&cIdx>0)cIdx--;updateCarousel(true)}});
+document.querySelectorAll('.tl-card').forEach(c=>c.addEventListener('click',function(){const i=+this.dataset.i;if(i!==cIdx){cIdx=i;updateCarousel(true)}}));
+
+// === Camera ===
+function takePhoto(){
+  const f=document.getElementById('cf');
+  f.style.opacity='.85';f.style.transition='opacity .05s';
+  if(navigator.vibrate)navigator.vibrate(10);
+  setTimeout(()=>{f.style.opacity='0';f.style.transition='opacity .15s ease-out'},100);
+  setTimeout(()=>go('s-done'),500);
+}
+let timerMode=1;
+function cycleTimer(){
+  const modes=['OFF','3s','5s'];timerMode=(timerMode+1)%3;
+  document.getElementById('timer-display').textContent=modes[timerMode];
+}
+let ghostOn=true;
+function toggleGhost(){
+  ghostOn=!ghostOn;
+  document.getElementById('cm-ghost').style.opacity=ghostOn?'.1':'0';
+  document.getElementById('gbtn').style.opacity=ghostOn?'1':'.35';
+}
+function flipCam(){/* demo only */}
+
+// === Video ===
+function playVid(){
+  const b=document.getElementById('vp'),f=document.getElementById('vpf'),t=document.getElementById('vt');
+  b.style.display='none';f.style.width='100%';f.style.transition='width 20s linear';
+  let s=0;const iv=setInterval(()=>{s++;t.textContent=`0:${String(s).padStart(2,'0')}`;if(s>=20){clearInterval(iv);b.style.display='flex';f.style.transition='none';f.style.width='0';t.textContent='0:00'}},1000);
+}
+function selBgm(el){el.parentElement.querySelectorAll('.vd-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on')}
+
+// === Share ===
+function shareCard(){
+  if(navigator.share)navigator.share({title:'BumpLapse',text:'第24周 · 宝宝像一个玉米',url:'https://bumplapse.app'});
+  else alert('已复制分享链接 (demo)');
+}
+</script>
+</body>
+</html>
