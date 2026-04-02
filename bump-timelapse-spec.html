@@ -150,8 +150,27 @@ li { margin: 4px 0; }
 <tr><td>前后切换</td><td>右上角翻转图标</td></tr>
 <tr><td>相册入口</td><td>左下角缩略图，点击进入时光轴</td></tr>
 </table>
-<p><span class="tag tag-must">MLP 必须</span> 对齐引导 + 叠影 + 孕周标签 + 倒计时</p>
+<p><span class="tag tag-must">MLP 必须</span> 对齐引导 + 叠影 + 孕周标签 + 倒计时 + 自动抠图换背景</p>
 <p><span class="tag tag-no">不做</span> 滤镜、美颜、贴纸</p>
+</div>
+
+<div class="card">
+<h3>拍照后 · 自动抠图换背景</h3>
+<p>拍完照片后，自动检测人物并生成分割蒙版，用户可选择替换背景。解决孕妈在家拍照背景杂乱的痛点。</p>
+<table>
+<tr><th width="140">元素</th><th>规格</th></tr>
+<tr><td>触发时机</td><td>拍照完成后，在照片预览/编辑阶段</td></tr>
+<tr><td>抠图技术</td><td>Apple Vision · VNGeneratePersonSegmentationRequest (qualityLevel: .accurate)</td></tr>
+<tr><td>合成方式</td><td>CIFilter.blendWithMask()，纯端侧处理，零网络请求</td></tr>
+<tr><td>背景选择器</td><td>底部横向滚动卡片：[原始] [纯白] [奶油] [浅灰] [莫兰迪粉] [自定义]</td></tr>
+<tr><td>预览</td><td>选择背景后实时预览合成效果</td></tr>
+<tr><td>免费背景</td><td>5 个纯色：白 #FFFFFF / 浅灰 #F0F0F0 / 奶油 #FAF5EF / 莫兰迪粉 #EDE0D8 / 浅蓝 #E8EEF4</td></tr>
+<tr><td>付费背景</td><td>孕期通解锁：5 个渐变 + 10 个场景（公园/海边/花田等）+ 自定义上传</td></tr>
+<tr><td>默认行为</td><td>不强制换背景，用户可以跳过保留原始照片</td></tr>
+<tr><td>性能</td><td>iPhone 12+ 处理一张照片 &lt; 0.5s</td></tr>
+</table>
+<p><span class="tag tag-must">MLP 必须</span> 自动抠图 + 5个免费纯色背景 + 实时预览 + 可跳过</p>
+<p><span class="tag tag-nice">Nice to have</span> 渐变/场景背景、自定义上传</p>
 </div>
 
 <h3>Screen 2：时光轴</h3>
@@ -275,6 +294,7 @@ li { margin: 4px 0; }
 <tr><td>UI</td><td>SwiftUI</td><td>iOS 16+，纯 SwiftUI</td></tr>
 <tr><td>相机</td><td>AVFoundation</td><td>自定义相机界面，支持前后置切换、倒计时</td></tr>
 <tr><td>姿势检测</td><td>Vision Framework</td><td>VNDetectHumanBodyPoseRequest，检测身体中心点，引导对齐</td></tr>
+<tr><td>人物抠图</td><td>Vision Framework</td><td>VNGeneratePersonSegmentationRequest (.accurate)，端侧人物分割，CIFilter.blendWithMask 合成换背景</td></tr>
 <tr><td>照片存储</td><td>本地沙盒 + Photos</td><td>App 沙盒内存原图，同时存入系统相册</td></tr>
 <tr><td>云同步</td><td>iCloud (CloudKit)</td><td>换手机不丢数据，苹果原生方案，不经过我们的服务器</td></tr>
 <tr><td>视频合成</td><td>AVFoundation</td><td>AVMutableComposition + AVVideoCompositionCoreAnimationTool</td></tr>
@@ -326,6 +346,7 @@ li { margin: 4px 0; }
 <tr><td>8</td><td>孕周分享卡片可生成并分享</td></tr>
 <tr><td>9</td><td>每周本地推送提醒拍照</td></tr>
 <tr><td>10</td><td>全程无需注册，无需网络（除付费）</td></tr>
+<tr><td>11</td><td>拍照后可自动抠图 + 选择纯色背景替换，5个免费背景可选</td></tr>
 </table>
 </div>
 
@@ -347,7 +368,7 @@ li { margin: 4px 0; }
 <table>
 <tr><th width="100">阶段</th><th>内容</th><th width="80">时长</th></tr>
 <tr><td>Week 1</td><td>项目搭建 + 自定义相机 + 拍照存储</td><td>5天</td></tr>
-<tr><td>Week 2</td><td>Vision 姿势检测 + 对齐引导 + 叠影</td><td>5天</td></tr>
+<tr><td>Week 2</td><td>Vision 姿势检测 + 对齐引导 + 叠影 + 人物抠图换背景</td><td>5天</td></tr>
 <tr><td>Week 3</td><td>时光轴 UI + 水果对比 + 卡片分享</td><td>5天</td></tr>
 <tr><td>Week 4</td><td>视频合成 + BGM + 水印 + 导出</td><td>5天</td></tr>
 <tr><td>Week 5</td><td>StoreKit IAP + RevenueCat + 本地推送</td><td>3天</td></tr>

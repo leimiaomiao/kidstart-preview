@@ -140,6 +140,21 @@ body{font-family:-apple-system,'SF Pro Text','PingFang SC',sans-serif;background
 .tog{width:51px;height:31px;background:#34C759;border-radius:16px;position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
 .tog::after{content:'';width:27px;height:27px;background:#FFF;border-radius:50%;position:absolute;right:2px;top:2px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .tog.off{background:#E5E5EA}.tog.off::after{transform:translateX(-20px)}
+
+/* === Photo Edit (Background Replace) === */
+.ed{flex:1;display:flex;flex-direction:column;background:#000}
+.ed-preview{flex:1;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ed-photo{width:80%;max-width:300px;aspect-ratio:3/4;border-radius:12px;overflow:hidden;position:relative;transition:background .3s ease}
+.ed-photo-person{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.ed-photo-person svg{width:60%;height:60%;stroke:rgba(255,255,255,.15);stroke-width:.5;fill:none}
+.ed-label{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:4px 14px;border-radius:16px;font-size:13px;font-weight:600;color:#000}
+.ed-bottom{flex-shrink:0;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);padding:16px 20px 32px}
+.ed-section-title{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:10px;letter-spacing:.5px}
+.ed-bg-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.ed-bg-opt{width:56px;height:56px;border-radius:12px;flex-shrink:0;cursor:pointer;border:2px solid transparent;transition:border-color .2s,transform .15s;display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,.5)}
+.ed-bg-opt.on{border-color:#FFF}
+.ed-bg-opt:active{transform:scale(.92)}
+.ed-actions{display:flex;gap:10px;margin-top:14px}
 </style>
 </head>
 <body>
@@ -287,6 +302,42 @@ body{font-family:-apple-system,'SF Pro Text','PingFang SC',sans-serif;background
     <div class="cm-ctrl" id="timer-display" style="font-size:13px;font-weight:600">3s</div>
     <div class="cm-shut" onclick="takePhoto()"><div class="cm-shut-in"></div></div>
     <div class="cm-ctrl" onclick="flipCam()"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M8 21H3v-5"/><path d="M21 3l-7 7M3 21l7-7"/></svg></div>
+  </div>
+</div>
+</div>
+
+<!-- S-EDIT: Photo Edit (Background Replace) -->
+<div id="s-edit" class="s">
+<div class="ed">
+  <div class="sbar" style="color:#FFF">9:41</div>
+  <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0">
+    <button style="background:none;border:none;color:rgba(255,255,255,.6);font-size:15px;cursor:pointer" onclick="goBack()">取消</button>
+    <span style="font-size:15px;font-weight:600;color:#FFF">编辑照片</span>
+    <button style="background:none;border:none;color:#FFF;font-size:15px;font-weight:600;cursor:pointer" onclick="go('s-done')">完成</button>
+  </div>
+  <div class="ed-preview">
+    <div class="ed-label">第 24 周</div>
+    <div class="ed-photo" id="ed-photo" style="background:#ddd8d0">
+      <div class="ed-photo-person">
+        <svg viewBox="0 0 100 180"><ellipse cx="50" cy="22" rx="12" ry="14"/><path d="M38 36 Q30 60 32 90 Q34 112 50 122 Q66 112 68 90 Q70 60 62 36Z"/><line x1="42" y1="122" x2="38" y2="175"/><line x1="58" y1="122" x2="62" y2="175"/></svg>
+      </div>
+    </div>
+  </div>
+  <div class="ed-bottom">
+    <div class="ed-section-title">选择背景</div>
+    <div class="ed-bg-scroll" id="bg-scroll">
+      <div class="ed-bg-opt on" data-bg="#ddd8d0" onclick="selectBg(this)" style="background:linear-gradient(150deg,#ddd8d0,#c4bcb0)"><span style="font-size:8px;color:rgba(0,0,0,.4)">原始</span></div>
+      <div class="ed-bg-opt" data-bg="#FFFFFF" onclick="selectBg(this)" style="background:#FFFFFF"></div>
+      <div class="ed-bg-opt" data-bg="#F0F0F0" onclick="selectBg(this)" style="background:#F0F0F0"></div>
+      <div class="ed-bg-opt" data-bg="#FAF5EF" onclick="selectBg(this)" style="background:#FAF5EF"></div>
+      <div class="ed-bg-opt" data-bg="#EDE0D8" onclick="selectBg(this)" style="background:#EDE0D8"></div>
+      <div class="ed-bg-opt" data-bg="#E8EEF4" onclick="selectBg(this)" style="background:#E8EEF4"></div>
+      <div class="ed-bg-opt" data-bg="lock" onclick="alert('孕期通 ¥28 解锁更多背景')" style="background:#333;border:1px dashed rgba(255,255,255,.15)"><span class="ic" style="width:16px;height:16px;color:rgba(255,255,255,.4)"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span></div>
+    </div>
+    <div class="ed-actions">
+      <button class="btn-ghost" style="flex:1;color:#FFF;border-color:rgba(255,255,255,.15)" onclick="go('s-done')">跳过，保留原图</button>
+      <button class="btn-fill" style="flex:1;background:#FFF;color:#000" onclick="go('s-done')">应用背景</button>
+    </div>
   </div>
 </div>
 </div>
@@ -449,7 +500,7 @@ function takePhoto(){
   f.style.opacity='.85';f.style.transition='opacity .05s';
   if(navigator.vibrate)navigator.vibrate(10);
   setTimeout(()=>{f.style.opacity='0';f.style.transition='opacity .15s ease-out'},100);
-  setTimeout(()=>go('s-done'),500);
+  setTimeout(()=>go('s-edit'),500);
 }
 let timerMode=1;
 function cycleTimer(){
@@ -463,6 +514,18 @@ function toggleGhost(){
   document.getElementById('gbtn').style.opacity=ghostOn?'1':'.35';
 }
 function flipCam(){/* demo only */}
+
+// === Background Replace ===
+function selectBg(el){
+  document.querySelectorAll('.ed-bg-opt').forEach(o=>o.classList.remove('on'));
+  el.classList.add('on');
+  const bg=el.dataset.bg;
+  if(bg&&bg!=='lock'){
+    const photo=document.getElementById('ed-photo');
+    if(bg==='#ddd8d0'){photo.style.background='linear-gradient(150deg,#ddd8d0,#c4bcb0)'}
+    else{photo.style.background=bg}
+  }
+}
 
 // === Video ===
 function playVid(){
