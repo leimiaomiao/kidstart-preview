@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图标方案：去 AI 味</title>
+<style>
+:root{--bg:#faf5ee;--card:#fff;--border:#c9b99a;--text:#5a3e28;--muted:#8a7560;--accent:#e8a84c;--green:#7cb342}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:16px;max-width:720px;margin:0 auto;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0v60M0 30h60' stroke='%23e0d5c5' stroke-width='.5' fill='none'/%3E%3C/svg%3E")}
+h1{font-size:1.4em;margin:16px 0 6px;color:var(--text)}
+h2{font-size:1.15em;margin:20px 0 8px;color:var(--accent);border-bottom:2px dashed var(--border);padding-bottom:6px}
+h3{font-size:1em;margin:14px 0 6px;color:var(--text)}
+p,li{font-size:.92em;margin-bottom:4px}
+ul{padding-left:16px;margin-bottom:10px}
+.card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:14px;margin:10px 0}
+.meta{color:var(--muted);font-size:.82em;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.82em}
+th{background:var(--card);color:var(--accent);text-align:left;padding:6px 8px;border-bottom:2px solid var(--border)}
+td{padding:6px 8px;border-bottom:1px dashed var(--border)}
+strong{color:var(--accent)}
+.tag-keep{background:#7cb342;color:#fff;padding:1px 6px;border-radius:8px;font-size:.75em}
+.tag-sf{background:#4a90d9;color:#fff;padding:1px 6px;border-radius:8px;font-size:.75em}
+.tag-draw{background:#e8a84c;color:#fff;padding:1px 6px;border-radius:8px;font-size:.75em}
+.compare{display:flex;gap:12px;margin:10px 0}
+.compare>div{flex:1;text-align:center;padding:12px;border-radius:12px}
+.compare .before{background:#fee;border:2px solid #e57373}
+.compare .after{background:#efe;border:2px solid #7cb342}
+.rule{background:#f0e6d4;border:2px dashed var(--border);border-radius:12px;padding:12px;margin:10px 0;font-size:.85em}
+hr{border:none;border-top:2px dashed var(--border);margin:18px 0}
+</style>
+</head>
+<body>
+<h1>🎨 图标方案：去 AI 味</h1>
+<p class="meta">🍊 娜美 | 2026-04-02</p>
+
+<div class="card">
+<strong>问题：</strong>当前 UI emoji 太多（💩🏠📊💬👤🔥🎯🍌…），看起来像 AI 生成的。<br>
+<strong>方案：</strong>emoji 只给便便角色，其他全部换成正经图标。
+</div>
+
+<h2>核心原则</h2>
+<div class="rule">
+<strong>1.</strong> 是便便角色或形态？ → <span class="tag-keep">保留 emoji</span><br>
+<strong>2.</strong> 是 UI 导航/功能图标？ → <span class="tag-sf">SF Symbols</span><br>
+<strong>3.</strong> 是品牌关键元素？ → <span class="tag-draw">手绘涂鸦</span><br>
+<strong>4.</strong> 不确定？ → 默认 <span class="tag-sf">SF Symbols</span>
+</div>
+
+<hr>
+
+<h2>Tab Bar 对比</h2>
+<div class="compare">
+<div class="before"><div style="font-size:11px;color:#e57373;margin-bottom:6px">❌ Before</div><div style="font-size:24px">🏠 📊 👫 👤</div><div style="font-size:11px;color:#8a7560;margin-top:4px">emoji 堆砌，AI 味重</div></div>
+<div class="after"><div style="font-size:11px;color:#7cb342;margin-bottom:6px">✅ After</div><div style="font-size:13px;font-family:monospace;line-height:2">⌂ 首页<br>▥ 记录<br>⑂ 好友<br>○ 我的</div><div style="font-size:11px;color:#8a7560;margin-top:4px">SF Symbols，原生 iOS 感</div></div>
+</div>
+
+<h2>替换清单</h2>
+
+<h3><span class="tag-sf">SF Symbols</span> 替换</h3>
+<table>
+<tr><th>当前 emoji</th><th>SF Symbol</th><th>场景</th></tr>
+<tr><td>🏠</td><td><code>house.fill</code></td><td>Tab 首页</td></tr>
+<tr><td>📊</td><td><code>chart.bar.fill</code></td><td>Tab 记录</td></tr>
+<tr><td>👫</td><td><code>person.2.fill</code></td><td>Tab 好友</td></tr>
+<tr><td>👤</td><td><code>person.fill</code></td><td>Tab 我的</td></tr>
+<tr><td>🏆</td><td><code>trophy.fill</code></td><td>排行榜</td></tr>
+<tr><td>🔥</td><td><code>flame.fill</code></td><td>连续打卡</td></tr>
+<tr><td>🎯</td><td><code>target</code></td><td>周挑战</td></tr>
+<tr><td>🔔</td><td><code>bell.fill</code></td><td>提醒设置</td></tr>
+<tr><td>🔒</td><td><code>lock.fill</code></td><td>隐私设置</td></tr>
+<tr><td>👏</td><td><code>hands.clap.fill</code></td><td>鼓掌互动</td></tr>
+</table>
+
+<h3><span class="tag-keep">保留 emoji</span>（仅 2 处）</h3>
+<table>
+<tr><th>emoji</th><th>场景</th><th>原因</th></tr>
+<tr><td>💩</td><td>便便角色</td><td>产品核心 IP</td></tr>
+<tr><td>🍌☁️💧等</td><td>Bristol 量表</td><td>形态直观表达</td></tr>
+</table>
+
+<h3><span class="tag-draw">手绘涂鸦</span>（5-8 个）</h3>
+<table>
+<tr><th>元素</th><th>描述</th></tr>
+<tr><td>App Icon</td><td>🧻+💩 手绘版（已定）</td></tr>
+<tr><td>打卡按钮</td><td>手绘「坐马桶」剪影</td></tr>
+<tr><td>空状态</td><td>手绘便便在等待</td></tr>
+<tr><td>成就徽章</td><td>手绘勋章框</td></tr>
+<tr><td>邀请卡片</td><td>手绘花边装饰</td></tr>
+</table>
+
+<hr>
+
+<h2>手绘图标怎么做</h2>
+<div class="card">
+<strong>MVP 推荐：</strong>Figma + 手写笔快速画<br>
+<strong>风格：</strong>粗线条、不完美的手绘感、棕色墨水<br>
+<strong>数量：</strong>约 5-8 个核心元素<br>
+<strong>格式：</strong>导出 SVG → SwiftUI 直接用<br><br>
+<strong>备选：</strong>AI 生成 + 手动调整<br>
+Prompt: "hand-drawn doodle icon, brown ink on kraft paper, simple line art"
+</div>
+
+<p style="text-align:center;color:var(--muted);margin-top:24px;font-size:.82em">效果：看起来像真人设计的 iOS App，不像 AI 模板 ✨</p>
+</body>
+</html>
